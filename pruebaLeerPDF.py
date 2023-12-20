@@ -2,6 +2,7 @@
 from PIL import Image 
 import pytesseract 
 from pdf2image import convert_from_path
+import aspose.pdf as ap
 
 pdf_images = convert_from_path('C:/Users/Miguel/Downloads/Certificado_Habilidades_programacin_Web.pdf')
 
@@ -22,3 +23,16 @@ text = pytesseract.image_to_string(img)
  
 # Print the text print(text)
 print(text)
+document = ap.Document()
+
+# Añadir página
+page = document.pages.add()
+
+# Inicializar objeto fragmento de texto
+text_fragment = ap.text.TextFragment(text)
+
+# Agregar fragmento de texto a la nueva página
+page.paragraphs.add(text_fragment)
+
+# Guardar PDF actualizado
+document.save("output.pdf")
