@@ -1,18 +1,110 @@
-{% extends "index.html" %}
-{% block title %}{{ "Gestion" }}{% endblock %}
+{% extends 'navBar.html' %}
+{% block title %}
+  {{ 'Gestion' }}
+{% endblock %}
 
-{% block content %}
-<form action="#" method="get">
-    <div class="mb-3 row">       
-        <label for="staticEmail" class="col-sm-2 col-form-label">Correo</label>
-        <input type="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}" maxlength="75" class="form-control" id="exampleFormControlInput1" placeholder="nombre@correo.com" required>            
+{% block contentN %}
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col-lg-4">
+        <label class="input-group-text">Nombres</label>
+        <input type="text" aria-label="Nombres" class="form-control" />
+      </div>
+      <div class="col-lg-4">
+        <span class="input-group-text">Cedula</span>
+        <input type="text" aria-label="cedula" class="form-control" />
+      </div>
+      <div class="col-4">
+        <span class="input-group-text">ID Desarrollo</span>
+        <input type="text" aria-label="ID Desarrollo" class="form-control" />
+      </div>
+      <div class="col-4">
+        <span class="input-group-text">ID Contrato</span>
+        <input type="text" aria-label="ID Contrato" class="form-control" />
+      </div>
+      <div class="col-4">
+        <span class="input-group-text">Valor contrato</span>
+        <input type="text" aria-label="Valor contrato" class="form-control" />
+      </div>
     </div>
-    <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Cedula</label>            
-        <input type="text" pattern="^\d{6,11}$" class="form-control" id="inputPassword" required>            
+  </div>
+    <div>
+      <select class="form-select" aria-label="tipo de contrato" id="tipoContrato">
+        <option selected>Tipo de contrato</option>
+        <option value="indefinido">Contrato Indefinido</option>
+        <option value="temporal">Contrato Temporal</option>
+        <option value="practicas">Contrato en Prácticas</option>
+        <option value="formacion">Contrato de Formación</option>
+        <option value="formacion">Contrato de prestación de servicios</option>
+      </select>
     </div>
-    <div style="text-align:right">
-        <button type="submit" value="Submit" class="btn btn-success">Validar</button>
-    </div>
-</form>
+  </div>
+
+  <div class="input-group">
+    <label for="fechasub" id="fechasub">Fecha subcripción<input class="form-control" type="date" /></label>
+    <label for="fechainicio" id="fechainicio">Fecha inicio<input class="form-control" type="date" /></label>
+    <label for="fechaTerminacion" id="fechaTerminacion">Fecha terminación<input class="form-control" type="date" /></label>
+  </div>
+
+  <label for="actividades" class="form-control">Selecciona una actividad:</label>
+  <select class="form-select" aria-label="tipo de contrato" id="actividades">
+    <option value="Actividad 1">Actividad 1</option>
+    <option value="Actividad 2">Actividad 2</option>
+    <option value="Actividad 3">Actividad 3</option>
+    <option value="Actividad 4">Actividad 4</option>
+    <option value="Actividad 5">Actividad 5</option>
+    <option value="Actividad 5">Actividad 6</option>
+    <option value="Actividad 5">Actividad 7</option>
+    <option value="Actividad 5">Actividad 8</option>
+    <option value="Actividad 5">Actividad 9</option>
+  </select>
+
+  <button type="button" class="btn btn-primary btn-sm" onclick="agregarActividad()">Añadir Actividad</button>
+
+  <br />
+
+  <label for="inputActividades">Actividades Seleccionadas:</label>
+  <div id="actividadesContainer">
+    <!-- Las actividades seleccionadas se mostrarán aquí -->
+  </div>
+
+  <script>
+    function agregarActividad() {
+      var tipoContrato = document.getElementById('actividades')
+      var actividadesContainer = document.getElementById('actividadesContainer')
+    
+      // Obtener la actividad seleccionada
+      var actividadSeleccionada = tipoContrato.options[tipoContrato.selectedIndex].text
+    
+      // Verificar si la actividad ya está en el contenedor
+      if (!contieneActividad(actividadSeleccionada)) {
+        // Crear un contenedor para la actividad con un botón de eliminación
+        var actividadContainer = document.createElement('div')
+        actividadContainer.className = 'col-lg-2 border border-primary'
+        actividadContainer.innerHTML = actividadSeleccionada + '<type="button" class="btn-close" aria-label="Close" onclick="eliminarActividad(this)"></button>'
+        actividadesContainer.appendChild(actividadContainer)
+      }
+    }
+    
+    function contieneActividad(actividad) {
+      var actividadesContainer = document.getElementById('actividadesContainer')
+      var actividades = actividadesContainer.getElementsByTagName('div')
+    
+      for (var i = 0; i < actividades.length; i++) {
+        if (actividades[i].textContent.includes(actividad)) {
+          // La actividad ya está en el contenedor
+          return true
+        }
+      }
+      // La actividad no está en el contenedor
+      return false
+    }
+    
+    function eliminarActividad(btn) {
+      var actividadesContainer = document.getElementById('actividadesContainer')
+    
+      // Eliminar el contenedor de la actividad
+      actividadesContainer.removeChild(btn.parentNode)
+    }
+  </script>
 {% endblock %}

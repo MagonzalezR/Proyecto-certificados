@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+{% block title %}{{ "oolao" }}{% endblock %}
+
+{% block content %}
+<div id="login-container" style="max-width:30rem">
+    <div id="welcome-message">
+        <h3>Bienvenido al módulo de generación de certificados</h3>
+        <p>Por favor, ingrese sus datos para consultar los certificados asociados a su cédula y correo electrónico
+            proporcionado en su contrato laboral.</p>
+    </div>
+    <form action="#" method="get">
+        <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Correo</label>
+            <input type="email"
+                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}"
+                maxlength="75" class="form-control" id="exampleFormControlInput1" placeholder="nombre@correo.com"
+                required>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Cedula</label>
+            <input type="text" pattern="^\d{6,11}$" class="form-control" id="inputPassword" required>
+        </div>
+        <div style="text-align:right">
+            <button type="submit" value="Submit" class="btn btn-success">Validar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import FormView, TemplateView
 
-class mainView(TemplateView):
-    template_name = 'mainTemplate.html'
-# Create your views here.
+class VistaConsulta(TemplateView):
+    template_name = 'vista_generador.html'
 
-
+vista_consulta = VistaConsulta.as_view()
