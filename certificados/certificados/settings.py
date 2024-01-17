@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-59p+re2uq64_gq@v^mjyqs9by&$x3^-7#by4!hs@5zajg=z*k!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
+USE_I18N = True
+
+
 ALLOWED_HOSTS = []
 
 
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'generador',
+    'gestion',
 ]
 
 
@@ -56,12 +61,15 @@ ROOT_URLCONF = 'certificados.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["frontend/Templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                "django.template.context_processors.i18n",
+                # "django.template.context_processors.media",
+                # "django.template.context_processors.static",
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],

@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% block title %}{{ "Gestion" }}{% endblock %}
+
+{% block content %}
+<form action="#" method="get">
+    <div class="mb-3 row">       
+        <label for="staticEmail" class="col-sm-2 col-form-label">Correo</label>
+        <input type="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}" maxlength="75" class="form-control" id="exampleFormControlInput1" placeholder="nombre@correo.com" required>            
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Cedula</label>            
+        <input type="text" pattern="^\d{6,11}$" class="form-control" id="inputPassword" required>            
+    </div>
+    <div style="text-align:right">
+        <button type="submit" value="Submit" class="btn btn-success">Validar</button>
+    </div>
+</form>
+{% endblock %}
