@@ -1,7 +1,9 @@
 from django.urls import path
 from generador import views
 
+# app_name = "generador"
+
 urlpatterns = [
-    path("certificado", views.mainView.as_view())
+    path("certificado", view=views.vista_consulta, name = 'generar_contrato')
 ]
 
