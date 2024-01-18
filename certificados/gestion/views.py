@@ -18,3 +18,8 @@ class ContratoDetailView(TemplateView):
     template_name = "gestionContrato/contrato_listar.html"
 
 contrato_detail_view = ContratoDetailView.as_view()
+
+class ContratoListar(TemplateView):
+    template_name = "gestionContrato/listar.html"
+
+contratolistar_detail_view = ContratoListar.as_view()
