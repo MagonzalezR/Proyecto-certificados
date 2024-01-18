@@ -41,18 +41,20 @@
 
 
     <!-- Columna para Fechas Y Tipo de Contrato -->
+
+
     <div class="col-lg-6 border border-4 rounded">
         <div class="p-3 ">
             <label for="fechasub" class="input-group-text">Fecha subcripción</label>
-            <input class="form-control mb-2" type="date">
+            <input class="form-control mb-3" type="date" id="fechasub">
             <label for="fechainicio" class="input-group-text">Fecha inicio</label>
-            <input class="form-control mb-2" type="date">
+            <input class="form-control mb-3" type="date" id="fechainicio">
             <label for="fechaTerminacion" class="input-group-text">Fecha terminación</label>
-            <input class="form-control mb-2" type="date">
+            <input class="form-control mb-3" type="date" id="fechaTerminacion">
             
               <label for="tipoContrato" class="input-group-text">Tipo de contrato</label>
               <select class="form-select" aria-label="tipo de contrato" id="tipoContrato">
-                  <option selected="">Selecciona...</option>
+                  <option selected="" selected disabled>Selecciona un tipo de contrato...</option>
                   <option value="indefinido">Contrato Indefinido</option>
                   <option value="temporal">Contrato Temporal</option>
                   <option value="practicas">Contrato en Prácticas</option>
@@ -69,19 +71,11 @@
       <div class="p-3 bg-white">
         <label for="Objetivo" class="input-group-text">Selecciona un objetivo:</label>
         <select class="form-select mb-2" aria-label="tipo de contrato" id="Objetivo">
+            <option selected="" selected disabled>Selecciona un objetivo...</option>
             <option value="Objetivo 1">Objetivo 1</option>
             <option value="Objetivo 2">Objetivo 2</option>
             <option value="Objetivo 3">Objetivo 3</option>
         </select>
-        <div class="col-12 d-flex justify-content-end">
-          <button type="button" class="btn btn-primary btn-sm " onclick="agregarElemento('objetivo')">Añadir Objetivo</button>
-
-        </div>
-
-        <label for="inputObjetivo">Objetivo Seleccionado:</label>
-        <div id="ObjetivoContainer">
-          
-        </div>
     </div>
         
     </div>
@@ -91,17 +85,28 @@
         <div class="p-3 bg-white">
             <label for="actividades" class="input-group-text">Selecciona una actividad:</label>
             <select class="form-select mb-2" aria-label="tipo de contrato" id="actividades">
-                <option value="Actividad 1">Actividad 1</option>
-                <option value="Actividad 2">Actividad 2</option>
-                <option value="Actividad 3">Actividad 3</option>
-            </select>
+              <option value="desarrollo">Desarrollo de Software</option>
+              <option value="control_versiones">Gestión de Control de Versiones con Git</option>
+              <option value="pruebas">Pruebas de Software y QA</option>
+              <option value="base_datos">Diseño y Optimización de Bases de Datos</option>
+              <option value="front_end">Desarrollo Front-end con Tecnologías Modernas</option>
+              <option value="back_end">Desarrollo Back-end y Construcción de APIs</option>
+              <option value="seguridad">Seguridad Informática y Protección contra Amenazas</option>
+              <option value="despliegue">Despliegue y Mantenimiento de Aplicaciones en Producción</option>
+              <option value="rendimiento">Optimización de Rendimiento y Análisis</option>
+              <option value="automatizacion">Automatización de Pruebas y Tareas de Desarrollo</option>
+              <option value="aprendizaje_continuo">Aprendizaje Continuo y Actualización Tecnológica</option>
+              <option value="Lorem">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed, reiciendis amet quas molestias rerum veniam minima ea dolorem, modi perspiciatis debitis eveniet adipisci incidunt fugit natus minus hic expedita ad.</option>
+              <option value="colaboracion">Colaboración Efectiva y Trabajo en Equipo</option>
+              <option value="resolucion_problemas">Resolución Creativa de Problemas Técnicos</option>
+              </select>
             <div class="col-12 d-flex justify-content-end">
               <button type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')">Añadir Actividad</button>
 
             </div>
             
           
-            <label for="inputActividades">Actividades Seleccionadas:</label>
+            <label>Actividades Seleccionadas:</label>
             <div id="actividadesContainer">
               <!-- Las actividades seleccionadas se mostrarán aquí -->
             </div>
@@ -135,8 +140,6 @@
       // Campos
       nuevoDiv.innerHTML = `
         <label class="col-lg-12 mb-3" for="Otrosicontador ${contadorCampos}">Otrosis número ${contadorCampos}:</label>
-        <label for="adiccion${contadorCampos}">Adicción:</label>
-        <input type="text" class="form-control mb-2" id="adiccion${contadorCampos}">
 
         <label for="prorroga${contadorCampos}">Prórroga:</label>
         <input type="text" class="form-control mb-2" id="prorroga${contadorCampos}">
@@ -159,51 +162,65 @@
   }
 </script>
 
+        <!-- Script para agregar actividades-->
 
-<script>
-  function agregarElemento(tipo) {
-    var selectElement;
-    var container;
-    
-    if (tipo === 'objetivo') {
-      selectElement = document.getElementById('Objetivo');
-      container = document.getElementById('ObjetivoContainer');
-    } else if (tipo === 'actividad') {
-      selectElement = document.getElementById('actividades');
-      container = document.getElementById('actividadesContainer');
-    }
+        <script>
+          var contadorCamposA = 0;
+        
+          function agregarElemento(tipo) {
+            var selectElement;
+            var container;
+        
+            if (tipo === 'actividad') {
+              selectElement = document.getElementById('actividades');
+              container = document.getElementById('actividadesContainer');
+        
+              // Obtener el elemento seleccionado
+              var elementoSeleccionado = selectElement.options[selectElement.selectedIndex].text;
+        
+              
+        
+              // Verificar si el elemento ya está en el contenedor
+              if (!contieneElemento(container, elementoSeleccionado)) {
+                // Crear un contenedor para el elemento con un botón de eliminación
+                var elementoContainer = document.createElement('div');
+                elementoContainer.className = 'col-lg-12 d-flex flex-column mb-2';  
+                elementoContainer.innerHTML = `
+                  <div class="col-lg-12 d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                      <span>${contadorCamposA}.&nbsp;</span>${elementoSeleccionado}
+                    </div>
+                    <button type="button" class="col-lg-2 btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
+                  </div>`;
+                container.appendChild(elementoContainer);
 
-    // Obtener el elemento seleccionado
-    var elementoSeleccionado = selectElement.options[selectElement.selectedIndex].text;
+              }
+            }
+          }
+        
+          function contieneElemento(container, elemento) {
+            var elementos = container.getElementsByTagName('div');
+        
+            for (var i = 0; i < elementos.length; i++) {
+              if (elementos[i].textContent.includes(elemento)) {
+                // El elemento ya está en el contenedor
+                return true;
+              }
+            }
+            // El elemento no está en el contenedor
+            // Incrementar el contador de campos después de agregar
+            contadorCamposA++;
+            return false;
+          }
+        
+          function eliminarElemento(btn) {
+            var container = btn.parentNode.parentNode; // Obtener el contenedor padre del botón
+        
+            // Eliminar el contenedor del elemento
+            container.removeChild(btn.parentNode);
+          }
+        </script>
+        
+        
 
-    // Verificar si el elemento ya está en el contenedor
-    if (!contieneElemento(container, elementoSeleccionado)) {
-      // Crear un contenedor para el elemento con un botón de eliminación
-      var elementoContainer = document.createElement('div');
-      elementoContainer.className = 'col-lg-12 d-flex';
-      elementoContainer.innerHTML = elementoSeleccionado + '<type="button" class="btn-close col-12 d-flex justify-content-end" aria-label="Close" onclick="eliminarElemento(this)"></button>';
-      container.appendChild(elementoContainer);
-    }
-  }
-
-  function contieneElemento(container, elemento) {
-    var elementos = container.getElementsByTagName('div');
-
-    for (var i = 0; i < elementos.length; i++) {
-      if (elementos[i].textContent.includes(elemento)) {
-        // El elemento ya está en el contenedor
-        return true;
-      }
-    }
-    // El elemento no está en el contenedor
-    return false;
-  }
-
-  function eliminarElemento(btn) {
-    var container = btn.parentNode.parentNode; // Obtener el contenedor padre del botón
-
-    // Eliminar el contenedor del elemento
-    container.removeChild(btn.parentNode);
-  }
-</script>
 {% endblock %}
