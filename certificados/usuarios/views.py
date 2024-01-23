@@ -10,11 +10,10 @@ from django.views.generic import (
     CreateView,
 )
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
     template_name = "detalle_usuario.html"
-
 
 user_detail_view = UserDetailView.as_view()
