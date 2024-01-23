@@ -1,0 +1,2 @@
+DJANGO_READ_DOT_ENV_FILE=True
+DATABASE_URL=postgres://postgres:myPassword@127.0.0.1:5432/core
