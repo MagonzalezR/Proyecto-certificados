@@ -62,7 +62,7 @@ ROOT_URLCONF = 'certificados.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["frontend/Templates"],
+        'DIRS': ["Templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
