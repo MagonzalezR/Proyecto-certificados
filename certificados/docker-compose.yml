@@ -9,10 +9,6 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - ./volume/data-db:/var/lib/postgresql/data
-  
-  redis:
-    image: redis:7.0.3-alpine
-    restart: always
 
   web:
     build:
@@ -21,7 +17,6 @@ services:
     command: python manage.py runserver 0.0.0.0:8080
     restart: always
     depends_on:
-      - redis
       - db
     ports:
       - 8080:8080
