@@ -1,0 +1,43 @@
+.ff {
+    font-family: Hind, sans-serif;
+
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+button {
+    background-color: #3B4044 !important;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.login-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #F0821A;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.login-btn:hover {
+    background-color: #F0821A !important;
+    transition: 300ms;
+}
+
+.signup-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
