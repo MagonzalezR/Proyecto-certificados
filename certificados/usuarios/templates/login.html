@@ -4,78 +4,29 @@
 {% endblock %}
 
 {% block contentN %}
+<div class="background">
 
-<div class="container ff" >
-  <div class="login-container">
+  <div class="container ff" >
+    <div class="login-container">
       
       <form class="login-form">
         
-          <div class="mb-3">
-            <h1 class="text-center mb-4">Iniciar Sesión</h1>
-            <div class="container p-4 text-center">
-              <img  style="max-width: 60%; "src="https://idexud.udistrital.edu.co/wp-content/uploads/2022/12/Logo_Vertical_IDEXUD_Final-1-3-1.png" alt="Logo idexud">
-            </div>
-              <label for="username" class="form-label">Usuario</label>
-              <input type="text" class="form-control" id="username" name="username" required>
+        <div class="mb-3">
+          <h1 class="text-center mb-4">Iniciar Sesión</h1>
+          <div class="container p-4 text-center">
+            <img  style="max-width: 60%; "src="https://idexud.udistrital.edu.co/wp-content/uploads/2022/12/Logo_Vertical_IDEXUD_Final-1-3-1.png" alt="Logo idexud">
           </div>
-          <div class="mb-3">
-            
-              <label for="password" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="password" name="password" required>
-          </div>
-          <button type="submit" class="btn btn-primary login-btn">Ingresar</button>
+          <label for="username" class="form-label">Usuario</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+          
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary login-btn" id="botonlogin">Ingresar</button>
       </form>
+    </div>
   </div>
 </div>
-{% comment %} <style>
-
-  .ff {
-    font-family: Hind, sans-serif;
-    
-  }
-  
-  body {
-    background-color: #f8f9fa;
-  }
-  
-  button {
-    background-color: #F0821A !important;
-    color: #2f2f2f !important;
-    font-size: large !important;
-    font-weight: bold !important;
-  }
-  
-  .login-container {
-    max-width: 400px;
-    margin: auto;
-    margin-top: 100px;
-  }
-  
-  .login-form {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #F0821A;
-  }
-  
-  .login-btn {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-  }
-  
-  .login-btn:hover {
-    background-color: #FFA557 !important;
-    color: #2f2f2f !important;
-    transition: 300ms;
-  }
-  
-  .signup-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-  }
-</style> {% endcomment %}
-  
   {% endblock %}

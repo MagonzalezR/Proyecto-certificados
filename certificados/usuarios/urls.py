@@ -6,4 +6,5 @@ urlpatterns = [
     # path("list",)
          path("login",view = contratologin_detail_view, name = 'login')
 
+
 ]
