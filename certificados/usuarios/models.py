@@ -11,7 +11,7 @@ class User(AbstractUser):
     """
 
     class Meta:
-        app_label = "users"
+        app_label = "usuarios"
 
     #: First and last name do not cover name patterns around the globe
     first_name = None  # type: ignore
@@ -45,18 +45,12 @@ class User(AbstractUser):
         return reverse("users:delete", kwargs={"pk": self.id})
 
 class Profile(models.Model):
-    """Profile model for users."""
+    """Modelo de perfil para los usuarios que ingresaran."""
 
     user = models.OneToOneField(
         User, related_name="profile", on_delete=models.CASCADE, null=True
     )
-    fist_name = models.CharField(_("First Name"), max_length=255)
-    last_name = models.CharField(_("Last Name"), max_length=255)
-    birth_date = models.DateField(blank=True, null=True)
-    photo = models.ImageField(upload_to="users/%Y-%m-%d", blank=True)
-    address = models.CharField(max_length=100, null=True, blank=True)
-    phone = models.CharField(max_length=100, null=True, blank=True)
-    device = models.CharField(max_length=100, null=True, blank=True)
+    name = models.CharField(_("Nombre"), max_length=255)
 
     def __str__(self):
         """Return username or name."""
