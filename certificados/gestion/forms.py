@@ -24,7 +24,7 @@ class ContratoForm(forms.ModelForm):
             "tipoContrato" : forms.Select(attrs={"class": "form-control"}),
             "fechaSuscripcion" : forms.DateField(),
             "fechaInicio" : forms.DateField(),
-            "valorContrato" : forms.DecimalField(attrs={"class": "form-control"}),
+            "valorContrato" : forms.DecimalField(),
             "fechaTerminacion" : forms.DateField(),
         }
         labels = {
