@@ -7,6 +7,18 @@ TIPOS_CONTRATO = (
     ("2", "Termino indefinido"),
 )
 
+class Objeto(models.Model):
+    """Modelo de Objetos"""
+    
+    nombreObjetivo = models.CharField(_("Nombre del objetivo"), max_length=20)
+    descripcionObjetivo = models.CharField(_("Descripción del objetivo"), max_length=255)
+
+class Actividad(models.Model):
+    """Modelo de Actividades"""
+    
+    nombreActividad = models.CharField(_("Nombre de la actividad"), max_length=20)
+    descripcionActividad = models.CharField(_("Descripción del actividad"), max_length=255)
+
 class Contrato(models.Model):
     """Modelo de Contrato"""
 
@@ -19,22 +31,12 @@ class Contrato(models.Model):
     fechaInicio = models.DateField(_("Fecha de inicio"))
     valorContrato = models.PositiveIntegerField(_("Valor del contrato"))
     fechaTerminacion = models.DateField(_("Fecha de terminación"))
+    objetoId = models.ForeignKey(Objeto, on_delete = models.CASCADE, null = True)
+    actividadesIds = models.ManyToManyField(Actividad)
 
     def __str__(self):
         """Retorna el identificador del contrato"""
         return self.idContrato
-
-class Objetivo(models.Model):
-    """Modelo de Objetivos"""
-    
-    nombreObjetivo = models.CharField(_("Nombre del objetivo"), max_length=20)
-    descripcionObjetivo = models.CharField(_("Descripción del objetivo"), max_length=255)
-
-class Actividad(models.Model):
-    """Modelo de Actividades"""
-    
-    nombreActividad = models.CharField(_("Nombre de la actividad"), max_length=20)
-    descripcionActividad = models.CharField(_("Descripción del actividad"), max_length=255)
 
 class Otrosi(models.Model):
     """Modelo de Otrosis"""
@@ -43,3 +45,6 @@ class Otrosi(models.Model):
     prorroga = models.PositiveIntegerField(_("Prorroga (en meses)"))
     fechaTerminacionOtrosi = models.DateField(_("Fecha de terminación del otrosi"))
     valorAcumulado = models.PositiveIntegerField(_("Prorroga (en meses)"))
+    contratoId = models.ForeignKey(Contrato, on_delete = models.CASCADE, null = True)
+    actividadesIds = models.ManyToManyField(Actividad)
+    

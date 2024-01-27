@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from gestion.models import Contrato
+from .forms import ContratoForm
 from django.views.generic import (
     DeleteView,
     DetailView,
@@ -11,15 +12,16 @@ from django.views.generic import (
     TemplateView
 )
 
-class ContratoDetailView(TemplateView):
-    # model = Contrato
+class ContratoCreateView(CreateView):
+    model = Contrato
+    form_class = ContratoForm
     # slug_field = "gestion"
     # slug_url_kwarg = "gestion"
-    template_name = "gestionContrato/contrato_listar.html"
+    template_name = "gestionContrato/contrato_formulario.html"
 
-contrato_detail_view = ContratoDetailView.as_view()
+contrato_detail_view = ContratoCreateView.as_view()
 
-class ContratoListar(TemplateView):
-    template_name = "gestionContrato/listar.html"
+# class ContratoListar(TemplateView):
+#     template_name = "gestionContrato/listar.html"
 
-contratolistar_detail_view = ContratoListar.as_view()
+# contratolistar_detail_view = ContratoListar.as_view()
