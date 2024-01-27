@@ -7,13 +7,18 @@
     position: fixed;
     width: 100%;
     height: -200px;
+    filter: brightness(60%);
     max-height: 100%;
     background-image: url("https://idexud.udistrital.edu.co/wp-content/uploads/2022/11/32564576681_41c1e50054_b.jpg");
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position-y: top;
+    /* background-repeat: no-repeat; */
+    /* background-position-y: top; */
 
 }
+.max-width-container {
+    max-width: 1200px; /* Puedes ajustar el valor según tus necesidades */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+  }
 body {
     background-color: #f8f9fa;
     
@@ -56,10 +61,4 @@ button {
     background-color: #FFA557 !important;
     color: #2f2f2f !important;
     transition: 300ms;
-}
-
-.signup-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
 }
