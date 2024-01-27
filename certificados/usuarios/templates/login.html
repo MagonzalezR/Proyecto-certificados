@@ -5,13 +5,15 @@
 {% endblock %}
 
 {% block contentN %}
-  <div class="background" >
-    <img style="opacity: 25%;   display: flex;" src="{% static 'img/fondo_negro.jpg' %}" alt="fondo negro" />
+<div class="background" >
+  <div style="height: 300rem;"> 
   </div>
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  container ff" style="position: absolute;">
-      <div class="login-container">
-        <form class="login-form">
+</div>
+
+  <div class="row justify-content-center ">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 container ff" style="position: relative;" >
+      <div class="login-container  " >
+        <form class="login-form " >
           <div class="mb-3">
             <h1 class="text-center mb-4">Iniciar Sesión</h1>
             <div class="container p-4 text-center">
@@ -29,9 +31,14 @@
       </div>
     </div>
   </div>
-{% endblock %}
-      {% comment %} <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  container ff" >
-        <p style="color: white;">Copyright ©2024 Oficina de Extensión - IDEXUD All Rights Reserved. Diseñado y Desarrollado por Área de Gestión y Transformación Digital Oficina de Extensión - IDEXUD</p>
+   <footer >
+    <div class="row justify-content-center ">
+      <div class=" mt-4" style="max-width: 400px;">
+        <p style="color: white; position: relative; text-align: center;">Copyright ©2024 Oficina de Extensión - IDEXUD All Rights Reserved. Diseñado y Desarrollado por Área de Gestión y Transformación Digital Oficina de Extensión - IDEXUD</p>
       </div>
-      </div> {% endcomment %}
+    </div>
+  
+  </footer> 
+  {% endblock %}
+
+        
