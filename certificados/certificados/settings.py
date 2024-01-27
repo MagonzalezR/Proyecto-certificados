@@ -14,7 +14,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+APPS_DIR = BASE_DIR / "certificados"
 
 
 # Quick-start development settings - unsuitable for production
@@ -75,7 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 "django.template.context_processors.i18n",
                 # "django.template.context_processors.media",
-                # "django.template.context_processors.static",
+                "django.template.context_processors.static",
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -135,9 +136,26 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = "/static/"
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+# STATICFILES_DIRS = [str(BASE_DIR / "static")]
+# # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+# STATICFILES_FINDERS = [
+#     "django.contrib.staticfiles.finders.FileSystemFinder",
+#     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+# ]
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "OPTIONS": {
+            "location": str(BASE_DIR / "static"),
+            "base_url": str(BASE_DIR / "static"),
+        },
+    },
+}
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
