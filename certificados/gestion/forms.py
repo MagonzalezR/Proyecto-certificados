@@ -65,4 +65,5 @@ class ContratoForm(forms.ModelForm):
             "esSesion" : "¿Es de sesión?",
             
         }
+        
     
