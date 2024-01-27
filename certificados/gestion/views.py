@@ -1,3 +1,5 @@
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from gestion.models import Contrato
@@ -15,11 +17,16 @@ from django.views.generic import (
 class ContratoCreateView(CreateView):
     model = Contrato
     form_class = ContratoForm
+    
     # slug_field = "gestion"
     # slug_url_kwarg = "gestion"
     template_name = "gestionContrato/contrato_formulario.html"
+    
+    def form_invalid(self, form):
+        print(form)
+        return super().form_invalid(form)
 
-contrato_detail_view = ContratoCreateView.as_view()
+contrato_create_view = ContratoCreateView.as_view()
 
 # class ContratoListar(TemplateView):
 #     template_name = "gestionContrato/listar.html"

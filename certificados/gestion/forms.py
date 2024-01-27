@@ -1,6 +1,14 @@
 from django import forms
-from .models import Contrato
+from .models import Contrato, Actividad, Objeto, Otrosi
+from .utils import CustomDateInput
 
+TIPO_CHOICES= {
+    "indefinido": 'Contrato Indefinido',
+    "temporal": 'Contrato Temporal',
+    "practicas": 'Contrato en Prácticas',
+    "formacion": 'Contrato de Formación',
+    "servicios": 'Contrato de prestación de servicios',
+}
 class ContratoForm(forms.ModelForm):
     
     class Meta:
@@ -15,17 +23,32 @@ class ContratoForm(forms.ModelForm):
             "fechaInicio" ,
             "valorContrato" ,
             "fechaTerminacion" ,
+            "objetoId",
+            "actividadesIds",
+            "esSesion",
         ]
         widgets = {
             "idContrato" : forms.TextInput(attrs={"class": "form-control"}),
             "cedula" : forms.TextInput(attrs={"class": "form-control"}),
-            "nombreConsultor" : forms.TextInput(attrs={"class": "form-control"}),
-            "idDesarrollo" : forms.TextInput(attrs={"class": "form-control"}),
-            "tipoContrato" : forms.Select(attrs={"class": "form-control"}),
-            "fechaSuscripcion" : forms.DateField(),
-            "fechaInicio" : forms.DateField(),
-            "valorContrato" : forms.DecimalField(),
-            "fechaTerminacion" : forms.DateField(),
+            "nombreConsultor" : forms.TextInput(attrs = {"class": "form-control"}),
+            "idDesarrollo" : forms.TextInput(attrs = {"class": "form-control"}),
+            "tipoContrato" : forms.Select(choices = TIPO_CHOICES, attrs={"class": "form-control"}),
+            "fechaSuscripcion" : forms.DateInput(attrs={'class': 'form-control', 
+               'placeholder': 'Select a date',
+               'type': 'date'
+              }),
+            "fechaInicio" : forms.DateInput(attrs={'class': 'form-control', 
+               'placeholder': 'Select a date',
+               'type': 'date'
+              }),
+            "valorContrato" : forms.NumberInput(),
+            "fechaTerminacion" : forms.DateInput(attrs={'class': 'form-control', 
+               'placeholder': 'Select a date',
+               'type': 'date'
+              }),
+            "objetoId": forms.Select(choices = Objeto.objects.all() , attrs={"class": "form-control"}),
+            "actividadesIds": forms.Select(attrs={"class": "form-control"}),
+            "esSesion": forms.Select(attrs={"class": "form-control"}),
         }
         labels = {
             "idContrato" : "Id del contrato",
@@ -37,5 +60,9 @@ class ContratoForm(forms.ModelForm):
             "fechaInicio" : "Fecha de inicio del contrato",
             "valorContrato" : "Valor del contrato",
             "fechaTerminacion" : "Fecha de terminación del contrato",
+            "objetoId" : "Objeto",
+            "actividadesIds" : "Actividades",
+            "esSesion" : "¿Es de sesión?",
+            
         }
     

@@ -45,8 +45,9 @@ INSTALLED_APPS = [
     'gestion',
     'usuarios',
     'allauth',
-    'allauth.account'
-
+    'allauth.account',
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 
@@ -66,7 +67,7 @@ ROOT_URLCONF = 'certificados.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["Templates"],
+        'DIRS': ["templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +77,7 @@ TEMPLATES = [
                 # "django.template.context_processors.media",
                 "django.template.context_processors.static",
                 'django.contrib.auth.context_processors.auth',
+                "django.template.context_processors.tz",
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -168,3 +170,6 @@ AUTHENTICATION_BACKENDS = [
 AUTH_USER_MODEL = "usuarios.User"
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
