@@ -1,6 +1,5 @@
 from django import forms
 from .models import Contrato, Actividad, Objeto, Otrosi
-from .utils import CustomDateInput
 
 TIPO_CHOICES= {
     "indefinido": 'Contrato Indefinido',
