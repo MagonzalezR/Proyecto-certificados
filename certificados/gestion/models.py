@@ -28,6 +28,10 @@ class Actividad(models.Model):
     
     nombreActividad = models.CharField(_("Nombre de la actividad"), max_length=20)
     descripcionActividad = models.CharField(_("Descripción del actividad"), max_length=255)
+    
+    def __str__(self):
+         """Retorna el nombre del Objeto"""
+         return self.nombreActividad + str(self.id)
 
 class Contrato(models.Model):
     """Modelo de Contrato"""
@@ -42,7 +46,7 @@ class Contrato(models.Model):
     valorContrato = models.PositiveIntegerField(_("Valor del contrato"))
     fechaTerminacion = models.DateField(_("Fecha de terminación"))
     objetoId = models.ForeignKey(Objeto, on_delete = models.CASCADE, null = True)
-    actividadesIds = models.ManyToManyField(Actividad, null=True)
+    actividadesIds = models.ManyToManyField(Actividad)
     esSesion = models.BooleanField(_("¿El contrato es de sesión?"))
 
     def __str__(self):

@@ -76,9 +76,9 @@ function agregarElemento(tipo) {
             elementoContainer.innerHTML = `
                   <div class="col-lg-12 d-flex justify-content-between align-items-start mb-2">
                     <div>
-                      <span>${contadorCamposA}.&nbsp;</span>
-                      ${elementoSeleccionado}
-                      <input type="hidden" name = "actividad${contadorCamposA}" value="${elementoSeleccionadoId}" readonly style="border:0; background-color: white; cursor: default; pointer-events: none;" id="id_actividad${contadorCamposA}">
+                        <span>${contadorCamposA}.&nbsp;</span>
+                        ${elementoSeleccionado}
+                        <input type="hidden" name = "actividad${contadorCamposA}" value="${elementoSeleccionadoId}" required class="form-control" readonly style="border:0; background-color: white; cursor: default; pointer-events: none;" id="id_actividad${contadorCamposA}">
                     </div>
                     <button type="button" class="col-lg-2 btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
                   </div>`;

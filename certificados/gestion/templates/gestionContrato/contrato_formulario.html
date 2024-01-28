@@ -10,18 +10,21 @@
 
 <div class="container-fluid bg-secondary-color p-4 mx-auto w-50 ">
 
-  <form method="post" >
+  <form method="post">
     {% csrf_token %}
     <div class="row g-4 justify-content-between">
-
-      <input type="hidden" value="1" name="actividadesIds">
-      <input type="hidden" value="32" name="actividadesIds">
       <!-- Columna para Nombres, Cedula, ID Desarrollo, ID Contrato, Valor Contrato -->
       <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  border border-4 rounded">
         <div class="p-3">
           <div class="row align-items-start">
             <div class="col-lg-12 mb-3">
-              {{ form.nombreConsultor |as_crispy_field}}
+              <div id="div_id_nombreConsultor" class="mb-3">
+                <label for="id_nombreConsultor" class="form-label requiredField">
+                  Nombre del empleado x<span class="asteriskField">*</span>
+                </label>
+                <input type="text" name="nombreConsultor" class="form-control textinput" maxlength="50" required=""
+                  id="id_nombreConsultor">
+              </div>
             </div>
             <div class="col-lg-6 mb-3">
               {{ form.cedula |as_crispy_field}}
@@ -85,7 +88,10 @@
         <div class="p-3 bg-white">
           <label for="actividades" class="input-group-text">Selecciona una actividad:</label>
           <select class="form-select mb-2" aria-label="tipo de contrato" id="actividades">
-            <option value="1">Desarrollo de Software</option>
+            {% for actividad in actividades %}
+            <option value="{{ actividad.id }}">{{ actividad.nombreActividad }}</option>
+            {% endfor %}
+            <!-- <option value="1">Desarrollo de Software</option>
             <option value="2">Gestión de Control de Versiones con Git</option>
             <option value="3">Pruebas de Software y QA</option>
             <option value="4">Diseño y Optimización de Bases de Datos</option>
@@ -96,17 +102,16 @@
             <option value="9">Optimización de Rendimiento y Análisis</option>
             <option value="10">Automatización de Pruebas y Tareas de Desarrollo</option>
             <option value="11">Aprendizaje Continuo y Actualización Tecnológica</option>
-            <option value="12">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed, reiciendis amet quas
-              molestias rerum veniam minima ea dolorem, modi perspiciatis debitis eveniet adipisci incidunt fugit natus
-              minus hic expedita ad.</option>
-            <option value="colaboracion">Colaboración Efectiva y Trabajo en Equipo</option>
-            <option value="resolucion_problemas">Resolución Creativa de Problemas Técnicos</option>
+            <option value="12">Lorem ipsum dolor sit amet consectetur, adipisicing</option>
+            <option value="13">Colaboración Efectiva y Trabajo en Equipo</option>
+            <option value="14">Resolución Creativa de Problemas Técnicos</option> -->
           </select>
           <div class="col-12 d-flex justify-content-end">
-            <input type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')" value="Añadir actividad"/>
+            <input type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')"
+              value="Añadir actividad" />
 
           </div>
-          
+
           <label>Actividades Seleccionadas:</label>
           <div id="actividadesContainer">
             <!-- Las actividades seleccionadas se mostrarán aquí -->
@@ -116,10 +121,11 @@
           <div class="row">
 
             {% comment %} <div class="col-6 d-flex ">
-              <input type="button" class="btn btn-primary mb-2" onclick="agregarCampos()" value = 'Agregar Otrosi'/>
+              <input type="button" class="btn btn-primary mb-2" onclick="agregarCampos()" value='Agregar Otrosi' />
             </div>
             <div class="col-6 d-flex justify-content-end ">
-              <input type="button" class="btn btn-danger mb-2 " onclick="eliminarCampo()" value = 'Eliminar último otrosi'/>
+              <input type="button" class="btn btn-danger mb-2 " onclick="eliminarCampo()"
+                value='Eliminar último otrosi' />
             </div> {% endcomment %}
           </div>
           <div id="camposContainer">
@@ -130,7 +136,7 @@
         </div>
       </div>
       <div class="col-12 d-flex justify-content-end mt-3">
-        <input type="submit" class="btn btn-primary justify-content-end " style="width: 200px; " value="Crear"/>
+        <input type="submit" class="btn btn-primary justify-content-end " style="width: 200px; " value="Crear" />
       </div>
   </form>
 </div>
