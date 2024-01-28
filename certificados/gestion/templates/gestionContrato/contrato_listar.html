@@ -3,50 +3,90 @@
   {{ 'Listar' }}
 {% endblock %}
 {% block contentN %}
-  <table class="table">
-    <thead class="table-dark">
-      <tr>
-        <th>id contrato</th>
-        <th>id desarrollo</th>
-        <th>Nombre</th>
-        <th>CC</th>
-        <th>Fecha inicio</th>
-        <th>Fecha fin</th>
-        <th>Objeto</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% comment %} {% for contrato in object_list %}
-        {% endcomment %}
+{% comment %} <div class="container mt-3">
+  <input type="text" class="form-control" id="filtroContratos" placeholder="Buscar contrato por nombre, cédula, objeto, fecha inicio, fecha fin, id contrato o id desarrollo...">
+</div> {% endcomment %}
+
+
+<div class="container mt-3  p-3 bg-body-tertiary border border-secondary  rounded-end">
+
+  <h2>Filtro</h2>
+  <div class="row g-2">
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="filtroIdContrato" placeholder="ID Contrato">
+      
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="ID Desarrollo">
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="filtroNombre" placeholder="Nombre">
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="filtroCedula" placeholder="Cédula">
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="filtroFechaInicio" placeholder="Fecha Inicio">
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="filtroFechaFin" placeholder="Fecha Fin">
+    </div>
+    <div class="col-md-3">
+      <input type="text" class="form-control" id="filtroObjeto" placeholder="Objeto">
+    </div>
+  </div>
+</div>
+
+<div  style="margin: 90px;">
+  <div class="table-responsive mt-3 col-lg-12" >
+    <table class="table">
+      <thead class="table-dark">
         <tr>
-          {% comment %} <td>{{ contrato.idContrato }}</td>
-          <td>{{ contrato.idDesarrollo }}</td>
-          <td>{{ contrato.nombreConsultor }}</td>
-          <td>{{ contrato.cedula }}</td> {% endcomment %}
+          <th>id contrato</th>
+          <th>id desarrollo</th>
+          <th>Nombre</th>
+          <th>CC</th>
+          <th>Fecha inicio</th>
+          <th>Fecha fin</th>
+          <th>Objeto</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
           <td>12</td>
           <td>13</td>
           <td>pepe</td>
           <td>39201284</td>
           <td>18/4/2003</td>
-          <td>13</td>
-          <td>cocinar</td>
-          <td>
-            <div>
-              <ion-icon name="create-outline"></ion-icon>
-              <ion-icon name="trash-outline"></ion-icon>
-              <ion-icon name="download-outline"></ion-icon>
+          <td>18/4/2004</td>
+          <td>repellat.</td>
+          <td style="width: 100px;">
+            <div class="d-flex justify-content-around">
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline" class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline" class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="add-circle-outline" class="ico"></ion-icon></button>
             </div>
           </td>
         </tr>
-        <tr>
-          <td>12</td>
-          <td>13</td>
-          <td>pepe</td>
-          <td>39201284</td>
-        </tr>
-        {% comment %}
-      {% endfor %} {% endcomment %}
-    </tbody>
-  </table>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  <style>
+td,th{
+text-align: center;
+vertical-align: middle;
+}
+
+    .ico{
+      top: 50%!important;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
 {% endblock %}

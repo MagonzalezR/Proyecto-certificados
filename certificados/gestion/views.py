@@ -2,7 +2,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from gestion.models import Contrato
+from gestion.models import Contrato,Actividad,Objeto
 from .forms import ContratoForm
 from django.views.generic import (
     DeleteView,
@@ -33,3 +33,19 @@ class ContratoListar(ListView):
     model=Contrato
 
 contratolistar_detail_view = ContratoListar.as_view()
+
+
+class Menu(TemplateView):
+    template_name = "menu.html"
+    
+menu_detail_view = Menu.as_view()
+
+class ActividadesDetailView(ListView):
+    template_name = "gestionActividades/actividades_listar.html"
+    model=Actividad
+actividades_detail_view = ActividadesDetailView.as_view()
+
+class ObjetosDetailView(ListView):
+    template_name = "gestionObjetos/objetos_listar.html"
+    model=Objeto
+objetos_detail_view = ObjetosDetailView.as_view()
