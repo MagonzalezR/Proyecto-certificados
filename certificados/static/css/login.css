@@ -2,8 +2,8 @@
     font-family: Hind, sans-serif;
 
 }
-.background
-{   
+
+.background {
     position: fixed;
     width: 100%;
     height: -200px;
@@ -15,20 +15,24 @@
     /* background-position-y: top; */
 
 }
+
 .max-width-container {
-    max-width: 1200px; /* Puedes ajustar el valor según tus necesidades */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-  }
+    max-width: 1200px;
+    /* Puedes ajustar el valor según tus necesidades */
+    margin: 0 auto;
+    /* Centra el contenedor horizontalmente */
+}
+
 body {
     background-color: #f8f9fa;
-    
+
 }
 
 #botonlogin {
     background-color: #F0821A;
     color: #121212;
     font-size: large;
-    font-weight: bold;  
+    font-weight: bold;
 }
 
 button {
@@ -61,4 +65,15 @@ button {
     background-color: #FFA557 !important;
     color: #2f2f2f !important;
     transition: 300ms;
+}
+
+td,th {
+    text-align: center!important;
+    vertical-align: middle;
+}
+
+.ico {
+    top: 50% !important;
+    width: 20px;
+    height: 20px;
 }

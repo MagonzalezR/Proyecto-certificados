@@ -3,5 +3,42 @@
   {{ 'Listar' }}
 {% endblock %}
 {% block contentN %}
-<h1>menu</h1>
+  <div class="container">
+    <h1>Bienvenido</h1>
+    <h2>Modulo de gestion de contratos del IDEXUD</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card bg-body-tertiary border border-secondary rounded-end">
+          <div class="card-body">
+            <h5 class="card-title">Modulo contratos</h5>
+            <p class="card-text">El botón "Gestión de Contrato" dirige a un módulo dedicado para visualizar, editar y hacer seguimiento de contratos.</p>
+            <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_listar' %}">Gestión de Contrato</a></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-body-tertiary border border-secondary rounded-end">
+          <div class="card-body">
+            <h5 class="card-title">Modulo objetos</h5>
+            <p class="card-text">
+              El botón "Gestión de objetos" dirige a un módulo dedicado para visualizar, editar y hacer seguimiento de objetos.</p>
+            <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_objetos' %}">Gestión de objetos</a></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-body-tertiary border border-secondary rounded-end">
+          <div class="card-body">
+            <h5 class="card-title">Modulo actividades</h5>
+            <p class="card-text">
+              El botón "Gestión de actividades" dirige a un módulo dedicado para visualizar, editar y hacer seguimiento de actividades.</p>
+            <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_actividades' %}">Gestión de actividades</a></button>
+          </div>
+        </div>
+        <div class="justify-content-end d-flex mt-3">
+          <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'users:login' %}">cerrar sesion</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
