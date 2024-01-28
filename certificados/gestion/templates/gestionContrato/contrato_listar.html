@@ -60,23 +60,29 @@
         </tr>
       </thead>
       <tbody>
+        {% for contrato in object_list %}
         <tr>
-          <td>12</td>
-          <td>13</td>
-          <td>pepe</td>
-          <td>39201284</td>
-          <td>18/4/2003</td>
-          <td>18/4/2004</td>
-          <td>repellat.</td>
+          <td>{{ contrato.idContrato }}</td>
+          <td>{{ contrato.idDesarrollo }}</td>
+          <td>{{ contrato.nombreConsultor }}</td>
+          <td>{{ contrato.cedula }}</td>
+          <td>{{ contrato.fechaInicio }}</td>
+          <td>{{ contrato.fechaTerminacion }}</td>
+          <td>{{ contrato.objetoId.nombreObjetivo }}</td>
           <td style="width: 100px;">
             <div class="d-flex justify-content-around">
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="add-circle-outline" class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline"
+                  class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline"
+                  class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
+                  class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="add-circle-outline"
+                  class="ico"></ion-icon></button>
             </div>
           </td>
         </tr>
+        {% endfor %}
         
       </tbody>
     </table>
