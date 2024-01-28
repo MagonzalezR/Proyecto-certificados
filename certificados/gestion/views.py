@@ -57,3 +57,8 @@ class ObjetosDetailView(ListView):
     template_name = "gestionObjetos/objetos_listar.html"
     model=Objeto
 objetos_detail_view = ObjetosDetailView.as_view()
+
+class EditarModal(TemplateView):
+    template_name="modals/editar_modal.html"
+
+EditarModal_detail_view = EditarModal.as_view()

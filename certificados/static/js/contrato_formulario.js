@@ -110,3 +110,12 @@ function eliminarElemento(btn) {
     container.removeChild(btn.parentNode);
 
 }
+function abrir_modal_edicion(url) {
+    $('#miModal').load(url, function() {
+      $('#miModal').modal('show');
+    });
+  }
+      // Cuando se hace clic en el botón de cerrar, ocultar el modal
+      $("#cerrarModal").click(function() {
+        $("#miModal").hide();
+    });

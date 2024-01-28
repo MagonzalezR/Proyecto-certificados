@@ -1,50 +1,50 @@
 {% extends 'navBar.html' %}
 {% block title %}
-  {{ 'Listar' }}
+  {{ 'Objetos listar' }}
 {% endblock %}
 {% block contentN %}
-<div class="container mt-3 p-3 bg-body-tertiary border border-secondary rounded-end">
-  <h2>Filtro</h2>
-  <div class="row g-2">
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="filtroIdContrato" placeholder="Nombre Objeto" />
-    </div>
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="Descripción Objeto" />
-    </div>
-    <div class="justify-content-end d-flex mt-3">
-      <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_menu' %}">Volver al menu principal</a></button>
+  <div class="container mt-3 p-3 bg-body-tertiary border border-secondary rounded-end">
+    <h2>Filtro</h2>
+    <div class="row g-2">
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="filtroIdContrato" placeholder="Nombre Objeto" />
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="Descripción Objeto" />
+      </div>
+      <div class="justify-content-end d-flex mt-3">
+        <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_menu' %}">Volver al menu principal</a></button>
+      </div>
     </div>
   </div>
-</div>
 
-<div style="margin: 90px;">
-  <div class="table-responsive mt-3 col-lg-12">
-    <table class="table">
-      <thead class="table-dark">
-        <tr>
-          <th>id Objeto</th>
-          <th>Nombre Objeto</th>
-          <th>Descripción Objeto</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>12</td>
-          <td>chef</td>
-          <td>master chif</td>
-          <td style="width: 100px;">
-            <div class="d-flex justify-content-around">
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="add-circle-outline" class="ico"></ion-icon></button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div style="margin: 90px;">
+    <div class="table-responsive mt-3 col-lg-12">
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>id Objeto</th>
+            <th>Nombre Objeto</th>
+            <th>Descripción Objeto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>12</td>
+            <td>chef</td>
+            <td>master chif</td>
+            <td style="width: 100px;">
+              <div class="d-flex justify-content-around">
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline" class="ico"></ion-icon></button>
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline" class="ico"></ion-icon></button>
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="add-circle-outline" class="ico"></ion-icon></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 {% endblock %}
