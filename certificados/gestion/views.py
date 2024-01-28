@@ -18,22 +18,22 @@ class ContratoCreateView(CreateView):
     template_name = "gestionContrato/contrato_formulario.html"
     success_url = reverse_lazy("gestion:contratos_listar")
     
-    def form_invalid(self, form):
-        print(form.errors)
-        return super().form_invalid(form)
-
-
-    def form_valid(self, form, **kwargs):
-        if form.is_valid() :
-            keys = [key for key in form if 'actividad' in key]
-            form.actividadesIds = keys
-            print('No Falla :)')
-            print(form)
-            return super().form_valid(form)
-        else:
-            print('No Falla :)')
-            return super().form_invalid(form)
-            # actividadesIds =  [d for d in form if d['actividad'+['1','2']] in keyValList]
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['actividades'] = Actividad.objects.all()
+        return context
+        
+    def form_valid(self, form):
+        actividades_ids = [k.split('actividad')[1] for k in self.request.POST.keys() if k.startswith('actividad')]
+        actividades_objs = Actividad.objects.filter(id__in=actividades_ids)
+        print(actividades_objs.all())
+        # form.instance.actividadesIds = actividades_objs
+        contrato = form.save(commit=False)  # Guardar la instancia del modelo Contrato
+        contrato.save()
+        # Limpiar las actividades existentes y agregar las nuevas
+        contrato.actividadesIds.clear()
+        contrato.actividadesIds.set(actividades_objs)
+        return super().form_valid(form)
 
 contrato_create_view = ContratoCreateView.as_view()
 
