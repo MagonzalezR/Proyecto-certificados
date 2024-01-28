@@ -1,0 +1,52 @@
+{% extends 'navBar.html' %}
+{% block title %}
+  {{ 'Listar' }}
+{% endblock %}
+{% block contentN %}
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th>id contrato</th>
+        <th>id desarrollo</th>
+        <th>Nombre</th>
+        <th>CC</th>
+        <th>Fecha inicio</th>
+        <th>Fecha fin</th>
+        <th>Objeto</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% comment %} {% for contrato in object_list %}
+        {% endcomment %}
+        <tr>
+          {% comment %} <td>{{ contrato.idContrato }}</td>
+          <td>{{ contrato.idDesarrollo }}</td>
+          <td>{{ contrato.nombreConsultor }}</td>
+          <td>{{ contrato.cedula }}</td> {% endcomment %}
+          <td>12</td>
+          <td>13</td>
+          <td>pepe</td>
+          <td>39201284</td>
+          <td>18/4/2003</td>
+          <td>13</td>
+          <td>cocinar</td>
+          <td>
+            <div>
+              <ion-icon name="create-outline"></ion-icon>
+              <ion-icon name="trash-outline"></ion-icon>
+              <ion-icon name="download-outline"></ion-icon>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>13</td>
+          <td>pepe</td>
+          <td>39201284</td>
+        </tr>
+        {% comment %}
+      {% endfor %} {% endcomment %}
+    </tbody>
+  </table>
+{% endblock %}

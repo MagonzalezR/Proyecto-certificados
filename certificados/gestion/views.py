@@ -28,7 +28,8 @@ class ContratoCreateView(CreateView):
 
 contrato_create_view = ContratoCreateView.as_view()
 
-# class ContratoListar(TemplateView):
-#     template_name = "gestionContrato/listar.html"
+class ContratoListar(ListView):
+    template_name = "gestionContrato/contrato_listar.html"
+    model=Contrato
 
-# contratolistar_detail_view = ContratoListar.as_view()
+contratolistar_detail_view = ContratoListar.as_view()
