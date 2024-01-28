@@ -34,8 +34,15 @@
     <div class="col-md-3">
       <input type="text" class="form-control" id="filtroObjeto" placeholder="Objeto">
     </div>
+    <div class="justify-content-end d-flex mt-3">
+      <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a></button>
+      <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_menu' %}">Volver al menu principal</a></button>
+    </div>
+    
   </div>
 </div>
+{% comment %} <div class="col-md-4"> {% endcomment %}
+   
 
 <div  style="margin: 90px;">
   <div class="table-responsive mt-3 col-lg-12" >
@@ -77,16 +84,5 @@
 </div>
 
 
-  <style>
-td,th{
-text-align: center;
-vertical-align: middle;
-}
 
-    .ico{
-      top: 50%!important;
-      width: 20px;
-      height: 20px;
-    }
-  </style>
 {% endblock %}
