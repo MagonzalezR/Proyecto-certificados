@@ -5,6 +5,11 @@ from django.utils.translation import gettext_lazy as _
 TIPOS_CONTRATO = (
     ("1", "Prestación de servicios"),
     ("2", "Termino indefinido"),
+    ("3", 'Contrato Indefinido'),
+    ("4", 'Contrato Temporal'),
+    ("5", 'Contrato en Prácticas'),
+    ("6", 'Contrato de Formación'),
+    ("7", 'Contrato de prestación de servicios'),
 )
 
 class Objeto(models.Model):
@@ -37,7 +42,7 @@ class Contrato(models.Model):
     valorContrato = models.PositiveIntegerField(_("Valor del contrato"))
     fechaTerminacion = models.DateField(_("Fecha de terminación"))
     objetoId = models.ForeignKey(Objeto, on_delete = models.CASCADE, null = True)
-    actividadesIds = models.ManyToManyField(Actividad)
+    actividadesIds = models.ManyToManyField(Actividad, null=True)
     esSesion = models.BooleanField(_("¿El contrato es de sesión?"))
 
     def __str__(self):
