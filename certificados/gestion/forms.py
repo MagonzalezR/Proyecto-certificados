@@ -1,13 +1,6 @@
 from django import forms
 from .models import Contrato, Actividad, Objeto, Otrosi
 
-TIPO_CHOICES= {
-    "indefinido": 'Contrato Indefinido',
-    "temporal": 'Contrato Temporal',
-    "practicas": 'Contrato en Prácticas',
-    "formacion": 'Contrato de Formación',
-    "servicios": 'Contrato de prestación de servicios',
-}
 class ContratoForm(forms.ModelForm):
     
     class Meta:
@@ -23,7 +16,6 @@ class ContratoForm(forms.ModelForm):
             "valorContrato" ,
             "fechaTerminacion" ,
             "objetoId",
-            "actividadesIds",
             "esSesion",
         ]
         widgets = {
@@ -31,7 +23,7 @@ class ContratoForm(forms.ModelForm):
             "cedula" : forms.TextInput(attrs={"class": "form-control"}),
             "nombreConsultor" : forms.TextInput(attrs = {"class": "form-control"}),
             "idDesarrollo" : forms.TextInput(attrs = {"class": "form-control"}),
-            "tipoContrato" : forms.Select(choices = TIPO_CHOICES, attrs={"class": "form-control"}),
+            "tipoContrato" : forms.Select( attrs={"class": "form-control"}),
             "fechaSuscripcion" : forms.DateInput(attrs={'class': 'form-control', 
                'placeholder': 'Select a date',
                'type': 'date'
@@ -46,8 +38,7 @@ class ContratoForm(forms.ModelForm):
                'type': 'date'
               }),
             "objetoId": forms.Select(choices = Objeto.objects.all() , attrs={"class": "form-control"}),
-            "actividadesIds": forms.Select(attrs={"class": "form-control"}),
-            "esSesion": forms.Select(attrs={"class": "form-control"}),
+            "esSesion": forms.Select(choices= ((True, "Si"), (False, "No")), attrs={"class": "form-control"}),
         }
         labels = {
             "idContrato" : "Id del contrato",
@@ -60,10 +51,10 @@ class ContratoForm(forms.ModelForm):
             "valorContrato" : "Valor del contrato",
             "fechaTerminacion" : "Fecha de terminación del contrato",
             "objetoId" : "Objeto",
-            "actividadesIds" : "Actividades",
             "esSesion" : "¿Es de sesión?",
             
         }
+    
         
 class ObjetoForm(forms.ModelForm):
     
