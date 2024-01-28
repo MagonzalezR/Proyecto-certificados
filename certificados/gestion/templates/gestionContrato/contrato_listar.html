@@ -35,43 +35,48 @@
       <input type="text" class="form-control" id="filtroObjeto" placeholder="Objeto">
     </div>
     <div class="justify-content-end d-flex mt-3">
-      <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a></button>
+      <button class="btn btn-outline-secondary btn-sm" style="margin-right: 20px;"><a class="nav-link" aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a></button>
       <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_menu' %}">Volver al menu principal</a></button>
     </div>
 
   </div>
 </div>
 {% comment %} <div class="col-md-4"> {% endcomment %}
+<div  style="margin: 90px;">
+  <div class="table-responsive mt-3 col-lg-12" >
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>id contrato</th>
+          <th>id desarrollo</th>
+          <th>Nombre</th>
+          <th>CC</th>
+          <th>Fecha inicio</th>
+          <th>Fecha fin</th>
+          <th>Objeto</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contrato in object_list %}
+        <tr>
+          <td>{{ contrato.idContrato }}</td>
+          <td>{{ contrato.idDesarrollo }}</td>
+          <td>{{ contrato.nombreConsultor }}</td>
+          <td>{{ contrato.cedula }}</td>
+          <td>{{ contrato.fechaInicio }}</td>
+          <td>{{ contrato.fechaTerminacion }}</td>
+          <td>{{ contrato.objetoId.nombreObjetivo }}</td>
+          <td style="width: 100px;">
+            <div class="d-flex justify-content-around">
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline"
+                  class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline"
+                  class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
+                  class="ico"></ion-icon></button>
+              <button class="btn btn-outline-secondary btn-sm" type="button" onclick="abrir_modal_edicion('{% url 'gestion:editar_modal' %}')"><ion-icon name="add-circle-outline"
 
-
-  <div  style="margin: 90px;">
-    <div class="table-responsive mt-3 col-lg-12" >
-      <table class="table">
-        <thead class="table-dark">
-          <tr>
-            <th>id contrato</th>
-            <th>id desarrollo</th>
-            <th>Nombre</th>
-            <th>CC</th>
-            <th>Fecha inicio</th>
-            <th>Fecha fin</th>
-            <th>Objeto</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for contrato in object_list %}
-          <tr>
-            <td>{{ contrato.idContrato }}</td>
-            <td>{{ contrato.idDesarrollo }}</td>
-            <td>{{ contrato.nombreConsultor }}</td>
-            <td>{{ contrato.cedula }}</td>
-            <td>{{ contrato.fechaInicio }}</td>
-            <td>{{ contrato.fechaTerminacion }}</td>
-            <td>{{ contrato.objetoId.nombreObjetivo }}</td>
-            <td style="width: 100px;">
-              <div class="d-flex justify-content-around">
-                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline"
                   class="ico"></ion-icon></button>
                 <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline"
                     class="ico"></ion-icon></button>
@@ -89,6 +94,8 @@
     </div>
   </div>
 
+<div class="modal fade" id="miModal" role="dialog">
 
+</div>
 
   {% endblock %}
