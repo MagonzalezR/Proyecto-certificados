@@ -65,4 +65,38 @@ class ContratoForm(forms.ModelForm):
             
         }
         
+class ObjetoForm(forms.ModelForm):
     
+    class Meta:
+        model = Objeto
+        
+        fields = [
+            "nombreObjetivo",
+            "descripcionObjetivo",
+        ]
+        
+        widgets = {
+            "nombreObjetivo" : forms.TextInput(attrs={"class": "form-control"}) ,
+            "descripcionObjetivo" : forms.TextInput(attrs={"class": "form-control"}) ,
+        }
+        
+        labels = {
+            "nombreObjetivo": "Nombre del objetivo",
+            "descripcionObjetivo": "Descripción del objetivo",
+        }
+
+class ActividadForm(forms.ModelForm):
+    
+    class Meta:
+        model = Actividad
+        
+        fields = [
+            "nombreActividad",
+            "descripcionActividad", 
+        ]
+        
+        widgets = {
+            "nombreActividad" : forms.TextInput(attrs={"class": "form-control"}) ,
+            "descripcionActividad" : forms.TextInput(attrs={"class": "form-control"}) ,
+        }
+        

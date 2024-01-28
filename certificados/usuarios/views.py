@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 # from usuarios.models import Profile, User
 from django.views.generic import (
     DeleteView,
@@ -19,7 +21,8 @@ from django.views.generic import (
 
 # user_detail_view = UserDetailView.as_view()
 
-class ContratoLogin(TemplateView):
+class ContratoLogin(LoginView):
     template_name = "login.html"
+    next_page = reverse_lazy("generador:generar_contrato")
 
 contratologin_detail_view = ContratoLogin.as_view()

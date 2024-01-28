@@ -13,7 +13,9 @@
   <div class="row justify-content-center ">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 container ff" style="position: relative;" >
       <div class="login-container  " >
-        <form class="login-form " >
+
+        <form class="login-form " method="post">
+          {% csrf_token %}
           <div class="mb-3">
             <h1 class="text-center mb-4">Iniciar Sesión</h1>
             <div class="container p-4 text-center">
@@ -26,8 +28,10 @@
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="password" name="password" required />
           </div>
-          <button type="submit" class="btn btn-primary login-btn" id="botonlogin">Ingresar</button>
+          <input type="submit" class="btn btn-primary login-btn" id="botonlogin" value="Ingresar"/>
+          <input type="hidden" name="next" value="{{ next }}">
         </form>
+
       </div>
     </div>
   </div>
