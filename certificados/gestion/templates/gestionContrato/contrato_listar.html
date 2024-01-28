@@ -1,6 +1,6 @@
 {% extends 'navBar.html' %}
 {% block title %}
-  {{ 'contrato listar' }}
+{{ 'Listar' }}
 {% endblock %}
 {% block contentN %}
 {% comment %} <div class="container mt-3">
@@ -14,7 +14,7 @@
   <div class="row g-2">
     <div class="col-md-3">
       <input type="text" class="form-control" id="filtroIdContrato" placeholder="ID Contrato">
-      
+
     </div>
     <div class="col-md-3">
       <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="ID Desarrollo">
@@ -38,12 +38,10 @@
       <button class="btn btn-outline-secondary btn-sm" style="margin-right: 20px;"><a class="nav-link" aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a></button>
       <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_menu' %}">Volver al menu principal</a></button>
     </div>
-    
+
   </div>
 </div>
 {% comment %} <div class="col-md-4"> {% endcomment %}
-   
-
 <div  style="margin: 90px;">
   <div class="table-responsive mt-3 col-lg-12" >
     <table class="table">
@@ -78,19 +76,26 @@
               <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
                   class="ico"></ion-icon></button>
               <button class="btn btn-outline-secondary btn-sm" type="button" onclick="abrir_modal_edicion('{% url 'gestion:editar_modal' %}')"><ion-icon name="add-circle-outline"
+
                   class="ico"></ion-icon></button>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-        
-      </tbody>
-    </table>
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline"
+                    class="ico"></ion-icon></button>
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
+                    class="ico"></ion-icon></button>
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="add-circle-outline"
+                    class="ico"></ion-icon></button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
 <div class="modal fade" id="miModal" role="dialog">
 
 </div>
 
-{% endblock %}
+  {% endblock %}
