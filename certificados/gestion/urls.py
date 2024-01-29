@@ -15,7 +15,7 @@ urlpatterns = [
      path("contrato/crear",view = contrato_create_view, name = 'contrato_crear'),
      path("contrato/listar",view = contratolistar_detail_view, name = 'contratos_listar'),
      path("contrato/editar/<int:pk>",view = contrato_update_view, name = 'contrato_editar'),
-     path("menu",view = menu_detail_view, name = 'contratos_menu'),
+     path("menu",view = menu_detail_view, name = 'menu'),
      path("actividades/listar",view = actividades_detail_view, name = 'contratos_actividades'),
      path("objetos/listar",view = objetos_detail_view, name = 'contratos_objetos'),
      path("listar/modal",view = EditarModal_detail_view, name = 'editar_modal')
