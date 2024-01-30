@@ -15,14 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, reverse_lazy
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("gestion/", include("gestion.urls"), name='gestion'),
     path("usuario/", include("usuarios.urls"), name='usuarios'),
     path("generador/", include("generador.urls"), name='generador'),
+    path("", RedirectView.as_view(url=reverse_lazy('generador:generar_contrato')))
     
 ] + static(settings.STATIC_URL, document_root=settings.BASE_DIR)

@@ -62,18 +62,18 @@ class ObjetoForm(forms.ModelForm):
         model = Objeto
         
         fields = [
-            "nombreObjetivo",
-            "descripcionObjetivo",
+            "nombreObjeto",
+            "descripcionObjeto",
         ]
         
         widgets = {
-            "nombreObjetivo" : forms.TextInput(attrs={"class": "form-control"}) ,
-            "descripcionObjetivo" : forms.TextInput(attrs={"class": "form-control"}) ,
+            "nombreObjeto" : forms.TextInput(attrs={"class": "form-control"}) ,
+            "descripcionObjeto" : forms.Textarea(attrs={"class": "form-control"}) ,
         }
         
         labels = {
-            "nombreObjetivo": "Nombre del objetivo",
-            "descripcionObjetivo": "Descripción del objetivo",
+            "nombreObjeto": "Nombre del objeto",
+            "descripcionObjeto": "Descripción del objeto",
         }
 
 class ActividadForm(forms.ModelForm):
@@ -88,6 +88,11 @@ class ActividadForm(forms.ModelForm):
         
         widgets = {
             "nombreActividad" : forms.TextInput(attrs={"class": "form-control"}) ,
-            "descripcionActividad" : forms.TextInput(attrs={"class": "form-control"}) ,
+            "descripcionActividad" : forms.Textarea(attrs={"class": "form-control"}) ,
+        }
+        
+        labels = {
+            "nombreActividad" : "Nombre de la actividad",
+            "descripcionActividad" : "Descripción de la actividad", 
         }
         

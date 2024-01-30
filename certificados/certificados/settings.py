@@ -133,9 +133,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = "usuario/login"
+LOGOUT_REDIRECT_URL = "users:login"
 
-LOGIN_URL = "usuario/login"
+LOGIN_URL = "users:login"
 
 
 

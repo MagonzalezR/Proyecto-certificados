@@ -26,9 +26,3 @@ class Login(LoginView):
     next_page = reverse_lazy("gestion:menu")
 
 login_detail_view = Login.as_view()
-
-class Logout(LoginView):
-    template_name = "logout.html"
-    next_page = reverse_lazy("users:login")
-
-logout_detail_view = Logout.as_view()

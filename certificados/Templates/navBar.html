@@ -3,7 +3,7 @@
 {% block content %}
 <nav class="navbar navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
+        <a class="navbar-brand" href="#">Administrador de contratos IDEXUD</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
             aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,7 @@
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
             aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">MENU</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
@@ -22,7 +22,15 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{% url 'gestion:contratos_listar' %}">Lista de
-                            contratos</a>
+                            Contratos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'gestion:actividades_listar' %}">Lista de
+                            Actividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'gestion:objetos_listar' %}">Lista de
+                            Objetos</a>
                     </li>
                     <li class="nav-item">
                         <form action="{% url 'users:logout' %}" method="post">
@@ -30,7 +38,7 @@
                             <input class="nav-link" aria-current="page" type="submit" value="Cerrar sesión">
                         </form>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         
                             aria-expanded="false">
@@ -45,12 +53,12 @@
                             <li></li>
                             
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
-                <form class="d-flex mt-3" role="search">
+                <!-- <form class="d-flex mt-3" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-success" type="submit">Search</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
