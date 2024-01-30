@@ -141,11 +141,23 @@ function eliminarElemento(btn) {
 
 }
 function abrir_modal_edicion(url) {
-    $('#miModal').load(url, function() {
-      $('#miModal').modal('show');
+    $('#Modal').load(url, function () {
+        $('#Modal').modal('show');
     });
-  }
-      // Cuando se hace clic en el botón de cerrar, ocultar el modal
-      $("#cerrarModal").click(function() {
-        $("#miModal").hide();
-    });
+}
+// Cuando se hace clic en el botón de cerrar, ocultar el modal
+$("#cerrarModal").click(function () {
+    $("#Modal").hide();
+});
+
+
+function confirmarEliminar() {
+    let confirmacion = confirm("¿Estás seguro de que deseas eliminar este contrato?");
+
+    if (confirmacion) {
+
+        alert("Elemento eliminado");
+    } else {
+        alert("Eliminación cancelada");
+    }
+}
