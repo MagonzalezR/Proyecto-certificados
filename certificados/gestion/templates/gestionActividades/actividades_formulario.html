@@ -1,0 +1,43 @@
+{% extends 'navBar.html' %}
+{% load static i18n crispy_forms_tags %}
+
+{% block title %}
+ {% if Editar %}{{"Edición"}}{% else %}{{"Creación"}}{% endif %} 
+ {{' de Actividad' }}
+{% endblock %}
+
+{% block contentN %}
+
+
+<div class="container-fluid bg-secondary-color p-4 mx-auto w-50 ">
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="row g-4 justify-content-between">
+      <!-- Columna para Nombre, Descripción de la actividad  -->
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  border border-4 rounded">
+        <div class="p-3">
+          <div class="row align-items-start">
+            <div class="col-lg-12 mb-3">
+              {{ form.nombreActividad |as_crispy_field}}
+            </div>
+            <div class="col-lg-12 mb-3">
+              {{ form.descripcionActividad |as_crispy_field}}
+            </div>
+          </div>
+        </div>
+      <div class="col-12 d-flex justify-content-end mt-3">
+        <div class="m-2">
+          <a href="{% url 'gestion:actividades_listar' %}" class="ml-4">
+            <input type="button" class=" ml-4 form-control btn btn-danger justify-content-end " value="Cancelar">
+          </a>
+        </div>
+        <div class="m-2">
+          <input type="submit" class="btn btn-primary justify-content-end ml-1" style="width: 200px; "
+            value="{% if Editar %}Editar{% else %}Crear{% endif %}" />
+        </div>
+      </div>
+  </form>
+</div>
+{% endblock %}
+

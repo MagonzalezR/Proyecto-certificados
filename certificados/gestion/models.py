@@ -15,12 +15,13 @@ TIPOS_CONTRATO = (
 class Objeto(models.Model):
     """Modelo de Objetos"""
     
-    nombreObjetivo = models.CharField(_("Nombre del objetivo"), max_length=20)
-    descripcionObjetivo = models.CharField(_("Descripción del objetivo"), max_length=255)
+    nombreObjeto = models.CharField(_("Nombre del objeto"), max_length=20)
+    descripcionObjeto = models.CharField(_("Descripción del objeto"), max_length=255)
+    deleted = models.BooleanField(default=False)
     
     def __str__(self):
          """Retorna el nombre del Objeto"""
-         return self.nombreObjetivo
+         return self.nombreObjeto
     
 
 class Actividad(models.Model):
@@ -28,6 +29,7 @@ class Actividad(models.Model):
     
     nombreActividad = models.CharField(_("Nombre de la actividad"), max_length=20)
     descripcionActividad = models.CharField(_("Descripción del actividad"), max_length=255)
+    deleted = models.BooleanField(default=False)
     
     def __str__(self):
          """Retorna el nombre del Objeto"""
@@ -48,6 +50,7 @@ class Contrato(models.Model):
     objetoId = models.ForeignKey(Objeto, on_delete = models.CASCADE, null = True)
     actividadesIds = models.ManyToManyField(Actividad)
     esSesion = models.BooleanField(_("¿El contrato es de sesión?"))
+    deleted = models.BooleanField(default=False)
 
     def __str__(self):
         """Retorna el identificador del contrato"""
@@ -62,4 +65,5 @@ class Otrosi(models.Model):
     valorAcumulado = models.PositiveIntegerField(_("Prorroga (en meses)"))
     contratoId = models.ForeignKey(Contrato, on_delete = models.CASCADE, null = True)
     actividadesIds = models.ManyToManyField(Actividad)
+    deleted = models.BooleanField(default=False)
     

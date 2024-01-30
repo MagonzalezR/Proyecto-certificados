@@ -1,6 +1,6 @@
 {% extends 'navBar.html' %}
 {% block title %}
-  {{ 'actividades listar' }}
+{{ 'actividades listar' }}
 {% endblock %}
 {% block contentN %}
 <div class="container mt-3 p-3 bg-body-tertiary border border-secondary rounded-end">
@@ -13,7 +13,10 @@
       <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="Descripción actividad" />
     </div>
     <div class="justify-content-end d-flex mt-3">
-      <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page" href="{% url 'gestion:menu' %}">Volver al menu principal</a></button>
+      <button class="btn btn-outline-secondary btn-sm" style="margin-right: 20px;"><a class="nav-link"
+          aria-current="page" href="{% url 'gestion:actividades_crear' %}">Crear nueva actividad</a></button>
+      <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page"
+          href="{% url 'gestion:menu' %}">Volver al menu principal</a></button>
     </div>
   </div>
 </div>
@@ -30,19 +33,24 @@
         </tr>
       </thead>
       <tbody>
+        {% for actividad in object_list %}
         <tr>
-          <td>12</td>
-          <td>Cocinar</td>
-          <td>El que cocina</td>
+          <td>{{ actividad.id }}</td>
+          <td>{{ actividad.nombreActividad }}</td>
+          <td>{{ actividad.descripcionActividad }}</td>
           <td style="width: 100px;">
             <div class="d-flex justify-content-around">
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
-              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="add-circle-outline" class="ico"></ion-icon></button>
+              <a href="{% url 'gestion:actividades_editar' actividad.id %}" title="Editar">
+                <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="create-outline"
+                    class="ico"></ion-icon>
+                </button>
+              </a>
+              <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="trash-outline"
+                  class="ico"></ion-icon></button>
             </div>
           </td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
