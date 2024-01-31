@@ -64,27 +64,19 @@ function agregarElemento(tipo) {
         selectElement = document.getElementById('actividades');
         container = document.getElementById('actividadesContainer');
 
-        // Obtener el elemento seleccionado
-        var elementoSeleccionado = selectElement.options[selectElement.selectedIndex].text;
-        var elementoSeleccionadoId = selectElement.options[selectElement.selectedIndex].value;
-
-        // Verificar si el elemento ya está en el contenedor
-        if (!contieneElemento(container, elementoSeleccionado)) {
-            // Crear un contenedor para el elemento con un botón de eliminación
-            var elementoContainer = document.createElement('div');
-            elementoContainer.className = 'col-lg-12 d-flex flex-column mb-2';
-            elementoContainer.innerHTML = `
-                  <div class="col-lg-12 d-flex justify-content-between align-items-start mb-2">
+        // Crear un contenedor para el elemento con un botón de eliminación
+        var elementoContainer = document.createElement('div');
+        elementoContainer.className = 'col-lg-12 d-flex flex-column mb-2';
+        elementoContainer.innerHTML = `
+                  <div class="col-lg-10 justify-content-between align-items-start mb-2">
                     <div>
-                        <span> - </span>
-                        ${elementoSeleccionado}
-                        <input type="hidden" name = "actividad${contadorCamposA}" value="${elementoSeleccionadoId}" required class="form-control" readonly style="border:0; background-color: white; cursor: default; pointer-events: none;" id="id_actividad${contadorCamposA}">
+                        <textarea name = "actividad${contadorCamposA}" required class="form-control" id="id_actividad${contadorCamposA}" rows="4"> </textarea>
                     </div>
-                    <button type="button" class="col-lg-2 btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
+                  </div>
+                  <div class="col-lg-2 justify-content-between align-items-start mb-2">
+                    <button type="button" class=" btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
                   </div>`;
-            container.appendChild(elementoContainer);
-
-        }
+                  container.appendChild(elementoContainer);
     }
 }
 

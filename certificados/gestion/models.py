@@ -30,6 +30,7 @@ class Contrato(models.Model):
     esSesion = models.BooleanField(_("¿El contrato es de sesión?"))
     fechaSesion = models.DateField(_("Fecha de la sesión"), null = True, blank = True)
     infoSesion = models.CharField(_("Info de la sesión"), null = True, blank = True)
+    observaciones = models.CharField(_("Observaciones"), max_length=300, null = True, blank = True)
     deleted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -45,5 +46,6 @@ class Otrosi(models.Model):
     valorAcumulado = models.PositiveIntegerField(_("Prorroga (en meses)"))
     contratoId = models.ForeignKey(Contrato, on_delete = models.CASCADE, null = True)
     actividades = ArrayField(models.CharField(max_length=300))
+    observaciones = models.CharField(_("Observaciones"), max_length=300, null = True, blank = True)
     deleted = models.BooleanField(default=False)
     
