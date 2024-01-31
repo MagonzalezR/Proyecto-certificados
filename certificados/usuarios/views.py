@@ -23,6 +23,6 @@ from django.views.generic import (
 
 class Login(LoginView):
     template_name = "login.html"
-    next_page = reverse_lazy("gestion:menu")
+    next_page = reverse_lazy("gestion:contratos_listar")
 
 login_detail_view = Login.as_view()

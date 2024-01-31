@@ -1,5 +1,5 @@
 from django import forms
-from .models import Contrato, Actividad, Objeto, Otrosi
+from .models import Contrato, Otrosi
 
 class ContratoForm(forms.ModelForm):
     
@@ -15,7 +15,7 @@ class ContratoForm(forms.ModelForm):
             "fechaInicio" ,
             "valorContrato" ,
             "fechaTerminacion" ,
-            "objetoId",
+            "objeto",
             "esSesion",
         ]
         widgets = {
@@ -37,7 +37,7 @@ class ContratoForm(forms.ModelForm):
                'placeholder': 'Select a date',
                'type': 'date'
               }),
-            "objetoId": forms.Select(choices = Objeto.objects.all() , attrs={"class": "form-control"}),
+            "objeto": forms.Textarea(attrs={"class": "form-control"}),
             "esSesion": forms.Select(choices= ((True, "Si"), (False, "No")), attrs={"class": "form-control"}),
         }
         labels = {
@@ -50,49 +50,8 @@ class ContratoForm(forms.ModelForm):
             "fechaInicio" : "Fecha de inicio del contrato",
             "valorContrato" : "Valor del contrato",
             "fechaTerminacion" : "Fecha de terminación del contrato",
-            "objetoId" : "Objeto",
+            "objeto" : "Objeto",
             "esSesion" : "¿Es de sesión?",
             
-        }
-    
-        
-class ObjetoForm(forms.ModelForm):
-    
-    class Meta:
-        model = Objeto
-        
-        fields = [
-            "nombreObjeto",
-            "descripcionObjeto",
-        ]
-        
-        widgets = {
-            "nombreObjeto" : forms.TextInput(attrs={"class": "form-control"}) ,
-            "descripcionObjeto" : forms.Textarea(attrs={"class": "form-control"}) ,
-        }
-        
-        labels = {
-            "nombreObjeto": "Nombre del objeto",
-            "descripcionObjeto": "Descripción del objeto",
-        }
-
-class ActividadForm(forms.ModelForm):
-    
-    class Meta:
-        model = Actividad
-        
-        fields = [
-            "nombreActividad",
-            "descripcionActividad", 
-        ]
-        
-        widgets = {
-            "nombreActividad" : forms.TextInput(attrs={"class": "form-control"}) ,
-            "descripcionActividad" : forms.Textarea(attrs={"class": "form-control"}) ,
-        }
-        
-        labels = {
-            "nombreActividad" : "Nombre de la actividad",
-            "descripcionActividad" : "Descripción de la actividad", 
         }
         
