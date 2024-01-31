@@ -1,7 +1,7 @@
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from gestion.models import Contrato,Actividad,Objeto
@@ -12,7 +12,8 @@ from django.views.generic import (
 )
 from django.views.generic.edit import  CreateView, UpdateView
 
-class ContratoCreateView(LoginRequiredMixin, CreateView):
+class ContratoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'gestion.add_contrato'
     model = Contrato
     form_class = ContratoForm
     template_name = "gestionContrato/contrato_formulario.html"
@@ -37,7 +38,8 @@ class ContratoCreateView(LoginRequiredMixin, CreateView):
 
 contrato_create_view = ContratoCreateView.as_view()
 
-class ContratoUpdateView(LoginRequiredMixin, UpdateView):
+class ContratoUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'gestion.change_contrato'
     model = Contrato
     form_class = ContratoForm
     template_name = "gestionContrato/contrato_formulario.html"
@@ -68,13 +70,15 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
 
 contrato_update_view = ContratoUpdateView.as_view()
 
-class ContratoListar(LoginRequiredMixin, ListView):
+class ContratoListar(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'gestion.view_contrato'
     template_name = "gestionContrato/contrato_listar.html"
     model=Contrato
 
 contratolistar_detail_view = ContratoListar.as_view()
 
-class ActividadCreateView(LoginRequiredMixin, CreateView):
+class ActividadCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'gestion.add_actividad'
     model = Actividad
     form_class = ActividadForm
     template_name = "gestionActividades/actividades_formulario.html"
@@ -82,7 +86,8 @@ class ActividadCreateView(LoginRequiredMixin, CreateView):
     
 actividades_create_view = ActividadCreateView.as_view()
 
-class ActividadUpdateView(LoginRequiredMixin, UpdateView):
+class ActividadUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'gestion.change_actividad'
     model = Actividad
     form_class = ActividadForm
     template_name = "gestionActividades/actividades_formulario.html"
@@ -95,12 +100,14 @@ class ActividadUpdateView(LoginRequiredMixin, UpdateView):
     
 actividades_update_view = ActividadUpdateView.as_view()
 
-class ActividadesListar(LoginRequiredMixin, ListView):
+class ActividadesListar(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'gestion.view_actividad'
     template_name = "gestionActividades/actividades_listar.html"
     model=Actividad
 actividades_detail_view = ActividadesListar.as_view()
 
-class ObjetoCreateView(LoginRequiredMixin, CreateView):
+class ObjetoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'gestion.add_objeto'
     model = Objeto
     form_class = ObjetoForm
     template_name = "gestionObjetos/objetos_formulario.html"
@@ -108,7 +115,8 @@ class ObjetoCreateView(LoginRequiredMixin, CreateView):
     
 objetos_create_view = ObjetoCreateView.as_view()
 
-class ObjetoUpdateView(LoginRequiredMixin, UpdateView):
+class ObjetoUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'gestion.change_objeto'
     model = Objeto
     form_class = ObjetoForm
     template_name = "gestionObjetos/Objetos_formulario.html"
@@ -121,12 +129,14 @@ class ObjetoUpdateView(LoginRequiredMixin, UpdateView):
     
 objetos_update_view = ObjetoUpdateView.as_view()
 
-class ObjetosListar(LoginRequiredMixin, ListView):
+class ObjetosListar(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'gestion.view_objeto'
     template_name = "gestionObjetos/objetos_listar.html"
     model=Objeto
 objetos_detail_view = ObjetosListar.as_view()
 
-class EditarModal(LoginRequiredMixin, TemplateView):
+class EditarModal(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    permission_required = ''
     template_name="modals/editar_modal.html"
 
 EditarModal_detail_view = EditarModal.as_view()
