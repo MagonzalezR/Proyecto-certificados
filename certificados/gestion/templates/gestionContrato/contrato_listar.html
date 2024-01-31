@@ -14,32 +14,37 @@
   <h2>Filtro</h2>
   <div class="row g-2">
     <div class="col-md-3">
-      <input type="text" class="form-control" id="filtroIdContrato" placeholder="ID Contrato">
+      <label for="filtroIdContrato">ID contrato</label>
+      <input type="text" class="form-control" id="filtroIdContrato" placeholder="1111 I -2020 ">
 
     </div>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="ID Desarrollo">
+      <label for="filtroIdDesarrollo">ID desarrollo</label>
+      <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="111-2020">
     </div>
     <div class="col-md-3">
+      <label for="filtroNombre">Nombre</label>
       <input type="text" class="form-control" id="filtroNombre" placeholder="Nombre">
     </div>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="filtroCedula" placeholder="Cédula">
+      <label for="filtroCedula">cedula</label>
+      <input type="text" class="form-control" id="filtroCedula" placeholder="1234567891">
     </div>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="filtroFechaInicio" placeholder="Fecha Inicio">
+      <label for="filtroFechaInicio">fecha Inicio</label>
+      <input type="text" class="form-control" id="filtroFechaInicio" placeholder="DD/MM/AAAA">
     </div>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="filtroFechaFin" placeholder="Fecha Fin">
+      <label for="filtroFechaFin">fecha Fin</label>
+      <input type="text" class="form-control" id="filtroFechaFin" placeholder="DD/MM/AAAA">
     </div>
     <div class="col-md-3">
+      <label for="filtroObjeto">Objeto</label>
       <input type="text" class="form-control" id="filtroObjeto" placeholder="Objeto">
     </div>
     <div class="justify-content-end d-flex mt-3">
       <button class="btn btn-outline-secondary btn-sm" style="margin-right: 20px;"><a class="nav-link"
           aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a></button>
-      <button class="btn btn-outline-secondary btn-sm"><a class="nav-link" aria-current="page"
-          href="{% url 'gestion:menu' %}">Volver al menu principal</a></button>
     </div>
 
   </div>
