@@ -66,47 +66,15 @@ function agregarElemento(tipo) {
 
         // Crear un contenedor para el elemento con un botón de eliminación
         var elementoContainer = document.createElement('div');
-        elementoContainer.className = 'col-lg-12 d-flex flex-column mb-2';
+        elementoContainer.className = 'col-lg-12 d-flex mb-2';
         elementoContainer.innerHTML = `
-                  <div class="col-lg-10 justify-content-between align-items-start mb-2">
-                    <div>
-                        <textarea name = "actividad${contadorCamposA}" required class="form-control" id="id_actividad${contadorCamposA}" rows="4"> </textarea>
+                  <div class="col-lg-12 justify-content-between align-items-start mb-2">
+                    <div class="col-lg-10">
+                        <textarea name = "actividad${contadorCamposA}" required class="form-control col-lg-10" id="id_actividad${contadorCamposA}" rows="4"> </textarea>
+                        <button type="button" class=" btn-close col-lg-2 " aria-label="Close" onclick="eliminarElemento(this)"></button>
                     </div>
-                  </div>
-                  <div class="col-lg-2 justify-content-between align-items-start mb-2">
-                    <button type="button" class=" btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
                   </div>`;
                   container.appendChild(elementoContainer);
-    }
-}
-
-function agregarACtividadInicio(nombre) {
-    var selectElement;
-    var container;
-    selectElement = document.getElementsByName(nombre);
-    container = document.getElementById('actividadesContainer');
-    console.log(selectElement.item(0).value)
-
-    // Obtener el elemento seleccionado
-    var elementoSeleccionado = selectElement.item(0).value;
-    var elementoSeleccionadoId = nombre.split('actividad')[1];
-
-    // Verificar si el elemento ya está en el contenedor
-    if (!contieneElemento(container, elementoSeleccionado)) {
-        // Crear un contenedor para el elemento con un botón de eliminación
-        var elementoContainer = document.createElement('div');
-        elementoContainer.className = 'col-lg-12 d-flex flex-column mb-2';
-        elementoContainer.innerHTML = `
-                  <div class="col-lg-12 d-flex justify-content-between align-items-start mb-2">
-                    <div>
-                        <span> - </span>
-                        ${elementoSeleccionado}
-                        <input type="hidden" name = "actividad${contadorCamposA}" value="${elementoSeleccionadoId}" required class="form-control" readonly style="border:0; background-color: white; cursor: default; pointer-events: none;" id="id_actividad${contadorCamposA}">
-                    </div>
-                    <button type="button" class="col-lg-2 btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
-                  </div>`;
-        container.appendChild(elementoContainer);
-
     }
 }
 

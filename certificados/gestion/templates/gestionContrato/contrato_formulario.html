@@ -1,13 +1,12 @@
 {% extends 'index.html' %}
-{% load static i18n crispy_forms_tags %}
+{% load static i18n crispy_forms_tags  %}
 
 {% block title %}
-{% if Editar %}{{"Edición"}}{% else %}{{"Creación"}}{% endif %} 
+{% if Editar %}{{"Edición"}}{% else %}{{"Creación"}}{% endif %}
 {{' de Contrato' }}
 {% endblock %}
 
 {% block contentN %}
-
 
 <div class="container-fluid bg-secondary-color p-4 mx-auto w-50 ">
 
@@ -77,28 +76,32 @@
       <!-- Columna para Actividades -->
       <div class="col-lg-12 border border-4 rounded">
         <div class="p-3 bg-white">
-          <label for="actividades" class="input-group-text">Agregar actividad:</label>
-          <textarea class="form-control mb-2 " aria-label="tipo de contrato" id="actividades"  rows="4" name="actividad-1"> </textarea>
-            {% for actividad in actividades %}<!-- eliminar -->
+          <label for="actividad-1" class="input-group-text">Agregar actividades:</label>
+          <div id="actividadesContainer">
+            {% for actividad in object.actividades %}
+            <div class="col-lg-12 d-flex flex-column mb-2">
+                <div>
+                  <textarea name="actividad{{idAc}}" required class="form-control"
+                  id="id_actividades" rows="4">{{actividad}}</textarea>
+                  <button type="button" class=" btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
+              </div>
+            </div>
             {% endfor %}
 
-          <div class="col-12 d-flex justify-content-end">
-            <input type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')"
-              value="Añadir actividad" />
-
-          </div>
-
-          <label>Actividades Seleccionadas:</label>
-          <div id="actividadesContainer">
             <!-- Las actividades seleccionadas se mostrarán aquí -->
           </div>
         </div>
-      </div>
-        <div class="col-lg-12 border border-4 rounded">
-          <div class="p-3 bg-white">
-            {{ form.observaciones |as_crispy_field}}
-          </div>
+        <div class="col-12 d-flex justify-content-end">
+          <input type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')"
+            value="Añadir actividad" />
+
         </div>
+      </div>
+      <div class="col-lg-12 border border-4 rounded">
+        <div class="p-3 bg-white">
+          {{ form.observaciones |as_crispy_field}}
+        </div>
+      </div>
       <div class="col-12 d-flex justify-content-end mt-3">
         <div class="m-2">
           <a href="{% url 'gestion:contratos_listar' %}" class="ml-4">
@@ -112,17 +115,14 @@
       </div>
   </form>
 </div>
-{% for actividad in actividadesGet %}
-  <input type="hidden" name="actividad{{actividad.id}}" value="{{actividad.nombreActividad}}" id="id_actividades">
-{% endfor %}
 
-<script  src="{% static 'js/contrato_formulario.js' %}"></script>
+<script src="{% static 'js/contrato_formulario.js' %}"></script>
 <script>
   window.addEventListener("load", function (event) {
-    var actividades =document.querySelectorAll("#id_actividades")
+    console.log(document.querySelectorAll("#id_actividades"))
+    var actividades = document.querySelectorAll("#id_actividades")
     actividades.forEach(element => {
-      agregarACtividadInicio(element.getAttribute("name"))
-      console.log(element.getAttribute("value"))
+      element.setAttribute("name", element.getAttribute("name") + (contadorCamposA++).toString())
     });
   });
 </script>
