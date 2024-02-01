@@ -45,7 +45,12 @@
     <div class="justify-content-end d-flex mt-3">
       <button class="btn btn-outline-secondary btn-sm" style="margin-right: 20px;"><a class="nav-link"
           aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a></button>
+          <form action="{% url 'users:logout' %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-outline-secondary btn-sm" aria-current="page" type="submit" value="Cerrar sesión">
+        </form>
     </div>
+    
 
   </div>
 </div>
