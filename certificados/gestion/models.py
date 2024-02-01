@@ -25,12 +25,12 @@ class Contrato(models.Model):
     fechaInicio = models.DateField(_("Fecha de inicio"))
     valorContrato = models.PositiveIntegerField(_("Valor del contrato"))
     fechaTerminacion = models.DateField(_("Fecha de terminación"))
-    objeto = models.CharField(_("Objeto"), max_length=300)
-    actividades = ArrayField(models.CharField(max_length=300))
+    objeto = models.CharField(_("Objeto"), max_length=600)
+    actividades = ArrayField(models.CharField(max_length=600))
     esSesion = models.BooleanField(_("¿El contrato es de sesión?"))
     fechaSesion = models.DateField(_("Fecha de la sesión"), null = True, blank = True)
     infoSesion = models.CharField(_("Info de la sesión"), null = True, blank = True)
-    observaciones = models.CharField(_("Observaciones"), max_length=300, null = True, blank = True)
+    observaciones = models.CharField(_("Observaciones"), max_length=600, null = True, blank = True)
     deleted = models.BooleanField(default=False)
 
     def __str__(self):

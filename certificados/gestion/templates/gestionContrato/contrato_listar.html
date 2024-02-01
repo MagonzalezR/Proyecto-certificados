@@ -32,11 +32,11 @@
     </div>
     <div class="col-md-3">
       <label for="filtroFechaInicio">fecha Inicio</label>
-      <input type="text" class="form-control" id="filtroFechaInicio" placeholder="DD/MM/AAAA">
+      <input type="text" class="form-control" id="filtroFechaInicio" placeholder="Dia o mes o año">
     </div>
     <div class="col-md-3">
       <label for="filtroFechaFin">fecha Fin</label>
-      <input type="text" class="form-control" id="filtroFechaFin" placeholder="DD/MM/AAAA">
+      <input type="text" class="form-control" id="filtroFechaFin" placeholder="Dia o mes o año">
     </div>
     <div class="col-md-3">
       <label for="filtroObjeto">Objeto</label>
@@ -49,6 +49,7 @@
 
   </div>
 </div>
+
 {% comment %} <div class="col-md-4"> {% endcomment %}
   <div style="margin: 90px;">
     <div class="table-responsive mt-3 col-lg-12">
@@ -74,7 +75,7 @@
             <td>{{ contrato.cedula }}</td>
             <td>{{ contrato.fechaInicio }}</td>
             <td>{{ contrato.fechaTerminacion }}</td>
-            <td>{{ contrato.objetoId.nombreObjeto }}</td>
+            <td>{{ contrato.objeto }}</td>
             <td style="width: 100px;">
               <div class="d-flex justify-content-around">
                 <a href="{% url 'gestion:contrato_editar' contrato.id %}" title="Editar">
@@ -103,5 +104,65 @@
 
   </div>
 
+  <script>
+ // Funcion para los filtros de la tabla 
+function filtrarTabla() {
+  let filtroIdContrato = document.getElementById('filtroIdContrato').value.toUpperCase();
+  let filtroIdDesarrollo = document.getElementById('filtroIdDesarrollo').value.toUpperCase();
+  let filtroNombre = document.getElementById('filtroNombre').value.toUpperCase();
+  let filtroCedula = document.getElementById('filtroCedula').value.toUpperCase();
+  let filtroFechaInicio = document.getElementById('filtroFechaInicio').value.toUpperCase();
+  let filtroFechaFin = document.getElementById('filtroFechaFin').value.toUpperCase();
+  let filtroObjeto = document.getElementById('filtroObjeto').value.toUpperCase();
+
+  let tabla = document.getElementById('contratolistar');
+  let filas = tabla.getElementsByTagName('tr');
+
+  for (let i = 0; i < filas.length; i++) {
+      let celdas = filas[i].getElementsByTagName('td');
+      let mostrarFila = true;
+
+      if (filtroIdContrato !== '' && celdas[0]) {
+          mostrarFila = mostrarFila && celdas[0].textContent.toUpperCase().includes(filtroIdContrato);
+      }
+
+      if (filtroIdDesarrollo !== '' && celdas[1]) {
+          mostrarFila = mostrarFila && celdas[1].textContent.toUpperCase().includes(filtroIdDesarrollo);
+      }
+
+      if (filtroNombre !== '' && celdas[2]) {
+          mostrarFila = mostrarFila && celdas[2].textContent.toUpperCase().includes(filtroNombre);
+      }
+
+      if (filtroCedula !== '' && celdas[3]) {
+          mostrarFila = mostrarFila && celdas[3].textContent.toUpperCase().includes(filtroCedula);
+      }
+
+      if (filtroFechaInicio !== '' && celdas[4]) {
+          mostrarFila = mostrarFila && celdas[4].textContent.toUpperCase().includes(filtroFechaInicio);
+      }
+
+      if (filtroFechaFin !== '' && celdas[5]) {
+          mostrarFila = mostrarFila && celdas[5].textContent.toUpperCase().includes(filtroFechaFin);
+      }
+
+      if (filtroObjeto !== '' && celdas[6]) {
+          mostrarFila = mostrarFila && celdas[6].textContent.toUpperCase().includes(filtroObjeto);
+      }
+
+      if (mostrarFila) {
+          filas[i].style.display = '';
+      } else {
+          filas[i].style.display = 'none';
+      }
+  }
+}
+
+// Agrega el evento a todos los campos de filtro
+let filtros = document.querySelectorAll('.form-control');
+for (let i = 0; i < filtros.length; i++) {
+  filtros[i].addEventListener('input', filtrarTabla);
+}
+  </script>
   
   {% endblock %}

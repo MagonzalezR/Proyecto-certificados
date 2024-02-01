@@ -74,7 +74,7 @@ function agregarElemento(tipo) {
                         <button type="button" class=" btn-close col-lg-2 " aria-label="Close" onclick="eliminarElemento(this)"></button>
                     </div>
                   </div>`;
-                  container.appendChild(elementoContainer);
+        container.appendChild(elementoContainer);
     }
 }
 
