@@ -110,13 +110,3 @@ $("#cerrarModal").click(function () {
     $("#miModal").hide();
 });
 
-function confirmarEliminar() {
-    let confirmacion = confirm("¿Estás seguro de que deseas eliminar este contrato?");
-
-    if (confirmacion) {
-
-        alert("Elemento eliminado");
-    } else {
-        alert("Eliminación cancelada");
-    }
-}
