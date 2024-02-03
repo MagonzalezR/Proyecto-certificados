@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth.account',
     "crispy_forms",
     "crispy_bootstrap5",
+    "rest_framework"
 ]
 
 
@@ -128,6 +129,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Bogota'
+
+DATE_INPUT_FORMATS = ['%d-%m-%Y', '%m/%d/%Y']
 
 USE_I18N = True
 

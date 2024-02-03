@@ -28,3 +28,8 @@ urlpatterns = [
     path("", RedirectView.as_view(url=reverse_lazy('generador:generar_contrato')))
     
 ] + static(settings.STATIC_URL, document_root=settings.BASE_DIR)
+
+urlpatterns += [
+    # API base url
+    path("api/", include("certificados.api_router", namespace="api")),
+]
