@@ -4,109 +4,119 @@
 {% block content %}
 <div class="row m-5 justify-content-center  ">
 
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4" >
-        <div >
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4">
+        <div>
             <h3>Bienvenido al módulo de generación de certificados</h3>
             <p>Por favor, ingrese sus datos para consultar los certificados asociados a su cédula y correo electrónico
                 proporcionado en su contrato laboral.</p>
-            </div>
-            <form action="#" method="get">
-                <div class="mb-3 row">
-                    <label for="Name" class="col-sm-2 col-form-label">Correo</label>
-                    <input type="text" class="form-control" id="Name" placeholder="Nombre"
-                    required>
-                </div>
-                <div class="mb-3 row">
-                    <label for="Cedula" class="col-sm-2 col-form-label">Cedula</label>
-                    <input type="text" pattern="^\d{6,11}$" class="form-control" id="Cedula" placeholder="123456789" required>
-                </div>  
-                
-                <div class="row justify-content-end">
-                      <input type="button" class=" ml-4 form-control btn btn-primary justify-content-end " style="max-width: 150px;" value="Buscar">
-                </div>
-                
-            </form> 
         </div>
-        <div class="col-lg-8 mt-5 ">
-            <h2>Resultados</h2>
-                <div class="col-lg-5 ">
-                    <label for="filtroInput">Filtro</label>
-                    <input type="text" class="form-control" id="filtroInput" placeholder="">
-                    
-                </div>
-                <div>
-                    <table class="table table-striped table-bordered mt-4 border border-dark" id="tableuser">
-                        <thead class="">
-                            <tr>
-                                <th>Nombre</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium velit beatae optio quod at voluptate ducimus minima blanditiis, explicabo illum natus, deserunt, tempore eligendi fugiat possimus ex consequuntur corporis molestias.
-                                </td>
-                                <td style="width: 100px;">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
-                                        class="ico"></ion-icon></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    ACTA DE REUNIÓN, Código: GI-FR-010, Versión: 03, Aprobación: 21/03/2017
-                                </td>
-                                <td style="width: 100px;">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
-                                        class="ico"></ion-icon></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    FORMATO PROPUESTA IDEXUD, Código: EPS - PR - 001 - FR-001, Versión: 03, Aprobación: 08/10/2018
-                                </td>
-                                <td style="width: 100px;">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
-                                        class="ico"></ion-icon></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    FORMATO DE SOLICITUD DE MODIFICACION DE PRESUPUESTO DEL PROYECTO Código: EPS-PR-003-FR-025 Versión: 02, Aprobación: 03/11/2016
-                                </td>
-                                <td style="width: 100px;">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
-                                        class="ico"></ion-icon></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <form action="#" method="get">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label for="Name" class="col-sm-2 col-form-label">Nombre</label>
+                <input type="text" class="form-control" id="Nameconsultor" placeholder="Nombre" required>
+            </div>
+            <div class="mb-3 row">
+                <label for="Cedula" class="col-sm-2 col-form-label">Cedula</label>
+                <input type="text" pattern="^\d{6,11}$" class="form-control" id="Cedula" placeholder="123456789"
+                    required>
+            </div>
+
+            <div class="row justify-content-end">
+                <input type="button" class=" ml-4 form-control btn btn-primary justify-content-end "
+                    style="max-width: 150px;" value="buscar" onclick="buscar()">
+            </div>
+
+        </form>
+    </div>
+    <div class="col-lg-8 mt-5 ">
+        <h2>Resultados</h2>
+        <div class="col-lg-5 ">
+            <label for="filtroInput">Filtro</label>
+            <input type="text" class="form-control" id="filtroInput" placeholder="">
+
+        </div>
+        <div>
+            <table class="table table-striped table-bordered mt-4 border border-dark" id="tableuser">
+                <thead class="">
+                    <tr>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium velit beatae optio quod
+                            at voluptate ducimus minima blanditiis, explicabo illum natus, deserunt, tempore eligendi
+                            fugiat possimus ex consequuntur corporis molestias.
+                        </td>
+                        <td style="width: 100px;">
+                            <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon
+                                    name="download-outline" class="ico"></ion-icon></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <script>
-        document.getElementById('filtroInput').addEventListener('input', function () {
-          filtrarTabla();
-        });
-    
-        function filtrarTabla() {
-          var input, filtro, tabla, filas, celdas, textoValor;
-          input = document.getElementById('filtroInput');
-          filtro = input.value.toUpperCase();
-          tabla = document.getElementById('tableuser');
-          filas = tabla.getElementsByTagName('tr');
-    
-          for (var i = 0; i < filas.length; i++) {
+</div>
+<script>
+    document.getElementById('filtroInput').addEventListener('input', function () {
+        filtrarTabla();
+    });
+
+    function filtrarTabla() {
+        var input, filtro, tabla, filas, celdas, textoValor;
+        input = document.getElementById('filtroInput');
+        filtro = input.value.toUpperCase();
+        tabla = document.getElementById('tableuser');
+        filas = tabla.getElementsByTagName('tr');
+
+        for (var i = 0; i < filas.length; i++) {
             celdas = filas[i].getElementsByTagName('td');
             for (var j = 0; j < celdas.length; j++) {
-              textoValor = celdas[j].textContent || celdas[j].innerText;
-              if (textoValor.toUpperCase().indexOf(filtro) > -1) {
-                filas[i].style.display = '';
-                break;
-              } else {
-                filas[i].style.display = 'none';
-              }
+                textoValor = celdas[j].textContent || celdas[j].innerText;
+                if (textoValor.toUpperCase().indexOf(filtro) > -1) {
+                    filas[i].style.display = '';
+                    break;
+                } else {
+                    filas[i].style.display = 'none';
+                }
             }
-          }
         }
-      </script>
+    }
+</script>
+<script>
+    function buscar() {
+        let urlPatch = "{% url 'api:contrato_api' %}";
+        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        let username = "admin";  // Replace with your actual username
+        let password = "admin";  // Replace with your actual password
+
+        $.ajax({
+            url: urlPatch,
+            type: 'get',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+            },
+            success: function (response) {
+                console.log(response);
+                const busquedaDataNotificacion = response.filter((x) => {
+
+                    return (
+                        (x?.nombreConsultor?.toLowerCase()?.includes(document.getElementById('Nameconsultor').value) &&
+                            x?.cedula?.toLowerCase()?.includes(document.getElementById('Cedula').value))
+                    );
+                });
+                console.log(busquedaDataNotificacion)
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+
 {% endblock %}
