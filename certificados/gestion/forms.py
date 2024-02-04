@@ -54,7 +54,7 @@ class ContratoForm(forms.ModelForm):
             "valorContrato": "Valor del contrato",
             "fechaTerminacion": "Fecha de terminación del contrato",
             "objeto": "Objeto",
-            "esSesion": "¿Es de sesión?",
+            "esSesion": "¿Es de cesión?",
             "observaciones": "Observaciones",
 
         }
