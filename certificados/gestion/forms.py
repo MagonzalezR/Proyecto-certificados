@@ -58,3 +58,32 @@ class ContratoForm(forms.ModelForm):
             "observaciones": "Observaciones",
 
         }
+
+
+class OtrosiForm(forms.ModelForm):
+    class Meta:
+        model = Otrosi
+
+        fields = [
+            "valorAdicion",
+            "prorroga",
+            "fechaTerminacionOtrosi",
+            "observaciones",
+        ]
+
+        widgets = {
+            "valorAdicion": forms.NumberInput(),
+            "prorroga": forms.NumberInput(),
+            "fechaTerminacionOtrosi": forms.DateInput(attrs={'class': 'form-control',
+                                                             'placeholder': 'Select a date',
+                                                             'type': 'date'
+                                                             }),
+            "observaciones": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
+        }
+
+        labels = {
+            "valorAdicion": "Valor de la adición",
+            "prorroga": "Tiempo de la prorroga (en meses)",
+            "fechaTerminacionOtrosi": "Fecha de terminación de la adición",
+            "observaciones": "Observaciones",
+        }
