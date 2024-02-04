@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'allauth.account',
     "crispy_forms",
     "crispy_bootstrap5",
-    "rest_framework"
+    "rest_framework",
+    'wkhtmltopdf',
 ]
 
 

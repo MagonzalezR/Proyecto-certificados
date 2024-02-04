@@ -46,6 +46,6 @@ class Otrosi(models.Model):
     valorAcumulado = models.PositiveIntegerField(_("Prorroga (en meses)"))
     contratoId = models.ForeignKey(Contrato, on_delete = models.CASCADE, null = True)
     actividades = ArrayField(models.CharField(max_length=600))
-    observaciones = models.CharField(_("Observaciones"), max_length=300, null = True, blank = True)
+    observaciones = models.CharField(_("Observaciones"), max_length=600, null = True, blank = True)
     deleted = models.BooleanField(default=False)
     
