@@ -13,6 +13,6 @@ urlpatterns = [
      path("contrato/listar",view = contratolistar_detail_view, name = 'contratos_listar'),
      path("contrato/crear",view = contrato_create_view, name = 'contrato_crear'),
      path("contrato/editar/<int:pk>",view = contrato_update_view, name = 'contrato_editar'),
-     path("listar/modal",view = EditarModal_detail_view, name = 'editar_modal')
+     path("listar/modal/<int:pk>",view = EditarModal_detail_view, name = 'editar_modal')
 ]
 

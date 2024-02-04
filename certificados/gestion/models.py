@@ -35,7 +35,7 @@ class Contrato(models.Model):
 
     def __str__(self):
         """Retorna el identificador del contrato"""
-        return self.idContrato
+        return self.idContrato + " - " +str(self.id)
 
 class Otrosi(models.Model):
     """Modelo de Otrosis"""
@@ -45,7 +45,7 @@ class Otrosi(models.Model):
     fechaTerminacionOtrosi = models.DateField(_("Fecha de terminación del otrosi"))
     valorAcumulado = models.PositiveIntegerField(_("Prorroga (en meses)"))
     contratoId = models.ForeignKey(Contrato, on_delete = models.CASCADE, null = True)
-    actividades = ArrayField(models.CharField(max_length=300))
+    actividades = ArrayField(models.CharField(max_length=600))
     observaciones = models.CharField(_("Observaciones"), max_length=300, null = True, blank = True)
     deleted = models.BooleanField(default=False)
     

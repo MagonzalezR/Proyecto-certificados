@@ -54,7 +54,10 @@
 
   </div>
 </div>
-
+<form method="post">
+  {% csrf_token %}
+  <!-- Tus campos de formulario aquí -->
+</form>
 {% comment %} <div class="col-md-4"> {% endcomment %}
   <div style="margin: 90px;">
     <div class="table-responsive mt-3 col-lg-12">
@@ -72,7 +75,9 @@
           </tr>
         </thead>
         <tbody>
+          
           {% for contrato in object_list %}
+          {% if not contrato.deleted %}
           <tr>
             <td>{{ contrato.idContrato }}</td>
             <td>{{ contrato.idDesarrollo }}</td>
@@ -88,16 +93,18 @@
                       class="ico"></ion-icon>
                   </button>
                 </a>
-                <button class="btn btn-outline-secondary btn-sm" type="button" onclick="confirmarEliminar()"><ion-icon
-                    name="trash-outline" class="ico"></ion-icon></button>
+                <button class="btn btn-outline-secondary btn-sm" type="button"
+                  onclick="confirmarEliminar({{ contrato.id }})"><ion-icon name="trash-outline"
+                    class="ico"></ion-icon></button>
                 <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline"
                     class="ico"></ion-icon></button>
                 <button class="btn btn-outline-secondary btn-sm" type="button"
-                  onclick="abrir_modal_edicion(`{% url 'gestion:editar_modal' %}`)"><ion-icon name="add-circle-outline"
+                  onclick="abrir_modal_edicion(`{% url 'gestion:editar_modal' contrato.id %}`)"><ion-icon name="add-circle-outline"
                     class="ico"></ion-icon></button>
               </div>
             </td>
           </tr>
+          {% endif %}
           {% endfor %}
 
         </tbody>
@@ -174,6 +181,40 @@
     for (let i = 0; i < filtros.length; i++) {
       filtros[i].addEventListener('input', filtrarTabla);
     }
+
+    //funcion para eliminar los contratos
+
+    function confirmarEliminar(id) {
+      let confirmacion = confirm("¿Estás seguro de que deseas eliminar este contrato?");
+
+      if (confirmacion) {
+        let urlPatch = "{% url 'api:contrato_api' %}"
+        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+          url: urlPatch,  
+          type: 'PATCH',
+          data: {
+            'id': id,  
+            'deleted': true
+          },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          },
+          success: function (response) {
+            console.log(response);
+            location.reload()
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+        alert("Elemento eliminado");
+      } else {
+        alert("Eliminación cancelada");
+      }
+    }
+
   </script>
 
   {% endblock %}

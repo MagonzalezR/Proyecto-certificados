@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from gestion.models import Contrato
-from .forms import ContratoForm
+from gestion.models import Contrato, Otrosi
+from .forms import ContratoForm, OtrosiForm
 from django.views.generic import (
     ListView,
     TemplateView,
@@ -64,7 +64,33 @@ class ContratoListar(LoginRequiredMixin, ListView):
 contratolistar_detail_view = ContratoListar.as_view()
 
 
-class EditarModal(LoginRequiredMixin, TemplateView):
+class EditarModal(LoginRequiredMixin, CreateView):
     template_name="modals/editar_modal.html"
+    model = Otrosi
+    form_class = OtrosiForm
+    template_name = "modals/editar_modal.html"
+    success_url = reverse_lazy("gestion:contratos_listar")
+    
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        contrato = Contrato.objects.get(id = self.kwargs["pk"] )
+        context["pk"] = self.kwargs["pk"]
+        context["actividades"] = contrato.actividades
+        return context
+        
+    def form_valid(self, form):
+        contrato = Contrato.objects.get(id = self.kwargs["pk"] )
+        actividades_objs = [self.request.POST.get(k) for k in self.request.POST.keys() if k.startswith('actividad')]
+        otrosisAnteriores = Otrosi.objects.filter(contratoId = contrato)
+        total = contrato.valorContrato + form.instance.valorAdicion
+        for otrosi in otrosisAnteriores:
+            total = total+ otrosi.valorAdicion
+        # form.instance.actividadesIds = actividades_objs
+        otrosiSave = form.save(commit=False)  # Guardar la instancia del modelo otrosiSave
+        otrosiSave.actividades = actividades_objs
+        otrosiSave.valorAcumulado = total
+        otrosiSave.contratoId=contrato
+        otrosiSave.save()
+        return super().form_valid(form)
 
 EditarModal_detail_view = EditarModal.as_view()
