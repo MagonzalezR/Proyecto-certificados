@@ -40,7 +40,7 @@ class ContratoForm(forms.ModelForm):
                                                        'type': 'date'
                                                        }),
             "objeto": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
-            "esSesion": forms.Select(choices=((True, "Si"), (False, "No")), attrs={"class": "form-control"}),
+            "esSesion": forms.Select(choices=((False, "No"), (True, "Si")) , attrs={"class": "form-control","onchange":"mostrar()"}),
             "observaciones": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
         }
         labels = {

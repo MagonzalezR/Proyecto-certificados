@@ -70,8 +70,18 @@
         <div class="p-3 bg-white">
           {{ form.esSesion |as_crispy_field}}
         </div>
-
+         <div class="p-3 bg-white "id="camposContainer">
+          {% comment %} <div class="div-mostrar" style="display: none;">
+            <label for="idContratocesion">ID contrato</label>
+            <input class="form-control textinput " type="text" name="idContrato" id="idContratocesion">
+            <label for="datecesion">Fecha de cesion</label>
+            <input class="form-control textinput " type="date" name="datecesion" id="datecesion">
+            <label for="idContratocesion">Nombre de cesion</label>
+            <input class="form-control textinput " type="text" name="Nombresesion" id="Nombresesion">
+          </div> {% endcomment %}
+        </div> 
       </div>
+
 
       <!-- Columna para Actividades -->
       <div class="col-lg-12 border border-4 rounded">
@@ -125,5 +135,28 @@
       element.setAttribute("name", element.getAttribute("name") + (contadorCamposA++).toString())
     });
   });
+</script>
+
+<script>
+  function mostrar(){
+    let idsesion = document.getElementById('id_esSesion').value;
+    let camposContainer = document.getElementById('camposContainer');
+    if(idsesion=='True'){
+      let nuevoDiv = document.createElement('div');
+        nuevoDiv.className = '';
+        nuevoDiv.innerHTML = `
+        <label for="idContratocesion">ID contrato</label>
+        <input class="form-control textinput " type="text" name="idContrato" id="idContratocesion">
+        <label for="datecesion">Fecha de cesion</label>
+        <input class="form-control textinput " type="date" name="datecesion" id="datecesion">
+        <label for="idContratocesion">Nombre de cesion</label>
+        <input class="form-control textinput " type="text" name="Nombresesion" id="Nombresesion">
+    `;
+    camposContainer.appendChild(nuevoDiv);
+  }else{
+    let ultimoDiv = camposContainer.lastChild;
+    camposContainer.removeChild(ultimoDiv);
+}
+  }
 </script>
 {% endblock %}
