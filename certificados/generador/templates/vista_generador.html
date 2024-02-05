@@ -101,15 +101,17 @@
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
             },
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 const busquedaDataNotificacion = response.filter((x) => {
-
+                    const nombreCons = document.getElementById('Nameconsultor').value
+                    const cedulaCons = document.getElementById('Cedula').value
+                    console.log(nombreCons)
                     return (
-                        (x?.nombreConsultor?.toLowerCase()?.includes(document.getElementById('Nameconsultor').value) &&
-                            x?.cedula?.toLowerCase()?.includes(document.getElementById('Cedula').value))
+                        (nombreCons ? x.nombreConsultor?.toLowerCase()?.includes(nombreCons) : true) &&
+                        (cedulaCons ? x?.cedula?.toLowerCase()?.includes() : true)
                     );
                 });
-                console.log(busquedaDataNotificacion)
+                console.log(busquedaDataNotificacion) //La variable en la que estan los datos 
 
             },
             error: function (error) {
