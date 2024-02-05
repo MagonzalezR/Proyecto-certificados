@@ -178,7 +178,10 @@
 
                     // Agrega la celda del botón en la misma fila
                     var celdaBoton = fila.insertCell(1);
-                    celdaBoton.innerHTML = '<button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>';
+                    celdaBoton.innerHTML = `
+                    <a href="./PDF/${elemento.id}">
+                        <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
+                    </a>`;
                 });
 
             },

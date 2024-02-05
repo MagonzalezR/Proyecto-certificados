@@ -10,4 +10,4 @@ class ContratoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Contrato
-        exclude = ("id",)
+        fields = '__all__'

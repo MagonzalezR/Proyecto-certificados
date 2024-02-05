@@ -18,18 +18,33 @@
         </div>
 
         <span>Que revisadas las bases de datos que reposan en los archivos del <strong>IDEXUD</strong>, se encuentra que el señor            
-            <strong>JHESHUA DANNAND JARED LAROTA ALFÉREZ</strong>, identificado con cédula de ciudadanía <strong>No. 1.015.426.179 
-            de Bogotá DC.</strong>, suscribió con esta entidad las Órdenes y/o Contratos de Prestación de Servicios, que a 
+            <strong>{{contrato.nombreConsultor}}</strong>, identificado con cédula de ciudadanía <strong>No. {{cedula}}</strong>, suscribió con esta entidad las Órdenes y/o Contratos de Prestación de Servicios, que a 
             continuación se relacionan:</span>
             <table style="margin-top: 40px;">
                 <tr>
                     
-                    <td><strong>CONTRATO DE PRESTACIÓN DE SERVICIOS:</strong></td>
+                    <td><strong>
+                        {% if contrato.tipoContrato == "1" %}
+                        CONTRATO INDEFINIDO:
+                        {% elif contrato.tipoContrato == "2" %}
+                        CONTRATO POR OBRA O LABOR
+                        {% elif contrato.tipoContrato == "3" %}
+                        CONTRATO EVENTUAL
+                        {% elif contrato.tipoContrato == "4" %}
+                        CONTRATO DE INTERINIDAD
+                        {% elif contrato.tipoContrato == "5" %}
+                        CONTRATO DE RELEVO
+                        {% elif contrato.tipoContrato == "6" %}
+                        CONTRATO DE FORMACIÓN Y APRENDIZAJE
+                        {% elif contrato.tipoContrato == "7" %}
+                        CONTRATO DE PRÁCTICAS
+                        {% endif %}
+                    </strong></td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td style="text-align: start">1315 I -2022 </td>
+                    <td style="text-align: start">{{contrato.idContrato}}</td>
                 </tr>
                 <tr>
                     <td><strong>EN DESARROLLO DEL CONTRATO:</strong></td>
@@ -37,7 +52,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td >104-2022</td>
+                    <td >{{contrato.idDesarrollo}}</td>
                 </tr>
                 <tr>
                     <td>FECHA DE SUSCRIPCIÓN: </td>
@@ -45,7 +60,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td >02 de junio de 2022 </td>
+                    <td >{{contrato.fechaSuscripcion}} </td>
                 </tr>
                 <tr>
                     <td>FECHA ACTA DE INICIO:</td>
@@ -53,7 +68,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td >07 de junio de 2022 </td>
+                    <td >{{contrato.fechaInicio}}</td>
                 </tr>
                 <tr>
                     <td>VALOR CONTRATADO</td>
@@ -61,7 +76,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td >$35.000. 000.oo M/cte.</td>
+                    <td >{{ valorC }}</td>
                 </tr>
                 <tr>
                     <td>DURACIÓN:</td>
@@ -69,7 +84,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td >Siete (07) meses   </td>
+                    <td >({{DifFechas.months}}) meses   </td>
                 </tr>
                 <tr>
                     <td>FECHA DE TERMINACIÓN:</td>
@@ -77,60 +92,28 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td >31 de diciembre de 2022 </td>
+                    <td >{{contrato.fechaTerminacion}}</td>
                 </tr>
             </table>
             <div style="margin-top: 15px;">
-            <span><strong>OBJETO:</strong> PRESTAR SERVICIOS PROFESIONALES DE MANERA AUTÓNOMA E INDEPENDIENTE 
-                COMO INGENIERO DE SOPORTE, EN EL MARCO DEL CONTRATO DE PRESTACIÓN DE SERVICIOS 
-                NO. 104 DE 2022 SUSCRITO ENTRE LA COMISIÓN NACIONAL DEL SERVICIO CIVIL-CNSC Y LA 
-                UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS, de acuerdo con la propuesta de servicios 
-                que forma parte integral del presente contrato. </span>
+            <span><strong>OBJETO:</strong> {{contrato.objeto}}</span>
             </div>
             <div style="margin-top: 15px;">
             <span><strong>Actividades:</strong></span>
                 <div style="margin-top: 20px; ">
                     <table>
+                        {% for actividad in contrato.actividades %}
                         <tr>
-                            <td><strong>1.&nbsp;&nbsp;</strong></td>
-                            <td>Elaborar los informes y reportes requeridos sobre el desempeño de la infraestructura de servicios que 
-                                forma parte integral de presente contrato.</td>
+                            <td><strong>{{forloop.counter}}&nbsp;&nbsp;</strong></td>
+                            <td>{{actividad}}</td>
                         </tr>
-                        <tr>
-                            <td><strong>2.&nbsp;&nbsp;</strong></td>
-                            <td>Elaborar los informes y reportes requeridos sobre el desempeño de la infraestructura de servicios que 
-                                forma parte integral de presente contrato.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3.&nbsp;&nbsp;</strong></td>
-                            <td>Elaborar los informes y reportes requeridos sobre el desempeño de la infraestructura de servicios que 
-                                forma parte integral de presente contrato.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4.&nbsp;&nbsp;</strong></td>
-                            <td>Elaborar los informes y reportes requeridos sobre el desempeño de la infraestructura de servicios que 
-                                forma parte integral de presente contrato.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4.&nbsp;&nbsp;</strong></td>
-                            <td>Elaborar los informes y reportes requeridos sobre el desempeño de la infraestructura de servicios que 
-                                forma parte integral de presente contrato.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4.&nbsp;&nbsp;</strong></td>
-                            <td>Elaborar los informes y reportes requeridos sobre el desempeño de la infraestructura de servicios que 
-                                forma parte integral de presente contrato.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4.&nbsp;&nbsp;</strong></td>
-                            <td>Elaborar los informes y reportes requeridos sobre el desempeño de la infraestructura de servicios que 
-                                forma parte integral de presente contrato.</td>
-                        </tr>
+                        {% endfor%}
                     </table>
                     <table style="margin-top: 30px;">
+                        {% for otrosi in otrosis %}
                         <tr>
                             
-                            <td><strong>OTROS SI</strong></td>
+                            <td><strong>OTROS SI # {{forloop.counter}}</strong></td>
                         </tr>
                         <tr>
                             <td>ADICIÓN:</td>
@@ -138,7 +121,7 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>$2.200. 000.oo M/cte.</td>
+                            <td>${{otrosi.valorAdicion}} M/cte.</td>
                         </tr>
                         <tr>
                             <td>VALOR TOTAL DEL CONTRATO: </td>
@@ -146,7 +129,7 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td >$18.798. 633.oo M/cte. </td> <!-- este es el valo que se debe calcular como la suma de la adicion y el valor del contrato-->
+                            <td >${{otrosi.valorAcumulado}} M/cte. </td> <!-- este es el valo que se debe calcular como la suma de la adicion y el valor del contrato-->
                         </tr>
                         <tr>
                             <td>PRÓRROGA:</td>
@@ -154,7 +137,7 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td >Treinta (30) días</td>
+                            <td >({{ otrosi.prorroga }}) meses</td>
                         </tr>
                         <tr>
                             <td>FECHA DE TERMINACIÓN:</td>
@@ -162,19 +145,39 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td >30 de enero de 2018 </td>
+                            <td >{{ otrosi.fechaTerminacionOtrosi }} </td>
                         </tr>
+                        
+                        <tr>
+                            <td>Actividades</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        {% for actividad in otrosi.actividades %}
+                        <tr>
+                            <td><strong>{{forloop.counter}}</strong></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>{{actividad}}</td>
+                        </tr>
+                        {% endfor%}
+                        {% endfor%}
                     </table>
                 </div>
                 <div style="margin-top: 10px;">
                 <span >
-                    <strong>Observacion: </strong>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil corrupti ea velit blanditiis? Alias, quae ducimus, libero dolore illo maxime tempore culpa fuga cupiditate ratione suscipit quam quidem impedit sint.
-                </span>
+                    <strong>Observacion: </strong>{% if contrato.observaciones %}{{contrato.observaciones}}{% endif %}
                 </div>
                 <div style="margin-top: 10px;">
+                    {% if contrato.esSesion %}
                 <span >
-                    <strong>Cesion: </strong>N° 1 del contrato de PRESTACIÓN DE SERVICIOS N° 551 - 2021. Fecha de la cesión: 01/09/2021
+                    <strong>Cesion: </strong>{{contrato.infoSesion}}. Fecha de la cesión: {{contrato.fechaSesion}}
                 </span>
+                {% endif %}
                 <div style="margin-top: 10px;">
                 <span >
                     <strong> <p id="fecha_actual"></strong>
