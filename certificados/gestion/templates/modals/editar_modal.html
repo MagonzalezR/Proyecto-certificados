@@ -30,7 +30,7 @@
               {% for actividad in actividades %}
               <div class="col-lg-12 d-flex flex-column mb-2">
                   <div>
-                    <textarea name="actividad{{idAc}}" required class="form-control"
+                    <textarea name="actividad{{forloop.counter}}" required class="form-control"
                     id="id_actividades" rows="4">{{actividad}}</textarea>
                     <button type="button" class=" btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
                 </div>
