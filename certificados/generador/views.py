@@ -36,7 +36,7 @@ class PDFGeneratorView(DetailView):
                                        footer_template=self.footer_template,
                                        filename="Contrato-"+contrato.idContrato+"-"+contrato.nombreConsultor+"-"+contrato.fechaInicio.strftime("%Y %m %d")+".pdf",
                                        context=context,
-                                       show_content_in_browser=False,
+                                       show_content_in_browser=True,
                                        )
         return response
 
