@@ -14,16 +14,16 @@
             {% csrf_token %}
             <div class="mb-3 row">
                 <label for="Name" class="col-sm-2 col-form-label">Nombre</label>
-                <input type="text" class="form-control" id="Nameconsultor" placeholder="Nombre" required>
+                <input type="text" class="form-control" id="Nameconsultor" placeholder="Nombre y apellido" required>
             </div>
             <div class="mb-3 row">
                 <label for="Cedula" class="col-sm-2 col-form-label">Cedula</label>
-                <input type="text" pattern="^\d{6,11}$" class="form-control" id="Cedula" placeholder="123456789"
+                <input type="text" class="form-control" id="Cedula" placeholder="123456789"
                     required>
             </div>
 
             <div class="row justify-content-end">
-                <input type="button" class=" ml-4 form-control btn btn-primary justify-content-end "
+                <input type="button" id="btnBuscar" class=" ml-4 form-control btn btn-primary justify-content-end "
                     style="max-width: 150px;" value="buscar" onclick="buscar()">
             </div>
 
@@ -39,15 +39,12 @@
             <table class="table table-striped table-bordered mt-4 border border-dark" id="tableuser">
                 <thead class="">
                     <tr>
-                        <th>Nombre</th>
+                        <th>Contratos encontrados</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr style="display: none;">
                         <td>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium velit beatae optio quod
-                            at voluptate ducimus minima blanditiis, explicabo illum natus, deserunt, tempore eligendi
-                            fugiat possimus ex consequuntur corporis molestias.
                         </td>
                         <td style="width: 100px;">
                             <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon
@@ -85,7 +82,7 @@
         }
     }
 </script>
-<script>
+{% comment %} <script>
     function buscar() {
         let urlPatch = "{% url 'api:contrato_api' %}";
         let csrftoken = $('[name=csrfmiddlewaretoken]').val();
@@ -118,6 +115,90 @@
             }
         });
     }
+</script> {% endcomment %}
+
+<script>
+    // ...
+
+    function habilitarBoton() {
+        var nombre = document.getElementById('Nameconsultor').value.trim();
+        var cedula = document.getElementById('Cedula').value.trim();
+        var botonBuscar = document.getElementById('btnBuscar');
+
+        botonBuscar.disabled = !(nombre && cedula);
+    }
+
+    function buscar() {
+        var nombreCons = document.getElementById('Nameconsultor').value.trim();
+        var cedulaCons = document.getElementById('Cedula').value.trim();
+
+        // Validar que ambos campos estén diligenciados
+        if (!nombreCons || !cedulaCons) {
+            alert("Por favor, diligencie tanto el campo de nombre como el de cédula.");
+            return;
+        }
+
+        let urlPatch = "{% url 'api:contrato_api' %}";
+        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
+        let username = "admin";  // Replace with your actual username
+        let password = "admin";  // Replace with your actual password
+
+        $.ajax({
+            url: urlPatch,
+            type: 'get',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+            },
+            success: function (response) {
+                const cedulasEnApi = response.map(x => x.cedula.toLowerCase().trim());
+
+                // Validar que la cédula ingresada esté exactamente en la lista de cédulas de la API
+                if (!cedulasEnApi.includes(cedulaCons.toLowerCase())) {
+                    alert(`La cédula ${cedulaCons} ingresada no coincide con ninguna registrada.`);
+                    return;
+                }
+
+                const busquedaDataNotificacion = response.filter((x) => {
+                    return (
+                        (nombreCons ? x.nombreConsultor?.toLowerCase()?.includes(nombreCons.toLowerCase()) : true) &&
+                        (cedulaCons ? x?.cedula?.toLowerCase()?.includes(cedulaCons.toLowerCase()) : true)
+                    );
+                });
+
+                // Limpia la tabla antes de agregar nuevos resultados
+                var tabla = document.getElementById("tableuser").getElementsByTagName('tbody')[0];
+                tabla.innerHTML = "";
+
+                // Itera sobre los resultados y agrega filas solo si coinciden nombre y cédula
+                busquedaDataNotificacion.forEach(function (elemento) {
+                    var fila = tabla.insertRow();
+                    var celda = fila.insertCell(0);
+                    celda.textContent = `${elemento.idContrato} - ${elemento.nombreConsultor} - ${elemento.fechaInicio}`;
+
+                    // Agrega la celda del botón en la misma fila
+                    var celdaBoton = fila.insertCell(1);
+                    celdaBoton.innerHTML = '<button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>';
+                });
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 </script>
+
+
+
+<script>
+    // Deshabilita el botón de búsqueda al cargar la página
+    document.getElementById('btnBuscar').disabled = true;
+
+    // Habilita/deshabilita el botón al cambiar los valores de los campos de nombre y cédula
+    document.getElementById('Nameconsultor').addEventListener('input', habilitarBoton);
+    document.getElementById('Cedula').addEventListener('input', habilitarBoton);
+</script>
+
 
 {% endblock %}
