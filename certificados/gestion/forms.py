@@ -18,6 +18,8 @@ class ContratoForm(forms.ModelForm):
             "fechaTerminacion",
             "objeto",
             "esSesion",
+            "fechaSesion",
+            "infoSesion",
             "observaciones"
         ]
         widgets = {
@@ -41,6 +43,11 @@ class ContratoForm(forms.ModelForm):
                                                        }),
             "objeto": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
             "esSesion": forms.Select(choices=((False, "No"), (True, "Si")) , attrs={"class": "form-control","onchange":"mostrar()"}),
+            "fechaSesion": forms.DateInput(attrs={'class': 'form-control',
+                                                       'placeholder': 'Select a date',
+                                                       'type': 'date'
+                                                       }),
+            "infoSesion": forms.TextInput(attrs={"class": "form-control"}),
             "observaciones": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
         }
         labels = {
@@ -55,6 +62,8 @@ class ContratoForm(forms.ModelForm):
             "fechaTerminacion": "Fecha de terminación del contrato",
             "objeto": "Objeto",
             "esSesion": "¿Es de cesión?",
+            "fechaSesion": "Fecha de la cesión",
+            "infoSesion": "Información de cesión",
             "observaciones": "Observaciones",
 
         }

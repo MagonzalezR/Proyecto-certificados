@@ -64,12 +64,13 @@ class ContratoListar(LoginRequiredMixin, ListView):
 contratolistar_detail_view = ContratoListar.as_view()
 
 
-class EditarModal(LoginRequiredMixin, CreateView):
+class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     template_name="modals/editar_modal.html"
     model = Otrosi
     form_class = OtrosiForm
     template_name = "modals/editar_modal.html"
     success_url = reverse_lazy("gestion:contratos_listar")
+    success_message = "El otrosi fue agregado correctamente"
     
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
