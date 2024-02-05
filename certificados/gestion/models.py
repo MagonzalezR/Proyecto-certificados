@@ -4,13 +4,13 @@ from django.utils.translation import gettext_lazy as _
 
 # Tipos estaticos
 TIPOS_CONTRATO = (
-    ("1", "Prestación de servicios"),
-    ("2", "Termino indefinido"),
-    ("3", 'Contrato Indefinido'),
-    ("4", 'Contrato Temporal'),
-    ("5", 'Contrato en Prácticas'),
-    ("6", 'Contrato de Formación'),
-    ("7", 'Contrato de prestación de servicios'),
+    ("1", "Contrato Indefinido"),
+    ("2", "Contrato por Obra o Labor"),
+    ("3", 'Contrato Eventual'),
+    ("4", 'Contrato de Interinidad'),
+    ("5", 'Contrato de Relevo'),
+    ("6", 'Contrato de Formación y aprendizaje'),
+    ("7", 'Contrato de Prácticas'),
 )
 
 class Contrato(models.Model):
