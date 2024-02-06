@@ -1,10 +1,8 @@
 {% extends "index.html" %}
-{% load static %}
 {% block title %}{{ "consultar" }}{% endblock %}
 
 {% block content %}
 <div class="row m-5 justify-content-center  ">
-    <img src="{% static 'img/Logo_Vertical_IDEXUD_Final-1-3-1.png' %}" alt="CarloChupapija">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4">
         <div>
             <h3>Bienvenido al módulo de generación de certificados</h3>
@@ -107,15 +105,12 @@
 
         let urlPatch = "{% url 'api:contrato_api' %}";
         let csrftoken = $('[name=csrfmiddlewaretoken]').val();
-        let username = "admin";  // Replace with your actual username
-        let password = "admin";  // Replace with your actual password
 
         $.ajax({
             url: urlPatch,
             type: 'get',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
             },
             success: function (response) {
                 const cedulasEnApi = response.map(x => x.cedula.toLowerCase().trim());
