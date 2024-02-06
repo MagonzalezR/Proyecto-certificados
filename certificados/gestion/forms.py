@@ -23,10 +23,10 @@ class ContratoForm(forms.ModelForm):
             "observaciones"
         ]
         widgets = {
-            "idContrato": forms.TextInput(attrs={"class": "form-control"}),
-            "cedula": forms.TextInput(attrs={"class": "form-control"}),
-            "nombreConsultor": forms.TextInput(attrs={"class": "form-control"}),
-            "idDesarrollo": forms.TextInput(attrs={"class": "form-control"}),
+            "idContrato": forms.TextInput(attrs={"class": "form-control", 'placeholder': '0000 X 20XX'}),
+            "cedula": forms.TextInput(attrs={"class": "form-control", 'placeholder': '123456789', 'pattern':"^\d{6,11}$",'title':'Deben ser números entre 6 y 11 caracteres'}),
+            "nombreConsultor": forms.TextInput(attrs={"class": "form-control",'placeholder': 'Nombre y apellido'}),
+            "idDesarrollo": forms.TextInput(attrs={"class": "form-control",'placeholder': '0000-20XX'}),
             "tipoContrato": forms.Select(attrs={"class": "form-control"}),
             "fechaSuscripcion": forms.DateInput(attrs={'class': 'form-control',
                                                        'type': 'date'
@@ -34,7 +34,7 @@ class ContratoForm(forms.ModelForm):
             "fechaInicio": forms.DateInput(attrs={'class': 'form-control',
                                                   'type': 'date'
                                                   }, format=('%Y-%m-%d')),
-            "valorContrato": forms.NumberInput(),
+            "valorContrato": forms.NumberInput(attrs={'placeholder': '1000111'}),
             "fechaTerminacion": forms.DateInput(attrs={'class': 'form-control',
                                                        'type': 'date'
                                                        }, format=('%Y-%m-%d')),

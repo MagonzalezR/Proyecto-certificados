@@ -2,7 +2,7 @@
 {% block title %}{{ "consultar" }}{% endblock %}
 
 {% block content %}
-<div class="row m-5 justify-content-center  ">
+<div class="row m-5 justify-content-center  " style="margin-top: 120px;">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4">
         <div>
             <h3>Bienvenido al módulo de generación de certificados</h3>
@@ -29,7 +29,7 @@
         </form>
     </div>
     <div class="col-lg-8 mt-5 ">
-        <h2>Resultados</h2>
+        <h4>Resultados</h4>
         <div class="col-lg-5 ">
             <input type="text" class="form-control"style=" border-color: #919191 ;" id="filtroInput" placeholder="Filtro">
 
@@ -39,13 +39,14 @@
                 <thead class="">
                     <tr>
                         <th>Contratos encontrados</th>
+                        <th style="width: 1px;"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr style="display: none;">
                         <td>
                         </td>
-                        <td style="width: 100px;">
+                        <td >
                             <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon
                                     name="download-outline" class="ico"></ion-icon></button>
                         </td>

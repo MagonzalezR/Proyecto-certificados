@@ -56,6 +56,27 @@ function eliminarCampo() {
 
 let contadorCamposA = 0;
 
+// function agregarElemento(tipo) {
+//     var selectElement;
+//     var container;
+
+//     if (tipo === 'actividad') {
+//         selectElement = document.getElementById('actividades');
+//         container = document.getElementById('actividadesContainer');
+
+//         // Crear un contenedor para el elemento con un botón de eliminación
+//         var elementoContainer = document.createElement('div');
+//         elementoContainer.className = 'col-lg-12 d-flex mb-2';
+//         elementoContainer.innerHTML = `
+//                   <div class="col-lg-12 justify-content-between align-items-start mb-2">
+//                     <div class="col-lg-10">
+//                         <textarea name = "actividad${contadorCamposA}" required class="form-control col-lg-10" style="max-width:100%" id="id_actividad${contadorCamposA++}" rows="4"> </textarea>
+//                         <button type="button" class=" btn-close col-lg-2 " aria-label="Close" onclick="eliminarElemento(this)"></button>
+//                     </div>
+//                   </div>`;
+//         container.appendChild(elementoContainer);
+//     }
+// }
 function agregarElemento(tipo) {
     var selectElement;
     var container;
@@ -66,17 +87,27 @@ function agregarElemento(tipo) {
 
         // Crear un contenedor para el elemento con un botón de eliminación
         var elementoContainer = document.createElement('div');
-        elementoContainer.className = 'col-lg-12 d-flex mb-2';
+        elementoContainer.className = 'col-lg-12 col-md-12 col-sm-12 d-flex mb-2';
         elementoContainer.innerHTML = `
-                  <div class="col-lg-12 justify-content-between align-items-start mb-2">
-                    <div class="col-lg-10">
-                        <textarea name = "actividad${contadorCamposA}" required class="form-control col-lg-10" id="id_actividad${contadorCamposA++}" rows="4"> </textarea>
-                        <button type="button" class=" btn-close col-lg-2 " aria-label="Close" onclick="eliminarElemento(this)"></button>
+            <div class="col-lg-12 col-md-12 col-sm-12 justify-content-between align-items-start mb-2">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="input-group">
+                        <textarea name="actividad${contadorCamposA}" required class="form-control" id="id_actividad${contadorCamposA}" rows="4"></textarea>
+                        <button type="button" class="btn-close" aria-label="Close" onclick="eliminarElemento(this)"></button>
                     </div>
-                  </div>`;
+                </div>
+            </div>`;
         container.appendChild(elementoContainer);
     }
 }
+
+function eliminarElemento(elemento) {
+    // Eliminar el contenedor del elemento padre
+    var container = elemento.closest('.col-lg-12');
+    container.parentNode.removeChild(container);
+}
+
+
 
 function eliminarElemento(btn) {
     var container = btn.parentNode.parentNode; // Obtener el contenedor padre del botón

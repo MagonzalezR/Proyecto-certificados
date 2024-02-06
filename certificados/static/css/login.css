@@ -40,6 +40,10 @@ button {
 
 }
 
+.bg {
+    background-color: #f0811a1a;
+}
+
 .login-container {
     max-width: 400px;
     margin: auto;
@@ -66,13 +70,27 @@ button {
     transition: 300ms;
 }
 
-td,th {
-    text-align: center!important;
+th {
+    text-align: center !important;
     vertical-align: middle;
+    padding: 20px !important;
+}
+
+td {
+    padding: 20px !important;
+    vertical-align: middle;
+}
+
+.btn-outline-warning:hover {
+    background-color: #F0821A !important;
+    color: white !important;
 }
 
 .ico {
     top: 50% !important;
     width: 20px;
     height: 20px;
+}
+table{
+    border: #00000096!important;
 }

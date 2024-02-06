@@ -14,7 +14,7 @@
     {% csrf_token %}
     <div class="row g-4 justify-content-between">
       <!-- Columna para Nombres, Cedula, ID Desarrollo, ID Contrato, Valor Contrato -->
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  border border-4 rounded">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  border border-4 rounded" style="background-color: #fff;">
         <div class="p-3">
           <div class="row align-items-start">
             <div class="col-lg-12 mb-3">
@@ -63,7 +63,7 @@
 
       <!-- Columna para Objetivo -->
 
-      <div class="col-lg-12 border border-4 rounded">
+      <div class="col-lg-12 border border-4 rounded" style="background-color: #fff;">
         <div class="p-3 bg-white">
           {{ form.objeto |as_crispy_field}}
         </div>
@@ -83,9 +83,9 @@
 
 
       <!-- Columna para Actividades -->
-      <div class="col-lg-12 border border-4 rounded">
+      <div class="col-lg-12 border border-4 rounded" style="background-color: #fff;">
         <div class="p-3 bg-white">
-          <label for="actividad-1" class="input-group-text">Agregar actividades:</label>
+          <label for="actividad-1" class="input-group-text mb-2">Agregar actividades:</label>
           <div id="actividadesContainer">
             {% for actividad in object.actividades %}
             <div class="col-lg-12 d-flex flex-column mb-2">
@@ -100,13 +100,13 @@
             <!-- Las actividades seleccionadas se mostrarán aquí -->
           </div>
         </div>
-        <div class="col-12 d-flex justify-content-end">
+        <div class="col-12 d-flex justify-content-end mb-2" >
           <input type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')"
             value="Añadir actividad" />
 
         </div>
       </div>
-      <div class="col-lg-12 border border-4 rounded">
+      <div class="col-lg-12 border border-4 rounded" style="background-color: #fff;">
         <div class="p-3 bg-white">
           {{ form.observaciones |as_crispy_field}}
         </div>
@@ -118,8 +118,8 @@
           </a>
         </div>
         <div class="m-2">
-          <input type="submit" class="btn btn-primary justify-content-end ml-1" style="width: 200px; "
-            value="{% if Editar %}Editar{% else %}Crear{% endif %}" />
+          <input type="submit" id="crearform" class="btn btn-primary justify-content-end ml-1" style="width: 200px; "
+            value="{% if Editar %}Guardar{% else %}Crear{% endif %}" />
         </div>
       </div>
   </form>
@@ -136,6 +136,7 @@
   });
 </script>
 
+<!-- funcion para mostrar los campos de la cesion-->
 <script>
   function mostrar(){
     let idsesion = document.getElementById('id_esSesion').value;
