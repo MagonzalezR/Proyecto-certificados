@@ -18,7 +18,7 @@
             </div>
             <div class="mb-3 row">
                 <label for="Cedula" class="col-sm-2 col-form-label">Cedula</label>
-                <input type="text" class="form-control" id="Cedula" placeholder="123456789"
+                <input type="text" pattern="^\d{6,11}$" class="form-control" id="Cedula" placeholder="123456789"
                     required>
             </div>
 
@@ -82,40 +82,6 @@
         }
     }
 </script>
-{% comment %} <script>
-    function buscar() {
-        let urlPatch = "{% url 'api:contrato_api' %}";
-        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
-        let username = "admin";  // Replace with your actual username
-        let password = "admin";  // Replace with your actual password
-
-        $.ajax({
-            url: urlPatch,
-            type: 'get',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-            },
-            success: function (response) {
-                // console.log(response);
-                const busquedaDataNotificacion = response.filter((x) => {
-                    const nombreCons = document.getElementById('Nameconsultor').value
-                    const cedulaCons = document.getElementById('Cedula').value
-                    console.log(nombreCons)
-                    return (
-                        (nombreCons ? x.nombreConsultor?.toLowerCase()?.includes(nombreCons) : true) &&
-                        (cedulaCons ? x?.cedula?.toLowerCase()?.includes() : true)
-                    );
-                });
-                console.log(busquedaDataNotificacion) //La variable en la que estan los datos 
-
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-</script> {% endcomment %}
 
 <script>
     // ...
