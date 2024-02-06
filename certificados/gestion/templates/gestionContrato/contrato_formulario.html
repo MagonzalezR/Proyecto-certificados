@@ -14,7 +14,7 @@
     {% csrf_token %}
     <div class="row g-4 justify-content-between">
       <!-- Columna para Nombres, Cedula, ID Desarrollo, ID Contrato, Valor Contrato -->
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  border border-4 rounded" style="background-color: #fff;">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12  border border-4 rounded bgdivcf" >
         <div class="p-3">
           <div class="row align-items-start">
             <div class="col-lg-12 mb-3">
@@ -63,7 +63,7 @@
 
       <!-- Columna para Objetivo -->
 
-      <div class="col-lg-12 border border-4 rounded" style="background-color: #fff;">
+      <div class="col-lg-12 border border-4 rounded bgdivcf" >
         <div class="p-3 bg-white">
           {{ form.objeto |as_crispy_field}}
         </div>
@@ -83,7 +83,7 @@
 
 
       <!-- Columna para Actividades -->
-      <div class="col-lg-12 border border-4 rounded" style="background-color: #fff;">
+      <div class="col-lg-12 border border-4 rounded bgdivcf" >
         <div class="p-3 bg-white">
           <label for="actividad-1" class="input-group-text mb-2">Agregar actividades:</label>
           <div id="actividadesContainer">
@@ -106,7 +106,7 @@
 
         </div>
       </div>
-      <div class="col-lg-12 border border-4 rounded" style="background-color: #fff;">
+      <div class="col-lg-12 border border-4 rounded bgdivcf" >
         <div class="p-3 bg-white">
           {{ form.observaciones |as_crispy_field}}
         </div>
