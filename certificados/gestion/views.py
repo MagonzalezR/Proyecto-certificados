@@ -41,6 +41,7 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("gestion:contratos_listar")
     
     def get_context_data(self, **kwargs):
+        self.get_form().fields['fechaInicio'] = self.get_object().fechaInicio
         context =  super().get_context_data(**kwargs)
         context['Editar'] = True
         return context

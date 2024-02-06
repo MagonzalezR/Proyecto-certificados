@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <body>
         <br>
         <div style="text-align: center">
             <div>
-                <h4>INSTITUTO DE EXTENSIÓN Y EDUCACIÓN PARA EL TRABAJO Y DESARROLLO HUMANO – IDEXUD 
-                    UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS 
+                <h4>INSTITUTO DE EXTENSIÓN Y EDUCACIÓN PARA EL TRABAJO Y DESARROLLO HUMANO – IDEXUD
+                    UNIVERSIDAD DISTRITAL FRANCISCO JOSÉ DE CALDAS
                     NIT: 899.999.230.7</h4>
-                    <h4>Certifica</h4>
-                </div>
+                <h3>Certifica</h3>
+            </div>
         </div>
 
-        <span>Que revisadas las bases de datos que reposan en los archivos del <strong>IDEXUD</strong>, se encuentra que el señor            
-            <strong>{{contrato.nombreConsultor}}</strong>, identificado con cédula de ciudadanía <strong>No. {{cedula}}</strong>, suscribió con esta entidad las Órdenes y/o Contratos de Prestación de Servicios, que a 
+        <span>Que revisadas las bases de datos que reposan en los archivos del <strong>IDEXUD</strong>, se encuentra que
+            el señor
+            <strong>{{contrato.nombreConsultor}}</strong>, identificado con cédula de ciudadanía <strong>No.
+                {{cedula}}</strong>, suscribió con esta entidad las Órdenes y/o Contratos de Prestación de Servicios,
+            que a
             continuación se relacionan:</span>
-            <table style="margin-top: 40px;">
-                <tr>
-                    
-                    <td><strong>
+        <table style="margin-top: 40px; margin-left: 100px;">
+            <tr>
+                <td><strong>
                         {% if contrato.tipoContrato == "1" %}
                         CONTRATO INDEFINIDO:
                         {% elif contrato.tipoContrato == "2" %}
@@ -38,157 +42,150 @@
                         CONTRATO DE FORMACIÓN Y APRENDIZAJE
                         {% elif contrato.tipoContrato == "7" %}
                         CONTRATO DE PRÁCTICAS
+                        {% else %}
+                        CONTRATO DE PRESTACIÓN DE SERVICIOS
                         {% endif %}
                     </strong></td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td style="text-align: start">{{contrato.idContrato}}</td>
-                </tr>
-                <tr>
-                    <td><strong>EN DESARROLLO DEL CONTRATO:</strong></td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td >{{contrato.idDesarrollo}}</td>
-                </tr>
-                <tr>
-                    <td>FECHA DE SUSCRIPCIÓN: </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td >{{contrato.fechaSuscripcion}} </td>
-                </tr>
-                <tr>
-                    <td>FECHA ACTA DE INICIO:</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td >{{contrato.fechaInicio}}</td>
-                </tr>
-                <tr>
-                    <td>VALOR CONTRATADO</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td >{{ valorC }}</td>
-                </tr>
-                <tr>
-                    <td>DURACIÓN:</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td >({{DifFechas.months}}) meses   </td>
-                </tr>
-                <tr>
-                    <td>FECHA DE TERMINACIÓN:</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td >{{contrato.fechaTerminacion}}</td>
-                </tr>
-            </table>
-            <div style="margin-top: 15px;">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>{{contrato.idContrato}}</td>
+            </tr>
+            <tr>
+                <td><strong>EN DESARROLLO DEL CONTRATO:</strong></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>{{contrato.idDesarrollo}}</td>
+            </tr>
+            <tr>
+                <td>FECHA DE SUSCRIPCIÓN: </td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>{{contrato.fechaSuscripcion}} </td>
+            </tr>
+            <tr>
+                <td>FECHA ACTA DE INICIO:</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>{{contrato.fechaInicio}}</td>
+            </tr>
+            <tr>
+                <td>VALOR CONTRATADO</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>{{ valorC }}</td>
+            </tr>
+            <tr>
+                <td>DURACIÓN:</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>({{DifFechas.months}}) meses </td>
+            </tr>
+            <tr>
+                <td>FECHA DE TERMINACIÓN:</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>{{contrato.fechaTerminacion}}</td>
+            </tr>
+        </table>
+        <div style="margin-top: 15px;">
             <span><strong>OBJETO:</strong> {{contrato.objeto}}</span>
-            </div>
-            <div style="margin-top: 15px;">
-            <span><strong>Actividades:</strong></span>
-                <div style="margin-top: 20px; ">
-                    <table>
-                        {% for actividad in contrato.actividades %}
-                        <tr>
-                            <td><strong>{{forloop.counter}}&nbsp;&nbsp;</strong></td>
-                            <td>{{actividad}}</td>
-                        </tr>
-                        {% endfor%}
-                    </table>
-                    <table style="margin-top: 30px;">
-                        {% for otrosi in otrosis %}
-                        <tr>
-                            
-                            <td><strong>OTROS SI # {{forloop.counter}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td>ADICIÓN:</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>${{otrosi.valorAdicion}} M/cte.</td>
-                        </tr>
-                        <tr>
-                            <td>VALOR TOTAL DEL CONTRATO: </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td >${{otrosi.valorAcumulado}} M/cte. </td> <!-- este es el valo que se debe calcular como la suma de la adicion y el valor del contrato-->
-                        </tr>
-                        <tr>
-                            <td>PRÓRROGA:</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td >({{ otrosi.prorroga }}) meses</td>
-                        </tr>
-                        <tr>
-                            <td>FECHA DE TERMINACIÓN:</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td >{{ otrosi.fechaTerminacionOtrosi }} </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Actividades</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        {% for actividad in otrosi.actividades %}
-                        <tr>
-                            <td><strong>{{forloop.counter}}</strong></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>{{actividad}}</td>
-                        </tr>
-                        {% endfor%}
-                        <tr>
-                            <td>Observiacion:</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td >{% if otrosi.observaciones %}{{ otrosi.observaciones }}{% endif %} </td>
-                        </tr>
-                        {% endfor%}
-                    </table>
-                </div>
+        </div>
+        <div style="margin-top: 15px;">
+            <span style="font-size: larger;"><strong>Actividades:</strong></span>
+            <div style="margin-top: 20px; ">
+                <table>
+                    {% for actividad in contrato.actividades %}
+                    <tr>
+                        <td><strong>{{forloop.counter}}&nbsp;&nbsp;</strong></td>
+                        <td>{{actividad}}</td>
+                    </tr>
+                    {% endfor%}
+                </table>
                 <div style="margin-top: 10px;">
-                <span >
-                    <strong>Observacion: </strong>{% if contrato.observaciones %}{{contrato.observaciones}}{% endif %}
+                    <span>
+                        <strong>Observacion: </strong>{% if contrato.observaciones %}{{contrato.observaciones}}{% endif %}
                 </div>
                 <div style="margin-top: 10px;">
                     {% if contrato.esSesion %}
-                <span >
-                    <strong>Cesion: </strong>{{contrato.infoSesion}}. Fecha de la cesión: {{contrato.fechaSesion}}
-                </span>
-                {% endif %}
-                <div style="margin-top: 10px;">
-                <span >
-                    <strong> <p id="fecha_actual"></strong>
+                    <span>
+                        <strong>Cesion: </strong>{{contrato.infoSesion}}. Fecha de la cesión: {{contrato.fechaSesion}}
+                    </span>
+                    {% endif %}
+                </div>
+                <table style="margin-top: 30px;">
+                    {% for otrosi in otrosis %}
+                    <tr>
+
+                        <td><strong>OTROS SI # {{forloop.counter}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>ADICIÓN:</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>${{otrosi.valorAdicion}} M/cte.</td>
+                    </tr>
+                    <tr>
+                        <td>VALOR TOTAL DEL CONTRATO: </td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>${{otrosi.valorAcumulado}} M/cte. </td>
+                        <!-- este es el valo que se debe calcular como la suma de la adicion y el valor del contrato-->
+                    </tr>
+                    <tr>
+                        <td>PRÓRROGA:</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>({{ otrosi.prorroga }}) meses</td>
+                    </tr>
+                    <tr>
+                        <td>FECHA DE TERMINACIÓN:</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>{{ otrosi.fechaTerminacionOtrosi }} </td>
+                    </tr>
+
+                    <tr>
+                        <td>Actividades</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    {% for actividad in otrosi.actividades %}
+                    <tr>
+                        <td><strong>{{forloop.counter}}</strong></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>{{actividad}}</td>
+                    </tr>
+                    {% endfor%}
+                    <tr>
+                        <td>Observacion:</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>{% if otrosi.observaciones %}{{ otrosi.observaciones }}{% endif %} </td>
+                    </tr>
+                    {% endfor%}
+                </table>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <span>
+                    <strong>
+                        <p id="fecha_actual">
+                    </strong>
                 </span>
             </div>
             <div style="text-align: center;">
@@ -199,18 +196,18 @@
                 <br>
             </div>
             <div style="text-align: center;">
-            <span>
-               <strong>ROBERTO FERRO ESCOBAR Director IDEXUD.</strong>
-            </span>
-            <br>
-            <span>
-                Director IDEXUD. 
-            </span>
+                <span>
+                    <strong>ROBERTO FERRO ESCOBAR Director IDEXUD.</strong>
+                </span>
+                <br>
+                <span>
+                    Director IDEXUD.
+                </span>
             </div>
-       <br>
-       <br>
-       <br>
-            El presente es un documento público expedido con firma mecánica que garantiza su plena 
+            <br>
+            <br>
+            <br>
+            El presente es un documento público expedido con firma mecánica que garantiza su plena
             validez jurídica y probatoria según lo establecido en la ley 527 de 1999.
         </div>
     </body>
@@ -220,24 +217,25 @@
 <script>
     // Obtiene la fecha actual
     var fechaActual = new Date();
-  
+
     // Formatea la fecha como "dd/mm/yyyy"
     var dia = fechaActual.getDate();
     var mes = fechaActual.getMonth() + 1; // ¡Agrega 1 porque los meses comienzan desde 0!
     var año = fechaActual.getFullYear();
-  
+
     // Asegúrate de que el día y el mes tengan dos dígitos
     if (dia < 10) {
-      dia = '0' + dia;
+        dia = '0' + dia;
     }
     if (mes < 10) {
-      mes = '0' + mes;
+        mes = '0' + mes;
     }
-  
+
     // Combina los componentes en una cadena de fecha
     var formatoFecha = dia + '-' + mes + '-' + año;
-  
+
     // Muestra la fecha en el elemento con el ID "fecha_actual"
     document.getElementById('fecha_actual').innerHTML = 'Fecha de expedición de la certificación a solicitud del interesado: ' + formatoFecha;
-  </script>
+</script>
+
 </html>

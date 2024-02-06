@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Tipos estaticos
 TIPOS_CONTRATO = (
+    ("8", 'Contrato de Prestación de servicios'),
     ("1", "Contrato Indefinido"),
     ("2", "Contrato por Obra o Labor"),
     ("3", 'Contrato Eventual'),
@@ -25,12 +26,12 @@ class Contrato(models.Model):
     fechaInicio = models.DateField(_("Fecha de inicio"))
     valorContrato = models.PositiveIntegerField(_("Valor del contrato"))
     fechaTerminacion = models.DateField(_("Fecha de terminación"))
-    objeto = models.CharField(_("Objeto"), max_length=600)
-    actividades = ArrayField(models.CharField(max_length=600))
+    objeto = models.CharField(_("Objeto"), max_length=1000)
+    actividades = ArrayField(models.CharField(max_length=1000))
     esSesion = models.BooleanField(_("¿El contrato es de sesión?"))
     fechaSesion = models.DateField(_("Fecha de la sesión"), null = True, blank = True)
     infoSesion = models.CharField(_("Info de la sesión"), null = True, blank = True)
-    observaciones = models.CharField(_("Observaciones"), max_length=600, null = True, blank = True)
+    observaciones = models.CharField(_("Observaciones"), max_length=1000, null = True, blank = True)
     deleted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -45,7 +46,7 @@ class Otrosi(models.Model):
     fechaTerminacionOtrosi = models.DateField(_("Fecha de terminación del otrosi"))
     valorAcumulado = models.PositiveIntegerField(_("Prorroga (en meses)"))
     contratoId = models.ForeignKey(Contrato, on_delete = models.CASCADE, null = True)
-    actividades = ArrayField(models.CharField(max_length=600))
-    observaciones = models.CharField(_("Observaciones"), max_length=600, null = True, blank = True)
+    actividades = ArrayField(models.CharField(max_length=1000))
+    observaciones = models.CharField(_("Observaciones"), max_length=1000, null = True, blank = True)
     deleted = models.BooleanField(default=False)
     

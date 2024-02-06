@@ -32,4 +32,4 @@ urlpatterns = [
 urlpatterns += [
     # API base url
     path("api/", include("certificados.api_router", namespace="api")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

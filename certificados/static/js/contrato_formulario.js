@@ -54,7 +54,7 @@ function eliminarCampo() {
 // <!-- Script para agregar actividades-->
 
 
-var contadorCamposA = 0;
+let contadorCamposA = 0;
 
 function agregarElemento(tipo) {
     var selectElement;
@@ -70,27 +70,12 @@ function agregarElemento(tipo) {
         elementoContainer.innerHTML = `
                   <div class="col-lg-12 justify-content-between align-items-start mb-2">
                     <div class="col-lg-10">
-                        <textarea name = "actividad${contadorCamposA}" required class="form-control col-lg-10" id="id_actividad${contadorCamposA}" rows="4"> </textarea>
+                        <textarea name = "actividad${contadorCamposA}" required class="form-control col-lg-10" id="id_actividad${contadorCamposA++}" rows="4"> </textarea>
                         <button type="button" class=" btn-close col-lg-2 " aria-label="Close" onclick="eliminarElemento(this)"></button>
                     </div>
                   </div>`;
         container.appendChild(elementoContainer);
     }
-}
-
-function contieneElemento(container, elemento) {
-    var elementos = container.getElementsByTagName('div');
-
-    for (var i = 0; i < elementos.length; i++) {
-        if (elementos[i].textContent.includes(elemento)) {
-            // El elemento ya está en el contenedor
-            return true;
-        }
-    }
-    // El elemento no está en el contenedor
-    // Incrementar el contador de campos después de agregar
-    contadorCamposA++;
-    return false;
 }
 
 function eliminarElemento(btn) {

@@ -29,24 +29,21 @@ class ContratoForm(forms.ModelForm):
             "idDesarrollo": forms.TextInput(attrs={"class": "form-control"}),
             "tipoContrato": forms.Select(attrs={"class": "form-control"}),
             "fechaSuscripcion": forms.DateInput(attrs={'class': 'form-control',
-                                                       'placeholder': 'Select a date',
                                                        'type': 'date'
-                                                       }),
+                                                       }, format=('%Y-%m-%d')),
             "fechaInicio": forms.DateInput(attrs={'class': 'form-control',
-                                                  'placeholder': 'Select a date',
                                                   'type': 'date'
-                                                  }),
+                                                  }, format=('%Y-%m-%d')),
             "valorContrato": forms.NumberInput(),
             "fechaTerminacion": forms.DateInput(attrs={'class': 'form-control',
-                                                       'placeholder': 'Select a date',
                                                        'type': 'date'
-                                                       }),
+                                                       }, format=('%Y-%m-%d')),
             "objeto": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
             "esSesion": forms.Select(choices=((False, "No"), (True, "Si")) , attrs={"class": "form-control","onchange":"mostrar()"}),
             "fechaSesion": forms.DateInput(attrs={'class': 'form-control',
                                                        'placeholder': 'Select a date',
                                                        'type': 'date'
-                                                       }),
+                                                       }, format=('%Y-%m-%d')),
             "infoSesion": forms.TextInput(attrs={"class": "form-control"}),
             "observaciones": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
         }

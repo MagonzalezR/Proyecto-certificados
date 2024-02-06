@@ -11,7 +11,6 @@
 <div class="container-fluid bg-secondary-color p-4 mx-auto w-50 ">
 
   <form method="post">
-    {{ form|as_crispy_errors }}
     {% csrf_token %}
     <div class="row g-4 justify-content-between">
       <!-- Columna para Nombres, Cedula, ID Desarrollo, ID Contrato, Valor Contrato -->
