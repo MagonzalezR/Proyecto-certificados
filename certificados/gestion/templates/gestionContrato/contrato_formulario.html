@@ -168,5 +168,10 @@
     camposContainer.removeChild(ultimoDiv);
 }
   }
+
+  function clickFechaSesion(idFechaBloqueada, idFechaBloqueante){
+    document.getElementById(idFechaBloqueada).setAttribute('min', document.getElementById(idFechaBloqueante).value)
+    document.getElementById(idFechaBloqueada).removeAttribute('disabled')
+  }
 </script>
 {% endblock %}

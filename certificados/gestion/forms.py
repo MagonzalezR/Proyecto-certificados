@@ -29,14 +29,14 @@ class ContratoForm(forms.ModelForm):
             "idDesarrollo": forms.TextInput(attrs={"class": "form-control",'placeholder': '0000-20XX'}),
             "tipoContrato": forms.Select(attrs={"class": "form-control"}),
             "fechaSuscripcion": forms.DateInput(attrs={'class': 'form-control',
-                                                       'type': 'date'
+                                                       'type': 'date', 'onchange': 'clickFechaSesion("id_fechaInicio","id_fechaSuscripcion")'
                                                        }, format=('%Y-%m-%d')),
             "fechaInicio": forms.DateInput(attrs={'class': 'form-control',
-                                                  'type': 'date'
+                                                  'type': 'date', 'disabled':'true', 'onchange': 'clickFechaSesion("id_fechaTerminacion","id_fechaInicio")'
                                                   }, format=('%Y-%m-%d')),
             "valorContrato": forms.NumberInput(attrs={'placeholder': '1000111'}),
             "fechaTerminacion": forms.DateInput(attrs={'class': 'form-control',
-                                                       'type': 'date'
+                                                       'type': 'date', 'disabled':'true'
                                                        }, format=('%Y-%m-%d')),
             "objeto": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
             "esSesion": forms.Select(choices=((False, "No"), (True, "Si")) , attrs={"class": "form-control","onchange":"mostrar()"}),
@@ -64,6 +64,11 @@ class ContratoForm(forms.ModelForm):
             "observaciones": "Observaciones",
 
         }
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+        
 
 
 class OtrosiForm(forms.ModelForm):
