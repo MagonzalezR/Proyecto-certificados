@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.forms",
     'generador',
     'gestion',
     'usuarios',
@@ -183,5 +184,8 @@ AUTH_USER_MODEL = "usuarios.User"
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

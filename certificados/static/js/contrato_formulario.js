@@ -99,6 +99,7 @@ function agregarElemento(tipo) {
             </div>`;
         container.appendChild(elementoContainer);
     }
+    contadorCamposA++
 }
 
 function eliminarElemento(elemento) {

@@ -10,7 +10,7 @@
 
 <div class="container-fluid bg-secondary-color p-4 mx-auto w-50 ">
 
-  <form method="post">
+  <form class="form-horizontal" method="post">
     {% csrf_token %}
     <div class="row g-4 justify-content-between">
       <!-- Columna para Nombres, Cedula, ID Desarrollo, ID Contrato, Valor Contrato -->
@@ -70,12 +70,14 @@
         <div class="p-3 bg-white">
           {{ form.esSesion |as_crispy_field}}
         </div>
-         <div id="camposContainer">
+        <div id="camposContainer">
           {% if object.esSesion %}
-          <div class="p-3 bg-white">
-            {{ form.fechaSesion |as_crispy_field}}
-          </div><div class="p-3 bg-white">
-            {{ form.infoSesion |as_crispy_field}}
+          <div class>
+            <div class="p-3 bg-white">
+              {{ form.fechaSesion |as_crispy_field}}
+            </div><div class="p-3 bg-white">
+              {{ form.infoSesion |as_crispy_field}}
+            </div>
           </div>
           {% endif %}
         </div> 
@@ -133,7 +135,16 @@
     actividades.forEach(element => {
       element.setAttribute("name", element.getAttribute("name") + (contadorCamposA++).toString())
     });
-  });
+  })
+
+  function CargarDates(){
+    console.log(document.getElementById('id_fechaSuscripcion').value)
+    document.getElementById("id_fechaInicio").removeAttribute('disabled')
+    document.getElementById("id_fechaTerminacion").removeAttribute('disabled')
+    document.getElementById('id_fechaInicio').setAttribute('min', document.getElementById('id_fechaSuscripcion').value)
+    document.getElementById('id_fechaTerminacion').setAttribute('min', document.getElementById('id_fechaInicio').value)
+  }
+  window.addEventListener("load", CargarDates())
 </script>
 
 <!-- funcion para mostrar los campos de la cesion-->
@@ -164,7 +175,7 @@
     `;
     camposContainer.appendChild(nuevoDiv);
   }else{
-    let ultimoDiv = camposContainer.lastChild;
+    let ultimoDiv = camposContainer.firstElementChild;
     camposContainer.removeChild(ultimoDiv);
 }
   }
