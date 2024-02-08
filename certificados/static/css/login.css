@@ -26,13 +26,15 @@ body {
     background-color: #f8f9fa;
 
 }
-.bgdivcf{
+
+.bgdivcf {
     background-color: #ffffffce;
 }
 
 #botonlogin {
-    background-color: #F0821A;
-    color: #121212;
+    /* background-color: #F0821A;
+    color: #121212; */
+    width: 100%;
     font-size: large;
     font-weight: bold;
 }
@@ -70,7 +72,7 @@ button {
 .login-btn:hover {
     background-color: #FFA557 !important;
     color: #2f2f2f !important;
-    transition: 300ms;
+    transition: 400ms;
 }
 
 th {
@@ -94,6 +96,14 @@ td {
     width: 20px;
     height: 20px;
 }
-table{
-    border: #00000096!important;
+
+table {
+    border: #00000096 !important;
+}
+
+.copyrightLogin {
+    color: white;
+    position: relative;
+    text-align: center;
+    text-shadow: 1px 1px 2px #F0821A, 0 0 1em black, 0 0 0.2em black;
 }

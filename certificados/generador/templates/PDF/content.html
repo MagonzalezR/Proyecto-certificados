@@ -18,13 +18,16 @@
                 <h3>Certifica</h3>
             </div>
         </div>
-
-        <span>Que revisadas las bases de datos que reposan en los archivos del <strong>IDEXUD</strong>, se encuentra que
+    <table>
+        <td style="text-align: justify;">
+            <span>Que revisadas las bases de datos que reposan en los archivos del <strong>IDEXUD</strong>, se encuentra que
             el señor
             <strong>{{contrato.nombreConsultor}}</strong>, identificado con cédula de ciudadanía <strong>No.
                 {{cedula}}</strong>, suscribió con esta entidad las Órdenes y/o Contratos de Prestación de Servicios,
             que a
             continuación se relacionan:</span>
+        </td>
+    </table>
         <table style="margin-top: 40px; margin-left: 100px;">
             <tr>
                 <td><strong>
@@ -88,7 +91,11 @@
             </tr>
         </table>
         <div style="margin-top: 15px;">
-            <span><strong>OBJETO:</strong> {{contrato.objeto}}</span>
+            <table>
+                <td style="text-align: justify;">
+                    <span style="text-align: right;"><strong>OBJETO:</strong> {{contrato.objeto}}</span>
+                </td>
+            </table>
         </div>
         <div style="margin-top: 15px;">
             <span style="font-size: larger;"><strong>Actividades:</strong></span>
@@ -97,7 +104,7 @@
                     {% for actividad in contrato.actividades %}
                     <tr>
                         <td><strong>{{forloop.counter}}&nbsp;&nbsp;</strong></td>
-                        <td>{{actividad}}</td>
+                        <td style="text-align: justify;">{{actividad}}</td>
                     </tr>
                     {% endfor%}
                 </table>
@@ -116,7 +123,7 @@
                     {% for otrosi in otrosis %}
                     <tr>
 
-                        <td><strong>OTROS SI # {{forloop.counter}}</strong></td>
+                        <td><strong>OTROSÍ #{{forloop.counter}}</strong></td>
                     </tr>
                     <tr>
                         <td>ADICIÓN:</td>
@@ -166,7 +173,7 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td>{{actividad}}</td>
+                        <td style="text-align: justify;">{{actividad}}</td>
                     </tr>
                     {% endfor%}
                     <tr>
@@ -175,7 +182,7 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td>{% if otrosi.observaciones %}{{ otrosi.observaciones }}{% endif %} </td>
+                        <td style="text-align: justify;">{% if otrosi.observaciones %}{{ otrosi.observaciones }}{% endif %} </td>
                     </tr>
                     {% endfor%}
                 </table>
@@ -188,25 +195,27 @@
                     </strong>
                 </span>
             </div>
-            <div style="text-align: center;">
-                <br>
-                <br>
-                <p>inserte una firma aqui</p>
-                <br>
-                <br>
+            <div>
+                <div style="text-align: center;">
+                    <br>
+                    <br>
+                    <img width="150" src="data:image/png;base64,{{logoUd}}">
+                    <br>
+                    <br>
+                </div>
+                <div style="text-align: center;">
+                    <span>
+                        <strong>ROBERTO FERRO ESCOBAR Jefe de IDEXUD.</strong>
+                    </span>
+                    <br>
+                    <span>
+                        Universidad Distrital Francisco José de Caldas.
+                    </span>
+                </div>
             </div>
-            <div style="text-align: center;">
-                <span>
-                    <strong>ROBERTO FERRO ESCOBAR Director IDEXUD.</strong>
-                </span>
                 <br>
-                <span>
-                    Director IDEXUD.
-                </span>
-            </div>
-            <br>
-            <br>
-            <br>
+                <br>
+                <br>
             El presente es un documento público expedido con firma mecánica que garantiza su plena
             validez jurídica y probatoria según lo establecido en la ley 527 de 1999.
         </div>
