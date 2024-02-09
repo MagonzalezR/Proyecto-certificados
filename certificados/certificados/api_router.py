@@ -1,6 +1,7 @@
 from django.urls import path
 from gestion.api.views import (
-    ContratosApiView
+    ContratosApiView,
+    OtrosiApiView
 )
 
 app_name = "api"
@@ -11,5 +12,10 @@ urlpatterns = [
         "api-contrato/",
         view=(ContratosApiView.as_view()),
         name="contrato_api",
+    ),
+    path(
+        "api-otrosi/",
+        view=(OtrosiApiView.as_view()),
+        name="otrosi_api",
     ),
 ]

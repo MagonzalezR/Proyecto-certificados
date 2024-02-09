@@ -88,7 +88,7 @@ class OtrosiForm(forms.ModelForm):
             "fechaTerminacionOtrosi": forms.DateInput(attrs={'class': 'form-control',
                                                              'placeholder': 'Select a date',
                                                              'type': 'date'
-                                                             }),
+                                                             }, format=('%Y-%m-%d')),
             "observaciones": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
         }
 

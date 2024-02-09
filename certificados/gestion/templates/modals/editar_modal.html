@@ -6,7 +6,8 @@
       <button type="button" id="cerrarModal" class="btn-close col-lg-2" data-bs-dismiss="modal"
         aria-label="Close"></button>
     </div>
-    <form method="post" action="{% url 'gestion:editar_modal' pk %}">
+    {% if edicion %}<form method="post" action="{% url 'gestion:otrosi_editar' pk %}"> 
+      {% else %}<form method="post" action="{% url 'gestion:editar_modal' pk %}">{% endif %}
     <div class="modal-body col-lg-12 mb-3">Contenido</div>
 
       {% csrf_token %}
@@ -36,7 +37,6 @@
                 </div>
               </div>
               {% endfor %}
-  
               <!-- Las actividades seleccionadas se mostrarán aquí -->
             </div>
           </div>

@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -6,6 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from gestion.models import Contrato, Otrosi
 from .forms import ContratoForm, OtrosiForm
+from .utils import actualizarOtrosis
 from django.views.generic import (
     ListView,
     TemplateView,
@@ -53,6 +56,7 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
         contrato = form.save(commit=False)  # Guardar la instancia del modelo Contrato
         contrato.actividades = actividades_objs
         contrato.save()
+        actualizarOtrosis(contrato.id)
         # Limpiar las actividades existentes y agregar las nuevas
         return super().form_valid(form)
 
@@ -62,6 +66,10 @@ class ContratoListar(LoginRequiredMixin, ListView):
     template_name = "gestionContrato/contrato_listar.html"
     model=Contrato
 
+    def get_queryset(self):
+        query = super().get_queryset().order_by('id')
+        return query
+    
 contratolistar_detail_view = ContratoListar.as_view()
 
 
@@ -83,7 +91,7 @@ class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         contrato = Contrato.objects.get(id = self.kwargs["pk"] )
         actividades_objs = [self.request.POST.get(k) for k in self.request.POST.keys() if k.startswith('actividad')]
-        otrosisAnteriores = Otrosi.objects.filter(contratoId = contrato)
+        otrosisAnteriores = Otrosi.objects.filter(contratoId = contrato, deleted=False)
         total = contrato.valorContrato + form.instance.valorAdicion
         for otrosi in otrosisAnteriores:
             total = total+ otrosi.valorAdicion
@@ -96,3 +104,54 @@ class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 EditarModal_detail_view = EditarModal.as_view()
+class OtrosiListar(LoginRequiredMixin, ListView):
+    template_name = "gestionOtrosi/otrosi_listar.html"
+    model=Otrosi
+    
+    def get_queryset(self):
+        contrato = Contrato.objects.get(id = self.kwargs["pk"] )
+        query = super().get_queryset().filter(contratoId=contrato).order_by('id')
+        return query
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs["pk"]
+        return context
+otrosi_detail_view = OtrosiListar.as_view()
+
+class EditarOtrosiModal(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    template_name="modals/editar_modal.html"
+    model = Otrosi
+    form_class = OtrosiForm
+    template_name = "modals/editar_modal.html"
+    success_message = "El otrosi fue editado correctamente"
+    
+    def get_success_url(self):
+        """
+        Retorna la URL de redirección después de una actualización exitosa.
+        """
+        return reverse_lazy("gestion:otrosis_listar", args=[self.get_object().contratoId.id])
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        otrosi = Otrosi.objects.get(id = self.kwargs["pk"] )
+        context["pk"] = self.kwargs["pk"]
+        context["edicion"] = True
+        context["actividades"] = otrosi.actividades
+        return context
+    
+    def form_valid(self, form):
+        otrosiSave = form.save(commit=False)  # Guardar la instancia del modelo otrosiSave
+        actividades_objs = [self.request.POST.get(k) for k in self.request.POST.keys() if k.startswith('actividad')]
+        otrosisAnteriores = Otrosi.objects.filter(contratoId=otrosiSave.contratoId, deleted=False).exclude(id=otrosiSave.id, deleted=True)
+        print('Flag', otrosisAnteriores)
+        total = otrosiSave.contratoId.valorContrato + form.instance.valorAdicion
+        for otrosi in otrosisAnteriores:
+            total = total+ otrosi.valorAdicion
+        # form.instance.actividadesIds = actividades_objs
+        otrosiSave.actividades = actividades_objs
+        otrosiSave.valorAcumulado = total
+        otrosiSave.save()
+        return super().form_valid(form)
+    
+otrosi_edit_view = EditarOtrosiModal.as_view()

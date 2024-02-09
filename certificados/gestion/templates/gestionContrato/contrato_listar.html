@@ -111,9 +111,10 @@
                   <button class="btn btn-outline-success btn-sm" type="button"><ion-icon name="download-outline"
                       class="ico"></ion-icon></button>
                 </a>
-                <button class="btn btn-outline-warning btn-sm" style="border-color:#F0821A; color: #F0821A" type="button"
-                  onclick="abrir_modal_edicion(`{% url 'gestion:editar_modal' contrato.id %}`)"><ion-icon
-                    name="add-circle-outline" class="ico"></ion-icon></button>
+                <a href="{% url 'gestion:otrosis_listar' contrato.id %}">
+                  <button class="btn btn-outline-warning btn-sm" style="border-color:#F0821A; color: #F0821A" type="button"><ion-icon
+                  name="add-circle-outline" class="ico"></ion-icon></button>
+                </a>
               </div>
             </td>
           </tr>

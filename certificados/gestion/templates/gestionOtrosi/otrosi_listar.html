@@ -1,0 +1,201 @@
+{% extends 'index.html' %}
+{% block title %}
+{{ 'Listar' }}
+{% endblock %}
+{% block contentN %}
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+    {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% comment %} <div class="container mt-3">
+  <input type="text" class="form-control" id="filtroContratos"
+    placeholder="Buscar contrato por nombre, cédula, objeto, fecha inicio, fecha fin, id contrato o id desarrollo...">
+</div> {% endcomment %}
+
+
+<div class="container p-3 bg-body-tertiary border border-secondary  rounded-end" style="margin-top: 20px;!important">
+
+  <h2>Filtro</h2>
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label for="filtroValorAdicion">Valor de Adición</label>
+      <input type="text" class="form-control" id="filtroValorAdicion" placeholder="1234567891 ">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroValorTotal">Valor Total</label>
+      <input type="text" class="form-control" id="filtroValorTotal" placeholder="1234567891">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroProrroga">Prorroga</label>
+      <input type="text" class="form-control" id="filtroProrroga" placeholder="Prorroga">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroFechaTerminacion">Fecha De terminacion</label>
+      <input type="date" class="form-control" id="filtroFechaTerminacion" placeholder="Dia o mes o año">
+    </div>
+    <div class="justify-content-end d-flex mt-3">
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
+        onclick="abrir_modal_edicion(`{% url 'gestion:editar_modal' pk %}`)" >Crear nuevo Otro sí</button>
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
+        onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
+      <a href="{% url 'gestion:contratos_listar' %}">
+        <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;">Volver</button>
+      </a>
+    </div>
+
+
+  </div>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <!-- Tus campos de formulario aquí -->
+</form>
+{% comment %} <div class="col-md-4"> {% endcomment %}
+  <div style="margin: 90px;">
+    <div class="table-responsive mt-3 col-lg-12">
+      <table class="table" id="contratolistar">
+        <thead class="table-dark">
+          <tr>
+            <th>Valor de adición</th>
+            <th>Valor Acumulado</th>
+            <th>Prorroga</th>
+            <th>Fecha De terminacion</th>
+            <th>Observaciones</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for otrosi in object_list %}
+          {% if not otrosi.deleted %}
+          <tr>
+            <td>{{ otrosi.valorAdicion }}</td>
+            <td>{{ otrosi.valorAcumulado }}</td>
+            <td>{{ otrosi.prorroga }}</td>
+            <td>{{ otrosi.fechaTerminacionOtrosi |date:"d/m/Y" }}</td>
+            <td>{{ otrosi.observaciones }}</td>
+            <td style="width: 220px;">
+              <div class="d-flex justify-content-around" style="margin: 2px;">
+                <button class="btn btn-outline-primary btn-sm" type="button"
+                  onclick="abrir_modal_edicion(`{% url 'gestion:otrosi_editar' otrosi.id %}`)"><ion-icon
+                    name="create-outline" class="ico"></ion-icon></button>
+                <button class="btn btn-outline-danger btn-sm" type="button"
+                  onclick="confirmarEliminar({{ otrosi.id }})"><ion-icon name="trash-outline"
+                    class="ico"></ion-icon></button>
+              </div>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="miModal" role="dialog">
+
+  </div>
+
+  <script>
+    // Funcion para los filtros de la tabla 
+    function filtrarTabla() {
+      let filtroValorAdicion = document.getElementById('filtroValorAdicion').value.toUpperCase();
+      let filtroValorTotal = document.getElementById('filtroValorTotal').value.toUpperCase();
+      let filtroProrroga = document.getElementById('filtroProrroga').value.toUpperCase();
+      let filtroFechaTerminacion = document.getElementById('filtroFechaTerminacion').valueAsDate;
+
+      let tabla = document.getElementById('contratolistar');
+      let filas = tabla.getElementsByTagName('tr');
+
+      for (let i = 0; i < filas.length; i++) {
+        let celdas = filas[i].getElementsByTagName('td');
+        let mostrarFila = true;
+
+        if (filtroValorAdicion !== '' && celdas[0]) {
+          mostrarFila = mostrarFila && celdas[0].textContent.toUpperCase().includes(filtroValorAdicion);
+        }
+
+        if (filtroValorTotal !== '' && celdas[1]) {
+          mostrarFila = mostrarFila && celdas[1].textContent.toUpperCase().includes(filtroValorTotal);
+        }
+
+        if (filtroProrroga !== '' && celdas[2]) {
+          mostrarFila = mostrarFila && celdas[2].textContent.toUpperCase().includes(filtroProrroga);
+        }
+
+        if (filtroFechaTerminacion && celdas[3]) {
+          const [day, month, year] = celdas[3].textContent.split("/").map(Number);
+          const fechaCelda = new Date(year, month - 1, day);
+          filtroFechaTerminacion.setMinutes(filtroFechaTerminacion.getMinutes() + filtroFechaTerminacion.getTimezoneOffset());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() === filtroFechaTerminacion.getTime());
+        }
+
+        if (mostrarFila) {
+          filas[i].style.display = '';
+        } else {
+          filas[i].style.display = 'none';
+        }
+      }
+    }
+
+    // Agrega el evento a todos los campos de filtro
+    let filtros = document.querySelectorAll('.form-control');
+    for (let i = 0; i < filtros.length; i++) {
+      filtros[i].addEventListener('input', filtrarTabla);
+    }
+
+    //funcion para eliminar los otro si
+
+    function confirmarEliminar(id) {
+      let confirmacion = confirm("¿Estás seguro de que deseas eliminar este otro si?");
+
+      if (confirmacion) {
+        let urlPatch = "{% url 'api:otrosi_api' %}"
+        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+          url: urlPatch,
+          type: 'PATCH',
+          data: {
+            'id': id,
+            'deleted': true
+          },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          },
+          success: function (response) {
+            console.log(response);
+            location.reload()
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+        alert("Elemento eliminado");
+      } else {
+        alert("Eliminación cancelada");
+      }
+    }
+
+  </script>
+
+  <script>
+    function limpiarFiltros() {
+      // Obtener todos los campos de filtro
+      var camposFiltro = document.querySelectorAll('.form-control');
+
+      // Limpiar el valor de cada campo
+      camposFiltro.forEach(function (campo) {
+        campo.value = '';
+      });
+    }
+  </script>
+
+  {% endblock %}

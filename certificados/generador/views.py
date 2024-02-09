@@ -22,7 +22,7 @@ class PDFGeneratorView(DetailView):
 
     def get(self, request, *args, **kwargs):
         contrato = Contrato.objects.get(id=self.kwargs["pk"])       #Se obtiene el contrato que se va a mostrar
-        otrosis = Otrosi.objects.filter(contratoId=contrato)
+        otrosis = Otrosi.objects.filter(contratoId=contrato).exclude(deleted=True).order_by('id')
         cedula = contrato.cedula[0]+'.'+contrato.cedula[1:4] +"."+contrato.cedula[4:7]+"."+contrato.cedula[7:]
         fechaDiferencia = relativedelta.relativedelta(contrato.fechaTerminacion, contrato.fechaInicio)
         with open('./static/img/Logo_Vertical_IDEXUD_Final-1-3-1.png', 'rb') as image_file:
