@@ -32,6 +32,9 @@ class Contrato(models.Model):
     fechaSesion = models.DateField(_("Fecha de la sesión"), null = True, blank = True)
     infoSesion = models.CharField(_("Info de la sesión"), null = True, blank = True)
     observaciones = models.CharField(_("Observaciones"), max_length=1000, null = True, blank = True)
+    correo = models.CharField(_("Correo electrónico"))
+    telefono = models.CharField(_("Teléfono"), max_length = 14)
+    direccion = models.CharField(_("Dirección"))
     deleted = models.BooleanField(default=False)
 
     def __str__(self):

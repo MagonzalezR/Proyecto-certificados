@@ -28,6 +28,8 @@ class ContratoCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         actividades_objs = [self.request.POST.get(k) for k in self.request.POST.keys() if k.startswith('actividad')]
         print(actividades_objs)
+        if actividades_objs.__len__() < 1:
+            return super().form_invalid(form)
         # form.instance.actividadesIds = actividades_objs
         contrato = form.save(commit=False)  # Guardar la instancia del modelo Contrato
         contrato.actividades = actividades_objs
@@ -52,6 +54,8 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         actividades_objs = [self.request.POST.get(k) for k in self.request.POST.keys() if k.startswith('actividad')]
         print(actividades_objs)
+        if actividades_objs.__len__() < 1:
+            return super().form_invalid(form)
         # form.instance.actividadesIds = actividades_objs
         contrato = form.save(commit=False)  # Guardar la instancia del modelo Contrato
         contrato.actividades = actividades_objs

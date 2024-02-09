@@ -20,12 +20,18 @@ class ContratoForm(forms.ModelForm):
             "esSesion",
             "fechaSesion",
             "infoSesion",
-            "observaciones"
+            "observaciones",
+            "correo",
+            "telefono",
+            "direccion",
         ]
         widgets = {
             "idContrato": forms.TextInput(attrs={"class": "form-control", 'placeholder': '0000 X 20XX'}),
             "cedula": forms.TextInput(attrs={"class": "form-control", 'placeholder': '123456789', 'pattern':"^\d{6,11}$",'title':'Deben ser números entre 6 y 11 caracteres'}),
             "nombreConsultor": forms.TextInput(attrs={"class": "form-control",'placeholder': 'Nombre y apellido','pattern':'^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$', 'title':'se aceptan letras y espacios, pueden llevar acentos.'}),
+            "correo": forms.TextInput(attrs={"class": "form-control", "placeholder":"Correo@ejemplo.com"}),
+            "telefono": forms.TextInput(attrs={"class": "form-control", "placeholder":"312123456"}),
+            "direccion": forms.TextInput(attrs={"class": "form-control", "placeholder":"Calle 1 # 1-1"}),
             "idDesarrollo": forms.TextInput(attrs={"class": "form-control",'placeholder': '0000-20XX'}),
             "tipoContrato": forms.Select(attrs={"class": "form-control"}),
             "fechaSuscripcion": forms.DateInput(attrs={'class': 'form-control',
@@ -62,7 +68,9 @@ class ContratoForm(forms.ModelForm):
             "fechaSesion": "Fecha de la cesión",
             "infoSesion": "Información de cesión",
             "observaciones": "Observaciones",
-
+            "correo": "Correo",
+            "telefono": "Teléfono",
+            "direccion": "Dirección",
         }
         
     def clean(self):
