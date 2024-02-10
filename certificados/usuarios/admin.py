@@ -8,13 +8,19 @@ from django.utils.translation import gettext_lazy as _
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
 
+    # Formulario utilizado para editar usuarios existentes
     form = UserAdminChangeForm
+
+    # Formulario utilizado para crear nuevos usuarios
     add_form = UserAdminCreationForm
+
+    # Agrupación de campos en el formulario de edición
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        # (_("Personal info"), {"fields": ("email")}),
+        # # Comentario en el código original, se puede remover si no aporta valor
+        # # (_("Personal info"), {"fields": ("email")}),
         (
-            _("Permissions"),
+            _("Permisos"),
             {
                 "fields": (
                     "is_active",
@@ -25,7 +31,11 @@ class UserAdmin(auth_admin.UserAdmin):
                 ),
             },
         ),
-        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+        (_("Fechas importantes"), {"fields": ("last_login", "date_joined")}),
     )
-    list_display = ["username", "email", "is_superuser"]
+
+    # Campos mostrados en la lista de usuarios
+    list_display = ["username", "is_superuser"]
+
+    # Campos en los que se puede buscar usuarios
     search_fields = ["name"]
