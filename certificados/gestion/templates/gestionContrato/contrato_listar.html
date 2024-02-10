@@ -17,10 +17,20 @@
     placeholder="Buscar contrato por nombre, cédula, objeto, fecha inicio, fecha fin, id contrato o id desarrollo...">
 </div> {% endcomment %}
 
-
-<div class="container p-3 bg-body-tertiary border border-secondary  rounded-end" style="margin-top: 20px;!important">
-
-  <h2>Filtro</h2>
+<div class="container mt-4 p-3" >
+  <div class="row">
+    <div class="col-lg-10 justify-content-center"  >
+      <h1 style="color: #F0821A; text-align-last: center;">¡Le damos la bienvenida {{user.username}}!</h1> 
+      <p> 
+        <strong>Módulo de Gestión:</strong> Edita, crea, elimina, busca y visualiza fácilmente los contratos de la unidad de extension de la universidad Distrital Francisco jose de Caldas.</p>
+      </div>
+      <div class="col-lg-2"  style="text-align: center;">
+        <img width="125px" height="125px" src="/static/img/Logo_Vertical_IDEXUD_Final-1-3-1.png" >
+      </div>
+    </div>
+  </div>
+<div class="container p-3 bg-body-tertiary border border-secondary rounded-end" style="margin-top: 20px;!important">
+  <h3>Filtro</h3>
   <div class="row g-2">
     <div class="col-md-3">
       <label for="filtroIdContrato">ID contrato</label>
@@ -36,15 +46,15 @@
       <input type="text" class="form-control" id="filtroNombre" placeholder="Nombre">
     </div>
     <div class="col-md-3">
-      <label for="filtroCedula">cedula</label>
+      <label for="filtroCedula">Cédula</label>
       <input type="text" class="form-control" id="filtroCedula" placeholder="1234567891">
     </div>
     <div class="col-md-3">
-      <label for="filtroFechaInicio">fecha Inicio</label>
+      <label for="filtroFechaInicio">Fecha Inicio</label>
       <input type="date" class="form-control" id="filtroFechaInicio" placeholder="Dia o mes o año">
     </div>
     <div class="col-md-3">
-      <label for="filtroFechaFin">fecha Fin</label>
+      <label for="filtroFechaFin">Fecha Fin</label>
       <input type="date" class="form-control" id="filtroFechaFin" placeholder="Dia o mes o año">
     </div>
     <div class="col-md-3">

@@ -30,7 +30,7 @@ class ContratoForm(forms.ModelForm):
             "cedula": forms.TextInput(attrs={"class": "form-control", 'placeholder': '123456789', 'pattern':"^\d{6,11}$",'title':'Deben ser números entre 6 y 11 caracteres'}),
             "nombreConsultor": forms.TextInput(attrs={"class": "form-control",'placeholder': 'Nombre y apellido','pattern':'^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$', 'title':'se aceptan letras y espacios, pueden llevar acentos.'}),
             "correo": forms.TextInput(attrs={"class": "form-control", "placeholder":"Correo@ejemplo.com", 'pattern':'[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}','title':'Debe ser del formato nombre@correo.com'}),
-            "telefono": forms.TextInput(attrs={"class": "form-control", "placeholder":"312123456", 'pattern':'[\(]?[\+]?(\d{2}|\d{3})[\)]?[\s]?((\d{6}|\d{8})|(\d{3}[\*\.\-\s]){3}|(\d{2}[\*\.\-\s]){4}|(\d{4}[\*\.\-\s]){2})|\d{8}|\d{10}|\d{12}','title':'Deben ser del formato 312123456 '}),
+            "telefono": forms.TextInput(attrs={"class": "form-control", "placeholder":"312123456", 'pattern':'[\(]?[\+]?(\d{2}|\d{3})[\)]?[\s]?(\d{6}|\d{8}|\d{10}|\d{12}|\d{3}[\*\.\-]{2}\d{3}|\d{2}[\*\.\-\s]{3}\d{2}|\d{4}[\*\.\-\s]\d{4})','title':'Deben ser del formato +57 3112223334'}),
             "direccion": forms.TextInput(attrs={"class": "form-control", "placeholder":"Calle 1 # 1-1"}),
             "idDesarrollo": forms.TextInput(attrs={"class": "form-control",'placeholder': '0000-20XX'}),
             "tipoContrato": forms.Select(attrs={"class": "form-control"}),

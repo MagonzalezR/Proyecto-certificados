@@ -2,6 +2,18 @@
 {% block title %}{{ "consultar" }}{% endblock %}
 
 {% block content %}
+<div class="container mt-1 p-3" >
+    <div class="row justify-content-center  ">
+      <div class="col-lg-6 justify-content-center"  >
+        <h1 style="color: #F0821A; text-align-last: center;"> Módulo de consulta:</h1> 
+        <p> 
+          Busca fácilmente tus contratos de la unidad de extension de la universidad Distrital Francisco jose de Caldas.</p>
+        </div>
+        <div class="col-lg-2" style="text-align: center;">
+          <img width="125px" height="125px" src="/static/img/Logo_Vertical_IDEXUD_Final-1-3-1.png" >
+        </div>
+      </div>
+    </div>
 <div class="row m-5 justify-content-center  " style="margin-top: 120px;">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4">
         <div>
@@ -12,13 +24,28 @@
         <form action="#" method="get">
             {% csrf_token %}
             <div class="mb-3 row">
-                <label for="Name" class="col-sm-2 col-form-label">Nombre</label>
+                <label for="Name" class="col-sm-2 col-form-label">Nombre*</label>
                 <input type="text" class="form-control" id="Nameconsultor" placeholder="Nombre y apellido" required>
             </div>
             <div class="mb-3 row">
-                <label for="Cedula" class="col-sm-2 col-form-label">Cedula</label>
+                <label for="Cedula" class="col-sm-2 col-form-label">Cedula*</label>
                 <input type="text" pattern="^\d{6,11}$" class="form-control" id="Cedula" placeholder="123456789"
                     required>
+            </div>
+            <div class="mb-3 row">
+                <label for="correo" class="col-sm-2 col-form-label">Correo*</label>
+                <input type="text" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}" title="Debe ser del formato nombre@correo.com" class="form-control" id="correo" placeholder="nombre@correo.com"
+                    required>
+            </div>
+            <div class="mb-3 row">
+                <label for="telefono" class="col-sm-2 col-form-label">Telefono*</label>
+                <input type="text" pattern="[\(]?[\+]?(\d{2}|\d{3})[\)]?[\s]?(\d{6}|\d{8}|\d{10}|\d{12}|\d{3}[\*\.\-]{2}\d{3}|\d{2}[\*\.\-\s]{3}\d{2}|\d{4}[\*\.\-\s]\d{4})" class="form-control" id="telefono" title="Deben ser del formato +57 3112223334" placeholder="+57 3112223334"
+                    required>
+            </div>
+            <div class="mb-3 row">
+                <label for="direccion" class="col-sm-2 col-form-label">Direccion</label>
+                <input type="text" class="form-control" id="direccion" title="kra 1 # 1-1" placeholder="kra 1 # 1-1"
+                    >
             </div>
 
             <div class="row justify-content-end">
@@ -89,18 +116,22 @@
     function habilitarBoton() {
         var nombre = document.getElementById('Nameconsultor').value.trim();
         var cedula = document.getElementById('Cedula').value.trim();
+        var correo = document.getElementById('correo').value.trim();
+        var telefono = document.getElementById('telefono').value.trim();
         var botonBuscar = document.getElementById('btnBuscar');
 
-        botonBuscar.disabled = !(nombre && cedula);
+        botonBuscar.disabled = !(nombre && cedula && correo && telefono);
     }
 
     function buscar() {
         var nombreCons = document.getElementById('Nameconsultor').value.trim();
         var cedulaCons = document.getElementById('Cedula').value.trim();
+        var correoCons = document.getElementById('correo').value.trim();
+        var telefonoCons = document.getElementById('telefono').value.trim();
 
         // Validar que ambos campos estén diligenciados
-        if (!nombreCons || !cedulaCons) {
-            alert("Por favor, diligencie tanto el campo de nombre como el de cédula.");
+        if (!nombreCons || !cedulaCons || !correoCons || !telefonoCons) {
+            alert("Por favor, diligencie el campo de nombre, cédula, correo y telefono.");
             return;
         }
 
@@ -115,17 +146,24 @@
             },
             success: function (response) {
                 const cedulasEnApi = response.map(x => x.cedula.toLowerCase().trim());
+                const correoEnApi = response.map(x => x.correo.toLowerCase().trim());
 
                 // Validar que la cédula ingresada esté exactamente en la lista de cédulas de la API
                 if (!cedulasEnApi.includes(cedulaCons.toLowerCase())) {
                     alert(`La cédula ${cedulaCons} ingresada no coincide con ninguna registrada.`);
                     return;
                 }
+                if (!correoEnApi.includes(correoCons.toLowerCase())) {
+                    alert(`El correo ${correoCons} ingresado no coincide con ninguna registrada.`);
+                    return;
+                }
 
                 const busquedaDataNotificacion = response.filter((x) => {
                     return (
                         (nombreCons ? x.nombreConsultor?.toLowerCase()?.includes(nombreCons.toLowerCase()) : true) &&
-                        (cedulaCons ? x?.cedula?.toLowerCase()?.includes(cedulaCons.toLowerCase()) : true)
+                        (cedulaCons ? x?.cedula?.toLowerCase()?.includes(cedulaCons.toLowerCase()) : true)&&
+                        (correoCons ? x?.correo?.toLowerCase()?.includes(correoCons.toLowerCase()) : true) &&
+                        (telefonoCons ? x?.telefono?.toLowerCase()?.includes(telefonoCons.toLowerCase()) : true)
                     );
                 });
 
@@ -143,7 +181,7 @@
                     var celdaBoton = fila.insertCell(1);
                     celdaBoton.innerHTML = `
                     <a href="./PDF/${elemento.id}">
-                        <button class="btn btn-outline-secondary btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
+                        <button class="btn btn-outline-success btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
                     </a>`;
                 });
 
@@ -164,6 +202,8 @@
     // Habilita/deshabilita el botón al cambiar los valores de los campos de nombre y cédula
     document.getElementById('Nameconsultor').addEventListener('input', habilitarBoton);
     document.getElementById('Cedula').addEventListener('input', habilitarBoton);
+    document.getElementById('correo').addEventListener('input', habilitarBoton);
+    document.getElementById('telefono').addEventListener('input', habilitarBoton);
 </script>
 
 

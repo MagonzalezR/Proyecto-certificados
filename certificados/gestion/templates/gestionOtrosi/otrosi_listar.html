@@ -17,10 +17,21 @@
     placeholder="Buscar contrato por nombre, cédula, objeto, fecha inicio, fecha fin, id contrato o id desarrollo...">
 </div> {% endcomment %}
 
-
+<div class="container mt-4 p-3" >
+  <div class="row">
+    <div class="col-lg-10 justify-content-center"  >
+      <h1 style="color: #F0821A; text-align-last: center;"> Módulo de Gestión:</h1> 
+      <p> 
+        Edita, crea, elimina y busca fácilmente los otrosi asociados a los contratos de la unidad de extension de la universidad Distrital Francisco jose de Caldas.</p>
+      </div>
+      <div class="col-lg-2" style="text-align: center;">
+        <img width="125px" height="125px" src="/static/img/Logo_Vertical_IDEXUD_Final-1-3-1.png" >
+      </div>
+    </div>
+  </div>
 <div class="container p-3 bg-body-tertiary border border-secondary  rounded-end" style="margin-top: 20px;!important">
 
-  <h2>Filtro</h2>
+  <h3>Filtro</h3>
   <div class="row g-2">
     <div class="col-md-3">
       <label for="filtroValorAdicion">Valor de Adición</label>
@@ -35,7 +46,7 @@
       <input type="text" class="form-control" id="filtroProrroga" placeholder="Prorroga">
     </div>
     <div class="col-md-3">
-      <label for="filtroFechaTerminacion">Fecha De terminacion</label>
+      <label for="filtroFechaTerminacion">Fecha De terminación</label>
       <input type="date" class="form-control" id="filtroFechaTerminacion" placeholder="Dia o mes o año">
     </div>
     <div class="justify-content-end d-flex mt-3">
@@ -74,12 +85,12 @@
           {% for otrosi in object_list %}
           {% if not otrosi.deleted %}
           <tr>
-            <td>{{ otrosi.valorAdicion }}</td>
-            <td>{{ otrosi.valorAcumulado }}</td>
-            <td>{{ otrosi.prorroga }}</td>
-            <td>{{ otrosi.fechaTerminacionOtrosi |date:"d/m/Y" }}</td>
+            <td style="text-align: center;">{{ otrosi.valorAdicion }}</td>
+            <td style="text-align: center;">{{ otrosi.valorAcumulado }}</td>
+            <td style="text-align: center;">{{ otrosi.prorroga }}</td>
+            <td style="text-align: center;">{{ otrosi.fechaTerminacionOtrosi |date:"d/m/Y" }}</td>
             <td>{{ otrosi.observaciones }}</td>
-            <td style="width: 220px;">
+            <td style="width: 160px;">
               <div class="d-flex justify-content-around" style="margin: 2px;">
                 <button class="btn btn-outline-primary btn-sm" type="button"
                   onclick="abrir_modal_edicion(`{% url 'gestion:otrosi_editar' otrosi.id %}`)"><ion-icon
