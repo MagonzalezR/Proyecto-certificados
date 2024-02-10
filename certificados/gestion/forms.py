@@ -4,9 +4,10 @@ from .models import Contrato, Otrosi
 
 class ContratoForm(forms.ModelForm):
 
+    """Formulario para la creación y edición de Contratos."""
     class Meta:
-        model = Contrato
-        fields = [
+        model = Contrato    #Modelo asociado
+        fields = [          #Campos que se quieren mostrar (asociados al modelo)
             "idContrato",
             "cedula",
             "nombreConsultor",
@@ -25,7 +26,7 @@ class ContratoForm(forms.ModelForm):
             "telefono",
             "direccion",
         ]
-        widgets = {
+        widgets = {     #Como se carga cada campo en el template
             "idContrato": forms.TextInput(attrs={"class": "form-control", 'placeholder': '0000 X 20XX'}),
             "cedula": forms.TextInput(attrs={"class": "form-control", 'placeholder': '123456789', 'pattern':"^\d{6,11}$",'title':'Deben ser números entre 6 y 11 caracteres'}),
             "nombreConsultor": forms.TextInput(attrs={"class": "form-control",'placeholder': 'Nombre y apellido','pattern':'^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$', 'title':'se aceptan letras y espacios, pueden llevar acentos.'}),
@@ -53,7 +54,7 @@ class ContratoForm(forms.ModelForm):
             "infoSesion": forms.TextInput(attrs={"class": "form-control"}),
             "observaciones": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
         }
-        labels = {
+        labels = {      #Label asociado a cada campo
             "idContrato": "Id del contrato",
             "cedula": "Cédula del empleado",
             "nombreConsultor": "Nombre del empleado",
@@ -73,23 +74,25 @@ class ContratoForm(forms.ModelForm):
             "direccion": "Dirección",
         }
         
-    def clean(self):
+    def clean(self):        #Aqui van los validadores individuales que se deseen agregar
         cleaned_data = super().clean()
         return cleaned_data
         
 
 
 class OtrosiForm(forms.ModelForm):
+    
+    """Formulario para la creación y edición de Otrosi ."""
     class Meta:
-        model = Otrosi
+        model = Otrosi          #Modelo asociado
 
-        fields = [
+        fields = [              #Campos que se quieren mostrar (asociados al modelo)
             "valorAdicion",
             "fechaTerminacionOtrosi",
             "observaciones",
         ]
 
-        widgets = {
+        widgets = {              #Como se carga cada campo en el template
             "valorAdicion": forms.NumberInput(),
             "fechaTerminacionOtrosi": forms.DateInput(attrs={'class': 'form-control',
                                                              'placeholder': 'Select a date',
