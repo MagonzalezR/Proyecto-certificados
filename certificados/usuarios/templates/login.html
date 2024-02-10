@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block contentN %}
+<!-- Primer login descomentarearlo para usarlo-->
+<!--
 <div class="background" style="background-image: url('/static/img/bg.jpg');">
   <div style="height: 300rem;">
   </div>
@@ -44,5 +46,108 @@
     </div>
   </div>
 
-</footer>
+</footer> 
+-->
+
+
+
+
+<!-- Segundo login descomentarearlo para usarlo-->
+
+
+
+  <section class="text-center text-lg-start">
+
+    <div class="container py-4" >
+      <div class="row g-0 align-items-center" style="box-shadow: 1px 1px 2px #F0821A, 0 0 1em black, 0 0 0.2em black; border-radius: 16px;">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card cascading-right" style="
+            background: hsla(0, 0%, 100%, 0.55);
+            backdrop-filter: blur(30px);
+            ">
+            <div class="card-body p-5 shadow-5 text-center">
+              <img style="max-width: 30%; " class="mb-4" src="/static/img/Logo_Vertical_IDEXUD_Final-1-3-1.png" alt="Logo idexud" />
+              <h2 class="fw-bold mb-5">Sistema de gestión y Consulta de Certificados Laborales - SICCLA</h2>
+
+              <form method="post">
+                {% csrf_token %}
+                <div class="input-container">
+                  <input type="text" name="username" maxlength="150" required>
+                  <label >Nombre de Usuario</label>
+                </div>
+            
+                <div class="input-container">
+                  <input type="password" name="password" required>
+                  <label >Contraseña</label>
+                </div> 
+                <input type="submit" class="btn btn-outline-warning btn-sm mb-4" style="border:2px solid #F0821A; color: #F0821A; width: 50%;" value="INGRESAR" />
+                <input type="hidden" name="next" value="{{ next }}" />
+
+                <div class="text-center">
+                  <p>
+                    Copyright ©2024 Oficina de Extensión - IDEXUD All Rights Reserved. En caso de requerir soporte técnico, por favor enviar su solicitud por medio del correo electrónico: <a style="text-decoration: none; color: inherit;" href="mailto:webidexud@udistrital.edu.co">webidexud@udistrital.edu.co</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <img src="/static/img/bgcort.jpg" class="w-100 rounded-4 shadow-4 hide-on-small-screen" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+    .cascading-right {
+      margin-right: -50px;
+    }
+    
+    @media (max-width: 991.98px) {
+      .cascading-right {
+        margin-right: 0;
+      }
+
+      .hide-on-small-screen {
+        display: none;
+      }
+    }
+
+      .input-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    label {
+      position: absolute;
+      top: 60%;
+      left: 10px;
+      transform: translateY(-90%);
+      color: #888;
+      pointer-events: none;
+      transition: 0.3s ease-out;
+    }
+
+    input:focus + label, input:valid + label {
+      top: 0;
+      font-size: 13px;
+      color: #F0821A;
+    }
+    .input-container input:focus {
+      outline: none; /* Elimina el borde de enfoque predeterminado */
+      border-color: #F0821A;/* Puedes especificar un color de borde personalizado si lo deseas */
+    }
+</style>
+
+
+
 {% endblock %}
