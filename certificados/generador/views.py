@@ -29,13 +29,16 @@ class PDFGeneratorView(DetailView):
             logoIdexud = base64.b64encode(image_file.read()).decode('utf-8')
         with open('./static/img/EscudoUD.png', 'rb') as image_file:
             logoUd = base64.b64encode(image_file.read()).decode('utf-8')
+        with open('./static/img/Firma.png', 'rb') as image_file:
+            firma = base64.b64encode(image_file.read()).decode('utf-8')
         context = {'contrato': contrato,
                    'otrosis': otrosis,
                    'cedula': cedula, 
                    'valorC': format_currency(contrato.valorContrato, 'COP', locale='es'),
                    'DifFechas': fechaDiferencia,
                    'logoIdexud': logoIdexud,
-                   'logoUd': logoUd,}
+                   'logoUd': logoUd,
+                   'firma': firma}
         options={'images': True, 'enable-external-links': True, 'print-media-type': True,'enable-internal-links': True, 'enable-local-file-access': True}
         response = PDFTemplateResponse(request=request,
                                        template=self.template,

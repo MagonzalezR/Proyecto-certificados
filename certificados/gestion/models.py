@@ -45,7 +45,7 @@ class Otrosi(models.Model):
     """Modelo de Otrosis"""
 
     valorAdicion = models.PositiveIntegerField(_("Valor de adición"))
-    prorroga = models.PositiveIntegerField(_("Prorroga (en meses)"))
+    prorroga = models.CharField(_("Prorroga (d-m-y)"))
     fechaTerminacionOtrosi = models.DateField(_("Fecha de terminación del otrosi"))
     valorAcumulado = models.PositiveIntegerField(_("Prorroga (en meses)"))
     contratoId = models.ForeignKey(Contrato, on_delete = models.CASCADE, null = True)

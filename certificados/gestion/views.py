@@ -8,7 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from gestion.models import Contrato, Otrosi
 from .forms import ContratoForm, OtrosiForm
-from .utils import actualizarOtrosis
+from .utils import actualizarOtrosis, calcular_prorroga, actualizarProrrogas
 from django.views.generic import (
     ListView,
     TemplateView,
@@ -61,6 +61,7 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
         contrato.actividades = actividades_objs
         contrato.save()
         actualizarOtrosis(contrato.id)
+        actualizarProrrogas(contrato.id)
         # Limpiar las actividades existentes y agregar las nuevas
         return super().form_valid(form)
 
@@ -82,7 +83,7 @@ class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Otrosi
     form_class = OtrosiForm
     template_name = "modals/editar_modal.html"
-    success_url = reverse_lazy("gestion:contratos_listar")
+    success_url = reverse_lazy("gestion:otrosis_listar")
     success_message = "El otrosi fue agregado correctamente"
     
     def get_context_data(self, **kwargs):
@@ -95,12 +96,17 @@ class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         contrato = Contrato.objects.get(id = self.kwargs["pk"] )
         actividades_objs = [self.request.POST.get(k) for k in self.request.POST.keys() if k.startswith('actividad')]
-        otrosisAnteriores = Otrosi.objects.filter(contratoId = contrato, deleted=False)
+        otrosisAnteriores = Otrosi.objects.filter(contratoId = contrato, deleted=False).order_by('-fechaTerminacionOtrosi')
+        otrosiSave = form.save(commit=False)  # Guardar la instancia del modelo otrosiSave
+        if otrosisAnteriores.__len__() > 0 :
+            otrosiSave.prorroga = calcular_prorroga(otrosisAnteriores[0].fechaTerminacionOtrosi, otrosiSave.fechaTerminacionOtrosi)
+        else:
+            otrosiSave.prorroga = calcular_prorroga(contrato.fechaTerminacion, otrosiSave.fechaTerminacionOtrosi)
         total = contrato.valorContrato + form.instance.valorAdicion
         for otrosi in otrosisAnteriores:
             total = total+ otrosi.valorAdicion
         # form.instance.actividadesIds = actividades_objs
-        otrosiSave = form.save(commit=False)  # Guardar la instancia del modelo otrosiSave
+        print(otrosiSave.prorroga)
         otrosiSave.actividades = actividades_objs
         otrosiSave.valorAcumulado = total
         otrosiSave.contratoId=contrato
@@ -134,6 +140,8 @@ class EditarOtrosiModal(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         """
         Retorna la URL de redirección después de una actualización exitosa.
         """
+        actualizarOtrosis(self.get_object().contratoId.id)
+        actualizarProrrogas(self.get_object().contratoId.id)
         return reverse_lazy("gestion:otrosis_listar", args=[self.get_object().contratoId.id])
 
     def get_context_data(self, **kwargs):
@@ -148,7 +156,6 @@ class EditarOtrosiModal(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
         otrosiSave = form.save(commit=False)  # Guardar la instancia del modelo otrosiSave
         actividades_objs = [self.request.POST.get(k) for k in self.request.POST.keys() if k.startswith('actividad')]
         otrosisAnteriores = Otrosi.objects.filter(contratoId=otrosiSave.contratoId, deleted=False).exclude(id=otrosiSave.id, deleted=True)
-        print('Flag', otrosisAnteriores)
         total = otrosiSave.contratoId.valorContrato + form.instance.valorAdicion
         for otrosi in otrosisAnteriores:
             total = total+ otrosi.valorAdicion

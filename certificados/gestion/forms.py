@@ -85,14 +85,12 @@ class OtrosiForm(forms.ModelForm):
 
         fields = [
             "valorAdicion",
-            "prorroga",
             "fechaTerminacionOtrosi",
             "observaciones",
         ]
 
         widgets = {
             "valorAdicion": forms.NumberInput(),
-            "prorroga": forms.NumberInput(),
             "fechaTerminacionOtrosi": forms.DateInput(attrs={'class': 'form-control',
                                                              'placeholder': 'Select a date',
                                                              'type': 'date'
@@ -102,7 +100,6 @@ class OtrosiForm(forms.ModelForm):
 
         labels = {
             "valorAdicion": "Valor de la adición",
-            "prorroga": "Tiempo de la prorroga (en meses)",
             "fechaTerminacionOtrosi": "Fecha de terminación de la adición",
             "observaciones": "Observaciones",
         }

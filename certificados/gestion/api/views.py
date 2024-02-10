@@ -1,5 +1,5 @@
 from ..models import Contrato, Otrosi
-from ..utils import actualizarOtrosis
+from ..utils import actualizarOtrosis, actualizarProrrogas
 from .serializer import ContratoSerializer, OtrosiSerializer
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -33,6 +33,7 @@ class ContratosApiView(APIView):
         if serializer.is_valid():
             serializer.save()
             actualizarOtrosis(contrato.id)
+            actualizarProrrogas(contrato.id)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -63,5 +64,6 @@ class OtrosiApiView(APIView):
         if serializer.is_valid():
             serializer.save()
             actualizarOtrosis(otrosi.contratoId.id)
+            actualizarProrrogas(otrosi.contratoId.id)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
