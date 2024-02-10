@@ -116,7 +116,6 @@ class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Otrosi
     form_class = OtrosiForm
     template_name = "modals/editar_modal.html"
-    success_url = reverse_lazy("gestion:otrosis_listar")
     success_message = "El otrosi fue agregado correctamente"
 
     def get_context_data(self, **kwargs):
@@ -150,6 +149,7 @@ class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         otrosiSave.contratoId = contrato
         otrosiSave.save()
 
+        self.success_url = reverse_lazy("gestion:otrosis_listar", args=[contrato.id])
         return super().form_valid(form)
 
 EditarModal_detail_view = EditarModal.as_view()
