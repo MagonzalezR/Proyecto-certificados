@@ -194,4 +194,30 @@
     document.getElementById(idFechaBloqueada).removeAttribute('disabled')
   }
 </script>
+
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var inputs = document.querySelectorAll('input, textarea');
+
+    inputs.forEach(function(input) {
+      input.addEventListener('input', function() {
+        if (input.validity.valid) {
+          input.classList.remove('input-highlight-error');
+        } else {
+          input.classList.add('input-highlight-error');
+        }
+      });
+    });
+  });
+
+</script>
+
+<style>
+  .input-highlight-error {
+    border: 2px solid #ff6161c2;
+  }
+  </style>
+
 {% endblock %}

@@ -127,3 +127,21 @@ $("#cerrarModal").click(function () {
     $("#miModal").hide();
 });
 
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    var inputs = document.querySelectorAll('input, textarea');
+
+    inputs.forEach(function(input) {
+      input.addEventListener('input', function() {
+        if (input.validity.valid) {
+          input.classList.remove('input-highlight-error');
+        } else {
+          input.classList.add('input-highlight-error');
+        }
+      });
+    });
+  });
