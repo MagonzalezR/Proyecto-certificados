@@ -43,7 +43,7 @@
                     required>
             </div>
             <div class="mb-3 row">
-                <label for="direccion" class="col-sm-2 col-form-label">Direccion</label>
+                <label for="direccion" class="col-sm-2 col-form-label">Dirección</label>
                 <input type="text" class="form-control" id="direccion" title="kra 1 # 1-1" placeholder="kra 1 # 1-1"
                     >
             </div>
@@ -118,6 +118,7 @@
         var cedula = document.getElementById('Cedula').value.trim();
         var correo = document.getElementById('correo').value.trim();
         var telefono = document.getElementById('telefono').value.trim();
+        var direccion = document.getElementById('direccion').value.trim();
         var botonBuscar = document.getElementById('btnBuscar');
 
         botonBuscar.disabled = !(nombre && cedula && correo && telefono);
@@ -128,6 +129,7 @@
         var cedulaCons = document.getElementById('Cedula').value.trim();
         var correoCons = document.getElementById('correo').value.trim();
         var telefonoCons = document.getElementById('telefono').value.trim();
+        var direccionCons = document.getElementById('direccion').value.trim();
 
         // Validar que ambos campos estén diligenciados
         if (!nombreCons || !cedulaCons || !correoCons || !telefonoCons) {
@@ -163,7 +165,8 @@
                         (nombreCons ? x.nombreConsultor?.toLowerCase()?.includes(nombreCons.toLowerCase()) : true) &&
                         (cedulaCons ? x?.cedula?.toLowerCase()?.includes(cedulaCons.toLowerCase()) : true)&&
                         (correoCons ? x?.correo?.toLowerCase()?.includes(correoCons.toLowerCase()) : true) &&
-                        (telefonoCons ? x?.telefono?.toLowerCase()?.includes(telefonoCons.toLowerCase()) : true)
+                        (telefonoCons ? x?.telefono?.toLowerCase()?.includes(telefonoCons.toLowerCase()) : true) &&
+                        (direccionCons ? x?.direccion?.toLowerCase()?.includes(direccionCons.toLowerCase()) : true) 
                     );
                 });
 
