@@ -55,13 +55,13 @@ class ContratoForm(forms.ModelForm):
             "observaciones": forms.Textarea(attrs={"class": "form-control", "rows": "4"}),
         }
         labels = {      #Label asociado a cada campo
-            "idContrato": "Id del contrato",
-            "cedula": "Cédula del empleado",
-            "nombreConsultor": "Nombre del empleado",
-            "idDesarrollo": "Id del desarrollo",
+            "idContrato": "Número convenio y/o contrato",
+            "cedula": "Cédula del contratista",
+            "nombreConsultor": "Nombre completo del contratista",
+            "idDesarrollo": "Número del proyecto",
             "tipoContrato": "Tipo de contrato",
             "fechaSuscripcion": "Fecha de suscripción del contrato",
-            "fechaInicio": "Fecha de inicio del contrato",
+            "fechaInicio": "Fecha de acta de inicio",
             "valorContrato": "Valor del contrato",
             "fechaTerminacion": "Fecha de terminación del contrato",
             "objeto": "Objeto",

@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="row justify-content-center  ">
-      <div class="col-lg-6 justify-content-center"  >
+      <div class="col-lg-6 text-center"  >
         <h1 style="color: #F0821A; text-align-last: center;"> Módulo de consulta de contratos</h1> 
         <p> 
           Busca fácilmente tus contratos de la unidad de extension de la universidad Distrital Francisco jose de Caldas.</p>
@@ -18,15 +18,17 @@
     </div>
 <div class="row m-5 justify-content-center">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4" >
-        <div>
+        <div class="text-center">
             <h3>Bienvenido al módulo de generación de certificados</h3>
+        </div>
+        <div>
             <p>Por favor, ingrese sus datos para consultar los certificados asociados a su nombre, cédula, telefono, correo y dirección
                 proporcionado en su contrato laboral.</p>
         </div>
         <form action="#" method="get">
             {% csrf_token %}
             <div class="mb-3 row">
-                <label for="Name" class="col-sm-2 col-form-label">Nombre*</label>
+                <label for="Name" class="col-sm-4 col-form-label">Nombre completo*</label>
                 <input type="text" class="form-control" id="Nameconsultor" placeholder="Nombre y apellido" required>
             </div>
             <div class="mb-3 row">
@@ -45,7 +47,7 @@
                     required>
             </div>
             <div class="mb-3 row">
-                <label for="direccion" class="col-sm-2 col-form-label">Dirección</label>
+                <label for="direccion" class="col-sm-4 col-form-label d-flex">Dirección&nbsp;<p style="font-size: smaller; color: gray; padding-top: 2px;"> (Opcional)</p></label>
                 <input type="text" class="form-control" id="direccion" title="kra 1 # 1-1" placeholder="kra 1 # 1-1"
                     >
             </div>
