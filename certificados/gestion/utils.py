@@ -56,5 +56,7 @@ def calcular_prorroga(fecha_inicio, fecha_fin):
     """
 
     diferencia_dias = relativedelta.relativedelta(fecha_fin, fecha_inicio)
+    if( diferencia_dias.days<0 or diferencia_dias.months <0 or diferencia_dias.years<0):
+        return "0"
     return f" {diferencia_dias.days} días, {diferencia_dias.months} meses, {diferencia_dias.years} años"
 

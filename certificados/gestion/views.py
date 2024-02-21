@@ -168,7 +168,7 @@ class OtrosiListar(LoginRequiredMixin, ListView):
         Obtiene el conjunto de Otrosíes del Contrato especificado.
         """
         contrato = Contrato.objects.get(id=self.kwargs["pk"])
-        query = super().get_queryset().filter(contratoId=contrato).order_by('id')
+        query = super().get_queryset().filter(contratoId=contrato, deleted=False).order_by('id')
         return query
 
     def get_context_data(self, **kwargs: Any):
@@ -176,6 +176,8 @@ class OtrosiListar(LoginRequiredMixin, ListView):
         Agrega datos adicionales al contexto para la plantilla.
         """
         context = super().get_context_data(**kwargs)
+        otrosis = self.get_queryset()
+        context["terminado"] = otrosis.last()
         context['pk'] = self.kwargs["pk"]
         return context
 

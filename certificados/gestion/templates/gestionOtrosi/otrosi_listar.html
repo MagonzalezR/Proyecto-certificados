@@ -52,8 +52,10 @@
       <input type="date" class="form-control" id="filtroFechaTerminacion" placeholder="Dia o mes o año">
     </div>
     <div class="justify-content-end d-flex mt-3">
+      {% if terminado.prorroga != "0" %}
       <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
         onclick="abrir_modal_edicion(`{% url 'gestion:editar_modal' pk %}`)" >Crear nuevo Otro sí</button>
+      {% endif %}
       <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
         onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
       <a href="{% url 'gestion:contratos_listar' %}">
