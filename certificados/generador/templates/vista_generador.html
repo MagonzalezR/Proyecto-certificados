@@ -13,11 +13,15 @@
         <h1 style="color: #F0821A; text-align-last: center;"> Módulo de consulta de contratos</h1> 
         <p> 
           Busca fácilmente tus contratos de la oficina de extension de la Universidad Distrital Francisco José de Caldas.</p>
+          <input type="button" id="btnCambiar" class="ml-4 form-control btn btn-primary" 
+          style="max-width: 150px; padding-left: 4px;" value="Cambiar Formulario" onclick="cambiarFormulario()">
         </div>
       </div>
     </div>
+
 <div class="row m-5 justify-content-center">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4" >
+
+    <div id="formularioContrato" class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4" style="display: none;">
         <div class="text-center">
             <h3>Bienvenido al módulo de generación de certificados</h3>
         </div>
@@ -25,6 +29,7 @@
             <p>Por favor, ingrese sus datos para consultar los certificados asociados a su nombre, cédula, telefono, correo y dirección
                 proporcionado en su contrato laboral.</p>
         </div>
+
         <form action="#" method="get">
             {% csrf_token %}
             <div class="mb-3 row">
@@ -51,14 +56,39 @@
                 <input type="text" class="form-control" id="direccion" title="kra 1 # 1-1" placeholder="kra 1 # 1-1"
                     >
             </div>
+        </form>
+        <div class="row justify-content-end">
+            <input type="button" id="btnBuscar" class=" ml-4 form-control btn btn-primary justify-content-end "
+                style="max-width: 150px; margin-right: 4px;" value="buscar" onclick="buscar()">
+            {% comment %} <input type="button" id="btnCambiar" class="ml-4 form-control btn btn-secondary" 
+                style="max-width: 150px; padding-left: 4px;" value="Cambiar Formulario" onclick="cambiarFormulario()"> {% endcomment %}
+        </div>  
+    </div>
 
-            <div class="row justify-content-end">
-                <input type="button" id="btnBuscar" class=" ml-4 form-control btn btn-primary justify-content-end "
-                    style="max-width: 150px;" value="buscar" onclick="buscar()">
+    <div  id="formularioDatos" class="col-lg-6 col-md-6 col-sm-6 col-xl-6 bg-body-tertiary border border-secondary rounded p-4">
+        <div class="text-center">
+            <h3>Bienvenido al módulo de generación de certificados</h3>
+        </div>
+        <div>
+            <p>Por favor, ingrese el código único del certificado para consultar los certificados asociados.</p>
+        </div>
+    
+        <form action="#" method="get">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label for="pdfID" class="col-sm-4 col-form-label">Código del certificado*</label>
+                <input type="text" class="form-control" id="pdfID" placeholder="Código" required>
             </div>
 
         </form>
+        <div class="row justify-content-end">
+            <input type="button" id="btnBuscarid" class="ml-4 form-control btn btn-primary justify-content-end "
+                style="max-width: 150px; margin-right: 4px;" value="buscar" onclick="buscarPDF()">
+            {% comment %} <input type="button" id="btnCambiar" class="ml-4 form-control btn btn-secondary" 
+                style="max-width: 150px; padding-left: 4px;" value="Cambiar Formulario" onclick="cambiarFormulario()"> {% endcomment %}
+        </div>
     </div>
+    
     <div class="col-lg-8 mt-5 ">
         <h4>Resultados</h4>
         <div class="col-lg-5 ">
@@ -87,6 +117,7 @@
         </div>
     </div>
 </div>
+
 <script>
     document.getElementById('filtroInput').addEventListener('input', function () {
         filtrarTabla();
@@ -112,92 +143,118 @@
             }
         }
     }
+
+    function cambiarFormulario() {
+        var formularioContrato = document.getElementById('formularioContrato');
+        var formularioDatos = document.getElementById('formularioDatos');
+
+        if (formularioContrato.style.display === 'none') {
+            formularioContrato.style.display = 'block';
+            formularioDatos.style.display = 'none';
+        } else {
+            formularioContrato.style.display = 'none';
+            formularioDatos.style.display = 'block';
+        }
+    }
 </script>
 
 <script>
-    // ...
 
+    function habilitarBotonPDF() {
+        document.getElementById('btnBuscarid').disabled = !document.getElementById('pdfID').value.trim();
+    }
+    
     function habilitarBoton() {
-        var nombre = document.getElementById('Nameconsultor').value.trim();
-        var cedula = document.getElementById('Cedula').value.trim();
-        var correo = document.getElementById('correo').value.trim();
-        var telefono = document.getElementById('telefono').value.trim();
-        var direccion = document.getElementById('direccion').value.trim();
-        var botonBuscar = document.getElementById('btnBuscar');
-
-        botonBuscar.disabled = !(nombre && cedula && correo && telefono);
+        const campos = ['Nameconsultor', 'Cedula', 'correo', 'telefono'];
+        document.getElementById('btnBuscar').disabled = campos.some(campo => !document.getElementById(campo).value.trim());
     }
 
-    function buscar() {
-        var nombreCons = document.getElementById('Nameconsultor').value.trim();
-        var cedulaCons = document.getElementById('Cedula').value.trim();
-        var correoCons = document.getElementById('correo').value.trim();
-        var telefonoCons = document.getElementById('telefono').value.trim();
-        var direccionCons = document.getElementById('direccion').value.trim();
-
-        // Validar que ambos campos estén diligenciados
-        if (!nombreCons || !cedulaCons || !correoCons || !telefonoCons) {
-            alert("Por favor, diligencie el campo de nombre, cédula, correo y telefono.");
+    function buscarPDF() {
+        const idPdfCons = document.getElementById('pdfID').value.trim();
+        if (!idPdfCons) {
+            alert("Por favor, diligencie el campo correctamente");
             return;
         }
-
-        let urlPatch = "{% url 'api:contrato_api' %}";
-        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
-
+    
+        const urlPatch = "{% url 'api:contrato_api' %}";
+        const csrftoken = $('[name=csrfmiddlewaretoken]').val();
+    
         $.ajax({
             url: urlPatch,
             type: 'get',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            },
-            success: function (response) {
-                const cedulasEnApi = response.map(x => x.cedula.toLowerCase().trim());
-                const correoEnApi = response.map(x => x.correo.toLowerCase().trim());
-
-                // Validar que la cédula ingresada esté exactamente en la lista de cédulas de la API
-                if (!cedulasEnApi.includes(cedulaCons.toLowerCase())) {
-                    alert(`La cédula ${cedulaCons} ingresada no coincide con ninguna registrada.`);
+            beforeSend: xhr => xhr.setRequestHeader("X-CSRFToken", csrftoken),
+            success: response => {
+                const idPdfEnApi = response.map(x => x.codigo);
+    
+                if (!idPdfEnApi.includes(idPdfCons)) {
+                    alert(`El número ${idPdfCons} ingresado no coincide con ningun código registrado.`);
                     return;
                 }
-                if (!correoEnApi.includes(correoCons.toLowerCase())) {
-                    alert(`El correo ${correoCons} ingresado no coincide con ninguna registrada.`);
-                    return;
-                }
-
-                const busquedaDataNotificacion = response.filter((x) => {
-                    return (
-                        (nombreCons ? x.nombreConsultor?.toLowerCase()?.includes(nombreCons.toLowerCase()) : true) &&
-                        (cedulaCons ? x?.cedula?.toLowerCase()?.includes(cedulaCons.toLowerCase()) : true)&&
-                        (correoCons ? x?.correo?.toLowerCase()?.includes(correoCons.toLowerCase()) : true) &&
-                        (telefonoCons ? x?.telefono?.toLowerCase()?.includes(telefonoCons.toLowerCase()) : true) &&
-                        (direccionCons ? x?.direccion?.toLowerCase()?.includes(direccionCons.toLowerCase()) : true) 
-                    );
-                });
-
-                // Limpia la tabla antes de agregar nuevos resultados
-                var tabla = document.getElementById("tableuser").getElementsByTagName('tbody')[0];
-                tabla.innerHTML = "";
-
-                // Itera sobre los resultados y agrega filas solo si coinciden nombre y cédula
-                busquedaDataNotificacion.forEach(function (elemento) {
-                    var fila = tabla.insertRow();
-                    var celda = fila.insertCell(0);
-                    celda.textContent = `${elemento.idContrato} - ${elemento.nombreConsultor} - ${elemento.fechaInicio}`;
-
-                    // Agrega la celda del botón en la misma fila
-                    var celdaBoton = fila.insertCell(1);
-                    celdaBoton.innerHTML = `
-                    <a href="./PDF/${elemento.id}/${elemento.codigo}">
-                        <button class="btn btn-outline-success btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
-                    </a>`;
-                });
-
+    
+                const busquedaDataNotificacion = response
+                    .filter(x => idPdfCons ? x?.codigo?.includes(idPdfCons) : true);
+    
+                actualizarTabla(busquedaDataNotificacion);
             },
-            error: function (error) {
-                console.log(error);
-            }
+            error: error => console.log(error)
         });
     }
+    
+    function buscar() {
+        const campos = ['Nameconsultor', 'Cedula', 'correo', 'telefono'];
+        const valores = campos.map(campo => document.getElementById(campo).value.trim());
+    
+        if (valores.some(valor => !valor)) {
+            alert("Por favor, diligencie todos los campos obligatorios.");
+            return;
+        }
+    
+        const urlPatch = "{% url 'api:contrato_api' %}";
+        const csrftoken = $('[name=csrfmiddlewaretoken]').val();
+    
+        $.ajax({
+            url: urlPatch,
+            type: 'get',
+            beforeSend: xhr => xhr.setRequestHeader("X-CSRFToken", csrftoken),
+            success: response => {
+                const cedulasEnApi = response.map(x => x.cedula.toLowerCase().trim());
+                const correoEnApi = response.map(x => x.correo.toLowerCase().trim());
+    
+                if (!cedulasEnApi.includes(valores[1].toLowerCase()) || !correoEnApi.includes(valores[2].toLowerCase())) {
+                    alert(`La cédula o el correo ingresados no coinciden con ninguna registrada.`);
+                    return;
+                }
+    
+                const busquedaDataNotificacion = response.filter(x =>
+                    (valores[0] ? x.nombreConsultor?.toLowerCase()?.includes(valores[0].toLowerCase()) : true) &&
+                    (valores[1] ? x?.cedula?.toLowerCase()?.includes(valores[1].toLowerCase()) : true) &&
+                    (valores[2] ? x?.correo?.toLowerCase()?.includes(valores[2].toLowerCase()) : true) &&
+                    (valores[3] ? x?.telefono?.toLowerCase()?.includes(valores[3].toLowerCase()) : true)
+                );
+    
+                actualizarTabla(busquedaDataNotificacion);
+            },
+            error: error => console.log(error)
+        });
+    }
+    
+    function actualizarTabla(data) {
+        const tabla = document.getElementById("tableuser").getElementsByTagName('tbody')[0];
+        tabla.innerHTML = "";
+    
+        data.forEach(elemento => {
+            const fila = tabla.insertRow();
+            const celda = fila.insertCell(0);
+            celda.textContent = `${elemento.idContrato} - ${elemento.nombreConsultor} - ${elemento.fechaInicio}`;
+    
+            const celdaBoton = fila.insertCell(1);
+            celdaBoton.innerHTML = `
+                <a href="./PDF/${elemento.id}">
+                    <button class="btn btn-outline-success btn-sm" type="button"><ion-icon name="download-outline" class="ico"></ion-icon></button>
+                </a>`;
+        });
+    }
+    
 </script>
 
 
@@ -205,12 +262,16 @@
 <script>
     // Deshabilita el botón de búsqueda al cargar la página
     document.getElementById('btnBuscar').disabled = true;
-
+    document.getElementById('btnBuscarid').disabled = true;
+    
     // Habilita/deshabilita el botón al cambiar los valores de los campos de nombre y cédula
     document.getElementById('Nameconsultor').addEventListener('input', habilitarBoton);
     document.getElementById('Cedula').addEventListener('input', habilitarBoton);
     document.getElementById('correo').addEventListener('input', habilitarBoton);
     document.getElementById('telefono').addEventListener('input', habilitarBoton);
+    document.getElementById('pdfID').addEventListener('input', habilitarBotonPDF);
+
+
 </script>
 
 
