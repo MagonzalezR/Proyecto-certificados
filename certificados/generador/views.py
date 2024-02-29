@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.http import Http404
 from django.views.generic import TemplateView, DetailView
 from wkhtmltopdf.views import PDFTemplateResponse
 from gestion.models import Contrato, Otrosi
@@ -24,6 +24,9 @@ class PDFGeneratorView(DetailView):
     def get(self, request, *args, **kwargs):
         # Obtener el contrato específico usando su ID
         contrato = Contrato.objects.get(id=self.kwargs["pk"])
+        codigo = self.kwargs["cod"]
+        if codigo != contrato.codigo:
+            raise Http404("Pagina no encontrada")
 
         # Obtener los otrosi asociados al contrato
         otrosis = Otrosi.objects.filter(contratoId=contrato).exclude(deleted=True).order_by('id')

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import gettext_lazy as _
+from base64 import b64encode
 
 # Tipos estaticos
 TIPOS_CONTRATO = (
@@ -35,11 +36,21 @@ class Contrato(models.Model):
     correo = models.CharField(_("Correo electrónico"))
     telefono = models.CharField(_("Teléfono"), max_length = 14)
     direccion = models.CharField(_("Dirección"))
+    codigo = models.CharField(_("SC"))
     deleted = models.BooleanField(default=False)
 
     def __str__(self):
         """Retorna el identificador del contrato"""
         return self.idContrato + " - " +str(self.id)
+    
+    def save(self, *args, **kwargs):
+        self.codigo = self.generar_campo_base64()
+        super().save(*args, **kwargs)
+    
+    def generar_campo_base64(self):
+        valor_concatenado = f"{self.cedula}{self.nombreConsultor}{self.idContrato}{self.correo}{self.telefono}"
+        valor_base64 = b64encode(valor_concatenado.encode()).decode()
+        return valor_base64
 
 class Otrosi(models.Model):
     """Modelo de Otrosis"""
