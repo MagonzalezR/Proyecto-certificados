@@ -1,25 +1,17 @@
-from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-# from usuarios.models import Profile, User
-from django.views.generic import (
-    DeleteView,
-    DetailView,
-    ListView,
-    RedirectView,
-    UpdateView,
-    CreateView,
-    TemplateView,
-)
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 
-# class UserDetailView(DetailView):
-#     model = User
-#     slug_field = "username"
-#     slug_url_kwarg = "username"
-#     template_name = "detalle_usuario.html"
+class Login(LoginView):
+    """
+    Vista personalizada para el login de usuarios.
+    """
 
-# user_detail_view = UserDetailView.as_view()
-
-class ContratoLogin(TemplateView):
+    # Nombre de la plantilla HTML utilizada para el formulario de login
     template_name = "login.html"
 
-contratologin_detail_view = ContratoLogin.as_view()
+    # URL a la que redirigir al usuario después de un login exitoso
+    next_page = reverse_lazy("gestion:contratos_listar")
+
+# Crea una instancia de la vista Login como `login_detail_view`
+# para uso en las urls
+login_detail_view = Login.as_view()

@@ -1,250 +1,266 @@
-{% extends 'navBar.html' %}
+{% extends 'index.html' %}
 {% block title %}
-  {{ 'Gestion' }}
+{{ 'Listar' }}
 {% endblock %}
-
 {% block contentN %}
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.level }}">
+    {{ message }}
+  </div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% comment %} <div class="container mt-3">
+  <input type="text" class="form-control" id="filtroContratos"
+    placeholder="Buscar contrato por nombre, cédula, objeto, fecha inicio, fecha fin, id contrato o id desarrollo...">
+</div> {% endcomment %}
 
-
-<div class="container-fluid bg-secondary-color p-4 mx-auto w-50 ">
-
-  <div class="row g-4">
-
-    <!-- Columna para Nombres, Cedula, ID Desarrollo, ID Contrato, Valor Contrato -->
-    <div class="col-lg-6 border border-4 rounded">
-        <div class="p-3">
-            <div class="row align-items-start">
-                <div class="col-lg-12 mb-3">
-                    <label class="input-group-text">Nombres</label>
-                    <input type="text" aria-label="Nombres" class="form-control">
-                </div>
-                <div class="col-lg-12 mb-3">
-                    <span class="input-group-text">Cédula</span>
-                    <input type="text" aria-label="Cedula" class="form-control">
-                </div>
-                <div class="col-lg-12 mb-3">
-                  <span class="input-group-text">Valor contrato</span>
-                  <input type="text" aria-label="Valor contrato" class="form-control">
-              </div>
-                <div class="col-lg-6 mb-3">
-                    <span class="input-group-text">ID Contrato</span>
-                    <input type="text" aria-label="ID Contrato" class="form-control">
-                </div>
-                <div class="col-lg-6 mb-3">
-                  <span class="input-group-text">ID Desarrollo</span>
-                  <input type="text" aria-label="ID Desarrollo" class="form-control">
-              </div>
-                
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Columna para Fechas Y Tipo de Contrato -->
-
-
-    <div class="col-lg-6 border border-4 rounded">
-        <div class="p-3 ">
-            <label for="fechasub" class="input-group-text">Fecha subcripción</label>
-            <input class="form-control mb-3" type="date" id="fechasub">
-            <label for="fechainicio" class="input-group-text">Fecha inicio</label>
-            <input class="form-control mb-3" type="date" id="fechainicio">
-            <label for="fechaTerminacion" class="input-group-text">Fecha terminación</label>
-            <input class="form-control mb-3" type="date" id="fechaTerminacion">
-            
-              <label for="tipoContrato" class="input-group-text">Tipo de contrato</label>
-              <select class="form-select" aria-label="tipo de contrato" id="tipoContrato">
-                  <option selected="" selected disabled>Selecciona un tipo de contrato...</option>
-                  <option value="indefinido">Contrato Indefinido</option>
-                  <option value="temporal">Contrato Temporal</option>
-                  <option value="practicas">Contrato en Prácticas</option>
-                  <option value="formacion">Contrato de Formación</option>
-                  <option value="servicios">Contrato de prestación de servicios</option>
-              </select>
-          
-        </div>
-    </div>
-
-    <!-- Columna para Objetivo -->
-
-    <div class="col-lg-12 border border-4 rounded">
-      <div class="p-3 bg-white">
-        <label for="Objetivo" class="input-group-text">Selecciona un objetivo:</label>
-        <select class="form-select mb-2" aria-label="tipo de contrato" id="Objetivo">
-            <option selected="" selected disabled>Selecciona un objetivo...</option>
-            <option value="Objetivo 1">Objetivo 1</option>
-            <option value="Objetivo 2">Objetivo 2</option>
-            <option value="Objetivo 3">Objetivo 3</option>
-        </select>
-    </div>
-        
-    </div>
-    
-    <!-- Columna para Actividades -->
-    <div class="col-lg-12 border border-4 rounded">
-        <div class="p-3 bg-white">
-            <label for="actividades" class="input-group-text">Selecciona una actividad:</label>
-            <select class="form-select mb-2" aria-label="tipo de contrato" id="actividades">
-              <option value="desarrollo">Desarrollo de Software</option>
-              <option value="control_versiones">Gestión de Control de Versiones con Git</option>
-              <option value="pruebas">Pruebas de Software y QA</option>
-              <option value="base_datos">Diseño y Optimización de Bases de Datos</option>
-              <option value="front_end">Desarrollo Front-end con Tecnologías Modernas</option>
-              <option value="back_end">Desarrollo Back-end y Construcción de APIs</option>
-              <option value="seguridad">Seguridad Informática y Protección contra Amenazas</option>
-              <option value="despliegue">Despliegue y Mantenimiento de Aplicaciones en Producción</option>
-              <option value="rendimiento">Optimización de Rendimiento y Análisis</option>
-              <option value="automatizacion">Automatización de Pruebas y Tareas de Desarrollo</option>
-              <option value="aprendizaje_continuo">Aprendizaje Continuo y Actualización Tecnológica</option>
-              <option value="Lorem">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed, reiciendis amet quas molestias rerum veniam minima ea dolorem, modi perspiciatis debitis eveniet adipisci incidunt fugit natus minus hic expedita ad.</option>
-              <option value="colaboracion">Colaboración Efectiva y Trabajo en Equipo</option>
-              <option value="resolucion_problemas">Resolución Creativa de Problemas Técnicos</option>
-              </select>
-            <div class="col-12 d-flex justify-content-end">
-              <button type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')">Añadir Actividad</button>
-
-            </div>
-            
-          
-            <label>Actividades Seleccionadas:</label>
-            <div id="actividadesContainer">
-              <!-- Las actividades seleccionadas se mostrarán aquí -->
-            </div>
-        </div>
-        
-    </div>
-    <div class="col-lg-12 border border-4 rounded p-3">
-      <div class="row">
-        
-        <div class="col-6 d-flex ">       
-          <button type="button" class="btn btn-primary mb-2" onclick="agregarCampos()">Agregar Otrosi</button>
-        </div>
-        <div class="col-6 d-flex justify-content-end "> 
-          <button class="btn btn-danger mb-2 " onclick="eliminarCampo()">Eliminar último otrosi</button>
-        </div>
-      </div>
-        <div id="camposContainer">
-        
-        <!-- Los divs con los campos se agregarán aquí -->
-      </div>
-      
+<div class="container mt-4 p-3" >
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 d-flex justify-content-center ">
+        <img width="125px" height="125px" src="/static/img/Logo_Vertical_IDEXUD_Final-1-3-1.png" alt="logo oficina de extensión" >
     </div>
 </div>
+  <div class="row">
+    <div class="col-lg-12 justify-content-center text-center"  >
+      <h1 style="color: #F0821A;">¡Le damos la bienvenida, {{user.username}}!</h1> 
+      <p> 
+        <strong>Módulo de Gestión:</strong> Edita, crea, elimina, busca y visualiza fácilmente los contratos de la oficina de extension de la Universidad Distrital Francisco José de Caldas.</p>
+      </div>
+    </div>
+  </div>
+<div class="container p-3 bg-body-tertiary border border-secondary rounded-end" style="margin-top: 20px;!important">
+  <h3>Filtro</h3>
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label for="filtroIdContrato">Número del proyecto</label>
+      <input type="text" class="form-control" id="filtroIdContrato" placeholder="1111 I -2020 ">
+
+    </div>
+    <div class="col-md-3">
+      <label for="filtroIdDesarrollo">Número convenio y/o contrato</label>
+      <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="111-2020">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroNombre">Nombre</label>
+      <input type="text" class="form-control" id="filtroNombre" placeholder="Nombre">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroCedula">Cédula</label>
+      <input type="text" class="form-control" id="filtroCedula" placeholder="1234567891">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroFechaInicio">Fecha Inicio</label>
+      <input type="date" class="form-control" id="filtroFechaInicio" placeholder="Dia o mes o año">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroFechaFin">Fecha Fin</label>
+      <input type="date" class="form-control" id="filtroFechaFin" placeholder="Dia o mes o año">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroObjeto">Objeto</label>
+      <input type="text" class="form-control" id="filtroObjeto" placeholder="Objeto">
+    </div>
+    <div class="justify-content-end d-flex mt-3">
+      {% if perms.gestion.add_contrato %}
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"><a class="nav-link"
+          aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a>
+      </button>
+      {% endif %}
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;" onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
+      <form action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <input class="btn btn-outline-dark btn-sm" aria-current="page" type="submit" value="Cerrar sesión">
+      </form>
+    </div>
 
 
-<script>
-  var contadorCampos = 1;
-var limiteCampos = 11;
+  </div>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <!-- Tus campos de formulario aquí -->
+</form>
+{% comment %} <div class="col-md-4"> {% endcomment %}
+  <div style="margin: 90px;">
+    <div class="table-responsive mt-3 col-lg-12">
+      <table class="table" id="contratolistar">
+        <thead class="table-dark">
+          <tr>
+            <th>Número del proyecto</th>
+            <th>Número convenio y/o contrato</th>
+            <th>Nombre</th>
+            <th>CC</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Objeto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
 
-function agregarCampos() {
-  var camposContainer = document.getElementById('camposContainer');
+          {% for contrato in object_list %}
+          {% if not contrato.deleted %}
+          <tr>
+            <td style="width: 150px!important; text-align: center!important;">{{ contrato.idContrato }}</td>
+            <td>{{ contrato.idDesarrollo }}</td>
+            <td>{{ contrato.nombreConsultor }}</td>
+            <td>{{ contrato.cedula }}</td>
+            <td>{{ contrato.fechaInicio |date:"m/d/Y" }}</td>
+            <td>{{ contrato.fechaTerminacion |date:"m/d/Y" }}</td>
+            <td>{{ contrato.objeto }}</td>
+            <td style="width: 220px;">
+              <div class="d-flex justify-content-around" style="margin: 2px;">
+                {% if perms.gestion.change_contrato %}
+                <a href="{% url 'gestion:contrato_editar' contrato.id %}" title="Editar">
+                  <button class="btn btn-outline-primary btn-sm" type="button"><ion-icon name="create-outline"
+                      class="ico"></ion-icon>
+                  </button>
+                </a>
+                {% endif %}
+                {% if perms.gestion.delete_contrato %}
+                <button class="btn btn-outline-danger btn-sm" type="button"
+                  onclick="confirmarEliminar({{ contrato.id }})"><ion-icon name="trash-outline"
+                    class="ico"></ion-icon></button>
+                {% endif %}
+                <a href="{% url 'generador:pdf' contrato.id contrato.codigo %}" title="Descargar">
+                  <button class="btn btn-outline-success btn-sm" type="button"><ion-icon name="download-outline"
+                      class="ico"></ion-icon></button>
+                </a>
+                {% if perms.gestion.view_otrosi %}
+                <a href="{% url 'gestion:otrosis_listar' contrato.id %}">
+                  <button class="btn btn-outline-warning btn-sm" style="border-color:#F0821A; color: #F0821A" type="button"><ion-icon
+                  name="add-circle-outline" class="ico"></ion-icon></button>
+                </a>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
 
-  if (contadorCampos < limiteCampos) {
-    // Crear un nuevo div con los campos
-    var nuevoDiv = document.createElement('div');
-    nuevoDiv.className = 'border border-4 rounded p-3 mb-3';
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    // Campos
-    nuevoDiv.innerHTML = `
-      <div class="col-lg-12 mb-3" for="Otrosicontador ${contadorCampos}">Otrosis número ${contadorCampos}:</div>
+  <div class="modal fade" id="miModal" role="dialog">
 
-      <label for="adiccion${contadorCampos}">Adicción:</label>
-      <input type="text" class="form-control mb-2" id="adiccion${contadorCampos}">
+  </div>
 
-      <label for="prorroga${contadorCampos}">Prórroga:</label>
-      <input type="text" class="form-control mb-2" id="prorroga${contadorCampos}">
+  <script>
+    // Funcion para los filtros de la tabla 
+    function filtrarTabla() {
+      let filtroIdContrato = document.getElementById('filtroIdContrato').value.toUpperCase();
+      let filtroIdDesarrollo = document.getElementById('filtroIdDesarrollo').value.toUpperCase();
+      let filtroNombre = document.getElementById('filtroNombre').value.toUpperCase();
+      let filtroCedula = document.getElementById('filtroCedula').value.toUpperCase();
+      let filtroFechaInicio = document.getElementById('filtroFechaInicio').valueAsDate;
+      let filtroFechaFin = document.getElementById('filtroFechaFin').valueAsDate;
+      let filtroObjeto = document.getElementById('filtroObjeto').value.toUpperCase();
 
-      <label for="OtrosiActividad${contadorCampos}">Actividad:</label>
-      <input type="text" class="form-control mb-2" id="OtrosiActividad${contadorCampos}">
+      let tabla = document.getElementById('contratolistar');
+      let filas = tabla.getElementsByTagName('tr');
 
-      <label for="fechaTerminacion${contadorCampos}">Fecha de Terminación:</label>
-      <input type="date" class="form-control mb-2" id="fechaTerminacion${contadorCampos}">
-    `;
+      for (let i = 0; i < filas.length; i++) {
+        let celdas = filas[i].getElementsByTagName('td');
+        let mostrarFila = true;
 
-    // Incrementar el contador de campos
-    contadorCampos++;
+        if (filtroIdContrato !== '' && celdas[0]) {
+          mostrarFila = mostrarFila && celdas[0].textContent.toUpperCase().includes(filtroIdContrato);
+        }
 
-    // Agregar el nuevo div al contenedor
-    camposContainer.appendChild(nuevoDiv);
-  } else {
-    alert('Se ha alcanzado el límite de 10 campos de otrosis.');
-  }
-}
+        if (filtroIdDesarrollo !== '' && celdas[1]) {
+          mostrarFila = mostrarFila && celdas[1].textContent.toUpperCase().includes(filtroIdDesarrollo);
+        }
 
-function eliminarCampo() {
-  var camposContainer = document.getElementById('camposContainer');
-  if (contadorCampos > 1) {
-    // Decrementar el contador de campos
-    contadorCampos--;
+        if (filtroNombre !== '' && celdas[2]) {
+          mostrarFila = mostrarFila && celdas[2].textContent.toUpperCase().includes(filtroNombre);
+        }
 
-    // Obtener el último div y eliminarlo
-    var ultimoDiv = camposContainer.lastChild;
-    camposContainer.removeChild(ultimoDiv);
-  }
-}
+        if (filtroCedula !== '' && celdas[3]) {
+          mostrarFila = mostrarFila && celdas[3].textContent.toUpperCase().includes(filtroCedula);
+        }
 
+        if (filtroFechaInicio && celdas[4]) {
+          const [month, day, year] = celdas[4].textContent.split("/").map(Number);
+          const fechaCelda = new Date(year, month - 1, day);
+          filtroFechaInicio.setMinutes(filtroFechaInicio.getMinutes() + filtroFechaInicio.getTimezoneOffset());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() >= filtroFechaInicio.getTime());
+        }
+
+        if (filtroFechaFin && celdas[5]) {
+          const [month, day, year] = celdas[5].textContent.split("/").map(Number);
+          const fechaCelda = new Date(year, month - 1, day);
+          filtroFechaFin.setMinutes(filtroFechaFin.getMinutes() + filtroFechaFin.getTimezoneOffset());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() <= filtroFechaFin.getTime());
+        }
+
+        if (filtroObjeto !== '' && celdas[6]) {
+          mostrarFila = mostrarFila && celdas[6].textContent.toUpperCase().includes(filtroObjeto);
+        }
+
+        if (mostrarFila) {
+          filas[i].style.display = '';
+        } else {
+          filas[i].style.display = 'none';
+        }
+      }
+    }
+
+    // Agrega el evento a todos los campos de filtro
+    let filtros = document.querySelectorAll('.form-control');
+    for (let i = 0; i < filtros.length; i++) {
+      filtros[i].addEventListener('input', filtrarTabla);
+    }
+
+    //funcion para eliminar los contratos
+
+    function confirmarEliminar(id) {
+      let confirmacion = confirm("¿Estás seguro de que deseas eliminar este contrato?");
+
+      if (confirmacion) {
+        let urlPatch = "{% url 'api:contrato_api' %}"
+        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+          url: urlPatch,
+          type: 'PATCH',
+          data: {
+            'id': id,
+            'deleted': true
+          },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          },
+          success: function (response) {
+            console.log(response);
+            location.reload()
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+        alert("Elemento eliminado");
+      } else {
+        alert("Eliminación cancelada");
+      }
+    }
+
+  </script>
+
+  <script>
+    function limpiarFiltros() {
+        // Obtener todos los campos de filtro
+        var camposFiltro = document.querySelectorAll('.form-control');
+
+        // Limpiar el valor de cada campo
+        camposFiltro.forEach(function (campo) {
+            campo.value = '';
+        });
+    }
 </script>
 
-        <!-- Script para agregar actividades-->
-
-        <script>
-          var contadorCamposA = 0;
-        
-          function agregarElemento(tipo) {
-            var selectElement;
-            var container;
-        
-            if (tipo === 'actividad') {
-              selectElement = document.getElementById('actividades');
-              container = document.getElementById('actividadesContainer');
-        
-              // Obtener el elemento seleccionado
-              var elementoSeleccionado = selectElement.options[selectElement.selectedIndex].text;
-        
-              
-        
-              // Verificar si el elemento ya está en el contenedor
-              if (!contieneElemento(container, elementoSeleccionado)) {
-                // Crear un contenedor para el elemento con un botón de eliminación
-                var elementoContainer = document.createElement('div');
-                elementoContainer.className = 'col-lg-12 d-flex flex-column mb-2';  
-                elementoContainer.innerHTML = `
-                  <div class="col-lg-12 d-flex justify-content-between align-items-start mb-2">
-                    <div>
-                      <span>${contadorCamposA}.&nbsp;</span>${elementoSeleccionado}
-                    </div>
-                    <button type="button" class="col-lg-2 btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
-                  </div>`;
-                container.appendChild(elementoContainer);
-
-              }
-            }
-          }
-        
-          function contieneElemento(container, elemento) {
-            var elementos = container.getElementsByTagName('div');
-        
-            for (var i = 0; i < elementos.length; i++) {
-              if (elementos[i].textContent.includes(elemento)) {
-                // El elemento ya está en el contenedor
-                return true;
-              }
-            }
-            // El elemento no está en el contenedor
-            // Incrementar el contador de campos después de agregar
-            contadorCamposA++;
-            return false;
-          }
-        
-          function eliminarElemento(btn) {
-            var container = btn.parentNode.parentNode; // Obtener el contenedor padre del botón
-        
-            // Eliminar el contenedor del elemento
-            container.removeChild(btn.parentNode);
-            
-          }
-        </script>
-        
-        
-
-{% endblock %}
+  {% endblock %}

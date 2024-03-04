@@ -1,0 +1,224 @@
+{% extends 'index.html' %}
+{% block title %}
+{{ 'Listar' }}
+{% endblock %}
+{% block contentN %}
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <div{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>
+    {{ message }}
+</div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% comment %} <div class="container mt-3">
+  <input type="text" class="form-control" id="filtroContratos"
+    placeholder="Buscar contrato por nombre, cédula, objeto, fecha inicio, fecha fin, id contrato o id desarrollo...">
+</div> {% endcomment %}
+
+<div class="container mt-4 p-3" >
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 d-flex justify-content-center ">
+        <img width="125px" height="125px" src="/static/img/Logo_Vertical_IDEXUD_Final-1-3-1.png" alt="logo oficina de extensión" >
+    </div>
+</div>
+  <div class="row">
+    <div class="col-lg-12 justify-content-center text-center"  >
+      <h1 style="color: #F0821A;"> Módulo de gestión otrosí</h1> 
+      <p> 
+        Edita, crea, elimina y busca fácilmente los otrosi asociados a los contratos de la oficina de extension de la Universidad Distrital Francisco José de Caldas.</p>
+      </div>
+    </div>
+  </div>
+<div class="container p-3 bg-body-tertiary border border-secondary  rounded-end" style="margin-top: 20px;!important">
+
+  <h3>Filtro</h3>
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label for="filtroValorAdicion">Valor de Adición</label>
+      <input type="text" class="form-control" id="filtroValorAdicion" placeholder="1234567891 ">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroValorTotal">Valor Total</label>
+      <input type="text" class="form-control" id="filtroValorTotal" placeholder="1234567891">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroProrroga">Prorroga</label>
+      <input type="text" class="form-control" id="filtroProrroga" placeholder="Prorroga">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroFechaTerminacion">Fecha De terminación</label>
+      <input type="date" class="form-control" id="filtroFechaTerminacion" placeholder="Dia o mes o año">
+    </div>
+    <div class="justify-content-end d-flex mt-3">
+      {% if terminado.prorroga != "0" %}
+      {% if perms.gestion.add_otrosi %}
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
+        onclick="abrir_modal_edicion(`{% url 'gestion:editar_modal' pk %}`)" >Crear nuevo Otro sí</button>
+      {% endif %}
+      {% endif %}
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
+        onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
+      <a href="{% url 'gestion:contratos_listar' %}">
+        <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;">Volver</button>
+      </a>
+    </div>
+
+
+  </div>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <!-- Tus campos de formulario aquí -->
+</form>
+{% comment %} <div class="col-md-4"> {% endcomment %}
+  <div style="margin: 90px;">
+    <div class="table-responsive mt-3 col-lg-12">
+      <table class="table" id="contratolistar">
+        <thead class="table-dark">
+          <tr>
+            <th>Valor de adición</th>
+            <th>Valor Acumulado</th>
+            <th>Prorroga</th>
+            <th>Fecha De terminacion</th>
+            <th>Observaciones</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for otrosi in object_list %}
+          {% if not otrosi.deleted %}
+          <tr>
+            <td style="text-align: center;">{{ otrosi.valorAdicion }}</td>
+            <td style="text-align: center;">{{ otrosi.valorAcumulado }}</td>
+            <td style="text-align: center;">{{ otrosi.prorroga }}</td>
+            <td style="text-align: center;">{{ otrosi.fechaTerminacionOtrosi |date:"d/m/Y" }}</td>
+            <td>{{ otrosi.observaciones }}</td>
+            <td style="width: 160px;">
+              <div class="d-flex justify-content-around" style="margin: 2px;">
+                {% if perms.gestion.change_otrosi %}
+                <button class="btn btn-outline-primary btn-sm" type="button"
+                  onclick="abrir_modal_edicion(`{% url 'gestion:otrosi_editar' otrosi.id %}`)"><ion-icon
+                    name="create-outline" class="ico"></ion-icon></button>
+                {% endif %}
+                {% if perms.gestion.delete_otrosi %}
+                <button class="btn btn-outline-danger btn-sm" type="button"
+                  onclick="confirmarEliminar({{ otrosi.id }})"><ion-icon name="trash-outline"
+                    class="ico"></ion-icon></button>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="miModal" role="dialog">
+
+  </div>
+
+  <script>
+    // Funcion para los filtros de la tabla 
+    function filtrarTabla() {
+      let filtroValorAdicion = document.getElementById('filtroValorAdicion').value.toUpperCase();
+      let filtroValorTotal = document.getElementById('filtroValorTotal').value.toUpperCase();
+      let filtroProrroga = document.getElementById('filtroProrroga').value.toUpperCase();
+      let filtroFechaTerminacion = document.getElementById('filtroFechaTerminacion').valueAsDate;
+
+      let tabla = document.getElementById('contratolistar');
+      let filas = tabla.getElementsByTagName('tr');
+
+      for (let i = 0; i < filas.length; i++) {
+        let celdas = filas[i].getElementsByTagName('td');
+        let mostrarFila = true;
+
+        if (filtroValorAdicion !== '' && celdas[0]) {
+          mostrarFila = mostrarFila && celdas[0].textContent.toUpperCase().includes(filtroValorAdicion);
+        }
+
+        if (filtroValorTotal !== '' && celdas[1]) {
+          mostrarFila = mostrarFila && celdas[1].textContent.toUpperCase().includes(filtroValorTotal);
+        }
+
+        if (filtroProrroga !== '' && celdas[2]) {
+          mostrarFila = mostrarFila && celdas[2].textContent.toUpperCase().includes(filtroProrroga);
+        }
+
+        if (filtroFechaTerminacion && celdas[3]) {
+          const [day, month, year] = celdas[3].textContent.split("/").map(Number);
+          const fechaCelda = new Date(year, month - 1, day);
+          filtroFechaTerminacion.setMinutes(filtroFechaTerminacion.getMinutes() + filtroFechaTerminacion.getTimezoneOffset());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() === filtroFechaTerminacion.getTime());
+        }
+
+        if (mostrarFila) {
+          filas[i].style.display = '';
+        } else {
+          filas[i].style.display = 'none';
+        }
+      }
+    }
+
+    // Agrega el evento a todos los campos de filtro
+    let filtros = document.querySelectorAll('.form-control');
+    for (let i = 0; i < filtros.length; i++) {
+      filtros[i].addEventListener('input', filtrarTabla);
+    }
+
+    //funcion para eliminar los otro si
+
+    function confirmarEliminar(id) {
+      let confirmacion = confirm("¿Estás seguro de que deseas eliminar este otro si?");
+
+      if (confirmacion) {
+        let urlPatch = "{% url 'api:otrosi_api' %}"
+        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+          url: urlPatch,
+          type: 'PATCH',
+          data: {
+            'id': id,
+            'deleted': true
+          },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          },
+          success: function (response) {
+            console.log(response);
+            location.reload()
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+        alert("Elemento eliminado");
+      } else {
+        alert("Eliminación cancelada");
+      }
+    }
+
+  $("#cerrarModal").click(function () {
+   $("#miModal").hide();
+  })
+  </script>
+
+  <script>
+    function limpiarFiltros() {
+      // Obtener todos los campos de filtro
+      var camposFiltro = document.querySelectorAll('.form-control');
+
+      // Limpiar el valor de cada campo
+      camposFiltro.forEach(function (campo) {
+        campo.value = '';
+      });
+    }
+  </script>
+
+  {% endblock %}
