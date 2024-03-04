@@ -53,8 +53,10 @@
     </div>
     <div class="justify-content-end d-flex mt-3">
       {% if terminado.prorroga != "0" %}
+      {% if perms.gestion.add_otrosi %}
       <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
         onclick="abrir_modal_edicion(`{% url 'gestion:editar_modal' pk %}`)" >Crear nuevo Otro sí</button>
+      {% endif %}
       {% endif %}
       <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"
         onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
@@ -96,12 +98,16 @@
             <td>{{ otrosi.observaciones }}</td>
             <td style="width: 160px;">
               <div class="d-flex justify-content-around" style="margin: 2px;">
+                {% if perms.gestion.change_otrosi %}
                 <button class="btn btn-outline-primary btn-sm" type="button"
                   onclick="abrir_modal_edicion(`{% url 'gestion:otrosi_editar' otrosi.id %}`)"><ion-icon
                     name="create-outline" class="ico"></ion-icon></button>
+                {% endif %}
+                {% if perms.gestion.delete_otrosi %}
                 <button class="btn btn-outline-danger btn-sm" type="button"
                   onclick="confirmarEliminar({{ otrosi.id }})"><ion-icon name="trash-outline"
                     class="ico"></ion-icon></button>
+                {% endif %}
               </div>
             </td>
           </tr>
@@ -198,6 +204,9 @@
       }
     }
 
+  $("#cerrarModal").click(function () {
+   $("#miModal").hide();
+  })
   </script>
 
   <script>

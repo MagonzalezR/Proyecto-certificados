@@ -15,11 +15,11 @@ from django.views.generic import (
 )
 from django.views.generic.edit import  CreateView, UpdateView
 
-class ContratoCreateView(LoginRequiredMixin, CreateView):
+class ContratoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Vista para crear un nuevo Contrato.
     """
-
+    permission_required = 'gestion.add_contrato'
     model = Contrato
     form_class = ContratoForm
     template_name = "gestionContrato/contrato_formulario.html"
@@ -50,11 +50,11 @@ class ContratoCreateView(LoginRequiredMixin, CreateView):
 
 contrato_create_view = ContratoCreateView.as_view()
 
-class ContratoUpdateView(LoginRequiredMixin, UpdateView):
+class ContratoUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     Vista para editar un Contrato existente.
     """
-
+    permission_required = 'gestion.change_contrato'
     model = Contrato
     form_class = ContratoForm
     template_name = "gestionContrato/contrato_formulario.html"
@@ -89,11 +89,11 @@ class ContratoUpdateView(LoginRequiredMixin, UpdateView):
 
 contrato_update_view = ContratoUpdateView.as_view()
 
-class ContratoListar(LoginRequiredMixin, ListView):
+class ContratoListar(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Vista para listar todos los Contratos.
     """
-
+    permission_required = 'gestion.view_contrato'
     template_name = "gestionContrato/contrato_listar.html"
     model = Contrato
 
@@ -107,11 +107,11 @@ class ContratoListar(LoginRequiredMixin, ListView):
 contratolistar_detail_view = ContratoListar.as_view()
 
 
-class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class EditarModal(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """
     Vista modal para agregar un nuevo Otrosi a un Contrato.
     """
-
+    permission_required = 'gestion.add_otrosi'
     template_name = "modals/editar_modal.html"
     model = Otrosi
     form_class = OtrosiForm
@@ -155,11 +155,11 @@ class EditarModal(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 EditarModal_detail_view = EditarModal.as_view()
 
 EditarModal_detail_view = EditarModal.as_view()
-class OtrosiListar(LoginRequiredMixin, ListView):
+class OtrosiListar(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """
     Vista para listar los Otrosíes de un Contrato específico.
     """
-
+    permission_required = 'gestion.view_otrosi'
     template_name = "gestionOtrosi/otrosi_listar.html"
     model = Otrosi
 
@@ -183,11 +183,11 @@ class OtrosiListar(LoginRequiredMixin, ListView):
 
 otrosi_detail_view = OtrosiListar.as_view()
 
-class EditarOtrosiModal(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class EditarOtrosiModal(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """
     Vista modal para editar un Otrosi existente.
     """
-
+    permission_required = 'gestion.change_otrosi'
     template_name = "modals/editar_modal.html"
     model = Otrosi
     form_class = OtrosiForm

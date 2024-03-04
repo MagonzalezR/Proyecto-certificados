@@ -123,7 +123,4 @@ function abrir_modal_edicion(url) {
     });
 }
 // Cuando se hace clic en el botón de cerrar, ocultar el modal
-$("#cerrarModal").click(function () {
-    $("#miModal").hide();
-});
 

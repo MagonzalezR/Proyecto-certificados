@@ -64,9 +64,12 @@
       <input type="text" class="form-control" id="filtroObjeto" placeholder="Objeto">
     </div>
     <div class="justify-content-end d-flex mt-3">
+      {% if perms.gestion.add_contrato %}
       <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"><a class="nav-link"
-          aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a></button>
-          <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;" onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
+          aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a>
+      </button>
+      {% endif %}
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;" onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
       <form action="{% url 'users:logout' %}" method="post">
         {% csrf_token %}
         <input class="btn btn-outline-dark btn-sm" aria-current="page" type="submit" value="Cerrar sesión">
@@ -105,27 +108,33 @@
             <td>{{ contrato.idDesarrollo }}</td>
             <td>{{ contrato.nombreConsultor }}</td>
             <td>{{ contrato.cedula }}</td>
-            <td>{{ contrato.fechaInicio |date:"d/m/Y" }}</td>
-            <td>{{ contrato.fechaTerminacion |date:"d/m/Y" }}</td>
+            <td>{{ contrato.fechaInicio |date:"m/d/Y" }}</td>
+            <td>{{ contrato.fechaTerminacion |date:"m/d/Y" }}</td>
             <td>{{ contrato.objeto }}</td>
             <td style="width: 220px;">
               <div class="d-flex justify-content-around" style="margin: 2px;">
+                {% if perms.gestion.change_contrato %}
                 <a href="{% url 'gestion:contrato_editar' contrato.id %}" title="Editar">
                   <button class="btn btn-outline-primary btn-sm" type="button"><ion-icon name="create-outline"
                       class="ico"></ion-icon>
                   </button>
                 </a>
+                {% endif %}
+                {% if perms.gestion.delete_contrato %}
                 <button class="btn btn-outline-danger btn-sm" type="button"
                   onclick="confirmarEliminar({{ contrato.id }})"><ion-icon name="trash-outline"
                     class="ico"></ion-icon></button>
+                {% endif %}
                 <a href="{% url 'generador:pdf' contrato.id contrato.codigo %}" title="Descargar">
                   <button class="btn btn-outline-success btn-sm" type="button"><ion-icon name="download-outline"
                       class="ico"></ion-icon></button>
                 </a>
+                {% if perms.gestion.view_otrosi %}
                 <a href="{% url 'gestion:otrosis_listar' contrato.id %}">
                   <button class="btn btn-outline-warning btn-sm" style="border-color:#F0821A; color: #F0821A" type="button"><ion-icon
                   name="add-circle-outline" class="ico"></ion-icon></button>
                 </a>
+                {% endif %}
               </div>
             </td>
           </tr>
@@ -176,17 +185,17 @@
         }
 
         if (filtroFechaInicio && celdas[4]) {
-          const [day, month, year] = celdas[4].textContent.split("/").map(Number);
+          const [month, day, year] = celdas[4].textContent.split("/").map(Number);
           const fechaCelda = new Date(year, month - 1, day);
           filtroFechaInicio.setMinutes(filtroFechaInicio.getMinutes() + filtroFechaInicio.getTimezoneOffset());
-          mostrarFila = mostrarFila && (fechaCelda.getTime() === filtroFechaInicio.getTime());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() >= filtroFechaInicio.getTime());
         }
 
         if (filtroFechaFin && celdas[5]) {
-          const [day, month, year] = celdas[5].textContent.split("/").map(Number);
+          const [month, day, year] = celdas[5].textContent.split("/").map(Number);
           const fechaCelda = new Date(year, month - 1, day);
           filtroFechaFin.setMinutes(filtroFechaFin.getMinutes() + filtroFechaFin.getTimezoneOffset());
-          mostrarFila = mostrarFila && (fechaCelda.getTime() === filtroFechaFin.getTime());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() <= filtroFechaFin.getTime());
         }
 
         if (filtroObjeto !== '' && celdas[6]) {

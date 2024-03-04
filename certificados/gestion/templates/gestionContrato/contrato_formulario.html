@@ -149,7 +149,6 @@
   </form>
 </div>
 
-<script src="{% static 'js/contrato_formulario.js' %}"></script>
 <script>
   window.addEventListener("load", function (event) {
     console.log(document.querySelectorAll("#id_actividades"))
@@ -161,13 +160,15 @@
   })
 
   function CargarDates(){
-    console.log(document.getElementById('id_fechaSuscripcion').value)
     document.getElementById("id_fechaInicio").removeAttribute('disabled')
     document.getElementById("id_fechaTerminacion").removeAttribute('disabled')
     document.getElementById('id_fechaInicio').setAttribute('min', document.getElementById('id_fechaSuscripcion').value)
     document.getElementById('id_fechaTerminacion').setAttribute('min', document.getElementById('id_fechaInicio').value)
   }
-  window.addEventListener("load", CargarDates())
+  var edit = '{{Editar}}'
+  if(edit){
+    window.addEventListener("load", CargarDates())
+  }
 </script>
 
 <!-- funcion para mostrar los campos de la cesion-->
