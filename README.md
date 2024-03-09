@@ -50,3 +50,12 @@ The following details how to deploy this application.
 ### Docker
 
 See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+
+## Commands to deploy
+
+docker compose -f local.yml build
+docker compose -f local.yml up
+
+docker compose -f local.yml run --rm django python manage.py collectstatic
+This command should be execute when every time static file is added to static folder
+
