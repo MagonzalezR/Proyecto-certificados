@@ -1,6 +1,0 @@
-Django
-
-pip install pdf2image
-pip install pytesseract 
-pip install pillow 
-pip install aspose-pdf

@@ -1,0 +1,267 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+{{ 'Listar' }}
+{% endblock %}
+{% block contentN %}
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.level }}">
+    {{ message }}
+  </div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% comment %} <div class="container mt-3">
+  <input type="text" class="form-control" id="filtroContratos"
+    placeholder="Buscar contrato por nombre, cédula, objeto, fecha inicio, fecha fin, id contrato o id desarrollo...">
+</div> {% endcomment %}
+
+<div class="container mt-4 p-3" >
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 d-flex justify-content-center ">
+        <img width="125px" height="125px" src="{% static 'images/Logo_Vertical_IDEXUD_Final-1-3-1.png' %}" alt="logo oficina de extensión" >
+    </div>
+</div>
+  <div class="row">
+    <div class="col-lg-12 justify-content-center text-center"  >
+      <h1 style="color: #F0821A;">¡Le damos la bienvenida, {{user.username}}!</h1> 
+      <p> 
+        <strong>Módulo de Gestión:</strong> Edita, crea, elimina, busca y visualiza fácilmente los contratos de la oficina de extension de la Universidad Distrital Francisco José de Caldas.</p>
+      </div>
+    </div>
+  </div>
+<div class="container p-3 bg-body-tertiary border border-secondary rounded-end" style="margin-top: 20px;!important">
+  <h3>Filtro</h3>
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label for="filtroIdContrato">Número del proyecto</label>
+      <input type="text" class="form-control" id="filtroIdContrato" placeholder="1111 I -2020 ">
+
+    </div>
+    <div class="col-md-3">
+      <label for="filtroIdDesarrollo">Número convenio y/o contrato</label>
+      <input type="text" class="form-control" id="filtroIdDesarrollo" placeholder="111-2020">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroNombre">Nombre</label>
+      <input type="text" class="form-control" id="filtroNombre" placeholder="Nombre">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroCedula">Cédula</label>
+      <input type="text" class="form-control" id="filtroCedula" placeholder="1234567891">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroFechaInicio">Fecha Inicio</label>
+      <input type="date" class="form-control" id="filtroFechaInicio" placeholder="Dia o mes o año">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroFechaFin">Fecha Fin</label>
+      <input type="date" class="form-control" id="filtroFechaFin" placeholder="Dia o mes o año">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroObjeto">Objeto</label>
+      <input type="text" class="form-control" id="filtroObjeto" placeholder="Objeto">
+    </div>
+    <div class="justify-content-end d-flex mt-3">
+      {% if perms.gestion.add_contrato %}
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;"><a class="nav-link"
+          aria-current="page" href="{% url 'gestion:contrato_crear' %}">Crear nuevo contrato</a>
+      </button>
+      {% endif %}
+      <button class="btn btn-outline-dark btn-sm" style="margin-right: 20px;" onclick="limpiarFiltros(); filtrarTabla();">Limpiar Filtros</button>
+      <form action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <input class="btn btn-outline-dark btn-sm" aria-current="page" type="submit" value="Cerrar sesión">
+      </form>
+    </div>
+
+
+  </div>
+</div>
+<form method="post">
+  {% csrf_token %}
+  <!-- Tus campos de formulario aquí -->
+</form>
+{% comment %} <div class="col-md-4"> {% endcomment %}
+  <div style="margin: 90px;">
+    <div class="table-responsive mt-3 col-lg-12">
+      <table class="table" id="contratolistar">
+        <thead class="table-dark">
+          <tr>
+            <th>Número del proyecto</th>
+            <th>Número convenio y/o contrato</th>
+            <th>Nombre</th>
+            <th>CC</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Objeto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for contrato in object_list %}
+          {% if not contrato.deleted %}
+          <tr>
+            <td style="width: 150px!important; text-align: center!important;">{{ contrato.idContrato }}</td>
+            <td>{{ contrato.idDesarrollo }}</td>
+            <td>{{ contrato.nombreConsultor }}</td>
+            <td>{{ contrato.cedula }}</td>
+            <td>{{ contrato.fechaInicio |date:"m/d/Y" }}</td>
+            <td>{{ contrato.fechaTerminacion |date:"m/d/Y" }}</td>
+            <td>{{ contrato.objeto }}</td>
+            <td style="width: 220px;">
+              <div class="d-flex justify-content-around" style="margin: 2px;">
+                {% if perms.gestion.change_contrato %}
+                <a href="{% url 'gestion:contrato_editar' contrato.id %}" title="Editar">
+                  <button class="btn btn-outline-primary btn-sm" type="button"><ion-icon name="create-outline"
+                      class="ico"></ion-icon>
+                  </button>
+                </a>
+                {% endif %}
+                {% if perms.gestion.delete_contrato %}
+                <button class="btn btn-outline-danger btn-sm" type="button"
+                  onclick="confirmarEliminar({{ contrato.id }})"><ion-icon name="trash-outline"
+                    class="ico"></ion-icon></button>
+                {% endif %}
+                <a href="{% url 'generador:pdf' contrato.id contrato.codigo %}" title="Descargar">
+                  <button class="btn btn-outline-success btn-sm" type="button"><ion-icon name="download-outline"
+                      class="ico"></ion-icon></button>
+                </a>
+                {% if perms.gestion.view_otrosi %}
+                <a href="{% url 'gestion:otrosis_listar' contrato.id %}">
+                  <button class="btn btn-outline-warning btn-sm" style="border-color:#F0821A; color: #F0821A" type="button"><ion-icon
+                  name="add-circle-outline" class="ico"></ion-icon></button>
+                </a>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="miModal" role="dialog">
+
+  </div>
+
+  <script>
+    // Funcion para los filtros de la tabla 
+    function filtrarTabla() {
+      let filtroIdContrato = document.getElementById('filtroIdContrato').value.toUpperCase();
+      let filtroIdDesarrollo = document.getElementById('filtroIdDesarrollo').value.toUpperCase();
+      let filtroNombre = document.getElementById('filtroNombre').value.toUpperCase();
+      let filtroCedula = document.getElementById('filtroCedula').value.toUpperCase();
+      let filtroFechaInicio = document.getElementById('filtroFechaInicio').valueAsDate;
+      let filtroFechaFin = document.getElementById('filtroFechaFin').valueAsDate;
+      let filtroObjeto = document.getElementById('filtroObjeto').value.toUpperCase();
+
+      let tabla = document.getElementById('contratolistar');
+      let filas = tabla.getElementsByTagName('tr');
+
+      for (let i = 0; i < filas.length; i++) {
+        let celdas = filas[i].getElementsByTagName('td');
+        let mostrarFila = true;
+
+        if (filtroIdContrato !== '' && celdas[0]) {
+          mostrarFila = mostrarFila && celdas[0].textContent.toUpperCase().includes(filtroIdContrato);
+        }
+
+        if (filtroIdDesarrollo !== '' && celdas[1]) {
+          mostrarFila = mostrarFila && celdas[1].textContent.toUpperCase().includes(filtroIdDesarrollo);
+        }
+
+        if (filtroNombre !== '' && celdas[2]) {
+          mostrarFila = mostrarFila && celdas[2].textContent.toUpperCase().includes(filtroNombre);
+        }
+
+        if (filtroCedula !== '' && celdas[3]) {
+          mostrarFila = mostrarFila && celdas[3].textContent.toUpperCase().includes(filtroCedula);
+        }
+
+        if (filtroFechaInicio && celdas[4]) {
+          const [month, day, year] = celdas[4].textContent.split("/").map(Number);
+          const fechaCelda = new Date(year, month - 1, day);
+          filtroFechaInicio.setMinutes(filtroFechaInicio.getMinutes() + filtroFechaInicio.getTimezoneOffset());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() >= filtroFechaInicio.getTime());
+        }
+
+        if (filtroFechaFin && celdas[5]) {
+          const [month, day, year] = celdas[5].textContent.split("/").map(Number);
+          const fechaCelda = new Date(year, month - 1, day);
+          filtroFechaFin.setMinutes(filtroFechaFin.getMinutes() + filtroFechaFin.getTimezoneOffset());
+          mostrarFila = mostrarFila && (fechaCelda.getTime() <= filtroFechaFin.getTime());
+        }
+
+        if (filtroObjeto !== '' && celdas[6]) {
+          mostrarFila = mostrarFila && celdas[6].textContent.toUpperCase().includes(filtroObjeto);
+        }
+
+        if (mostrarFila) {
+          filas[i].style.display = '';
+        } else {
+          filas[i].style.display = 'none';
+        }
+      }
+    }
+
+    // Agrega el evento a todos los campos de filtro
+    let filtros = document.querySelectorAll('.form-control');
+    for (let i = 0; i < filtros.length; i++) {
+      filtros[i].addEventListener('input', filtrarTabla);
+    }
+
+    //funcion para eliminar los contratos
+
+    function confirmarEliminar(id) {
+      let confirmacion = confirm("¿Estás seguro de que deseas eliminar este contrato?");
+
+      if (confirmacion) {
+        let urlPatch = "{% url 'api:contrato_api' %}"
+        let csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+        $.ajax({
+          url: urlPatch,
+          type: 'PATCH',
+          data: {
+            'id': id,
+            'deleted': true
+          },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          },
+          success: function (response) {
+            console.log(response);
+            location.reload()
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+        alert("Elemento eliminado");
+      } else {
+        alert("Eliminación cancelada");
+      }
+    }
+
+  </script>
+
+  <script>
+    function limpiarFiltros() {
+        // Obtener todos los campos de filtro
+        var camposFiltro = document.querySelectorAll('.form-control');
+
+        // Limpiar el valor de cada campo
+        camposFiltro.forEach(function (campo) {
+            campo.value = '';
+        });
+    }
+</script>
+
+  {% endblock %}

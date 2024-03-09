@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=certificados_idexud
+POSTGRES_USER=jhsgLzUEKDExaXJsopZdNzDPfJSKBUkk
+POSTGRES_PASSWORD=8xw6w1FrCNfekpuuaHiAeQNdwCZalGdKCs1Ksir76BjUqqMVrwpzJlk7z326LYF6
