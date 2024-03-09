@@ -1,0 +1,56 @@
+{% load static crispy_forms_tags  %}
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Añadir otrosi</h5>
+      <button type="button" id="cerrarModal" class="btn-close col-lg-2" data-bs-dismiss="modal"
+        aria-label="Close"></button>
+    </div>
+    {% if edicion %}<form method="post" action="{% url 'gestion:otrosi_editar' pk %}"> 
+      {% else %}<form method="post" action="{% url 'gestion:editar_modal' pk %}">{% endif %}
+    <div class="modal-body col-lg-12 mb-3">Contenido</div>
+
+      {% csrf_token %}
+      <div class="row d-flex">
+        <div class="col-md-12" style=" margin-left: 30px;" for="Otrosicontador ">
+          <div class="col-md-11">
+            {{ form.valorAdicion |as_crispy_field}}
+          </div>
+          <div class="col-md-11">
+            {{ form.fechaTerminacionOtrosi |as_crispy_field}}
+          </div>
+          <div class="col-md-11">
+            {{ form.observaciones |as_crispy_field}}
+          </div>
+          <div class="col-md-11">
+            <label for="actividad-1" class="input-group-text">Agregar actividades:</label>
+            <div id="actividadesContainer">
+              {% for actividad in actividades %}
+              <div class="col-lg-12 d-flex flex-column mb-2">
+                  <div class="input-group m-2">
+                    <textarea name="actividad{{forloop.counter}}" required class="form-control"
+                    id="id_actividades" rows="4">{{actividad}}</textarea>
+                    <button type="button" class=" btn-close " aria-label="Close" onclick="eliminarElemento(this)"></button>
+                </div>
+              </div>
+              {% endfor %}
+              <!-- Las actividades seleccionadas se mostrarán aquí -->
+            </div>
+          </div>
+          <div class="col-md-11 d-flex justify-content-end">
+            <input type="button" class="btn btn-primary btn-sm" onclick="agregarElemento('actividad')"
+              value="Añadir actividad" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" id="cerrarModal" class="btn btn-secondary" data-bs-dismiss="modal"
+        aria-label="Close">Cerrar</button>
+        <input type="submit" class="btn btn-primary" value="Guardar cambios"/>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/contrato_formulario.js' %}"></script>
